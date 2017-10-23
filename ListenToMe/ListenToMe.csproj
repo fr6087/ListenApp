@@ -95,9 +95,50 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\INavigationService.cs" />
+    <Compile Include="Common\NavigationHelper.cs" />
+    <Compile Include="Common\NavigationService.cs" />
+    <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="ESF_2\01CompanyPage.xaml.cs">
+      <DependentUpon>01CompanyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ESF_2\02AddressPage.xaml.cs">
+      <DependentUpon>02AddressPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ESF_2\03-04LegalFormRegistrationPage.xaml.cs">
+      <DependentUpon>03-04LegalFormRegistrationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ESF_2\05-06RegisterEntriesPage.xaml.cs">
+      <DependentUpon>05-06RegisterEntriesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ESF_2\07-08PetitionsPage.xaml.cs">
+      <DependentUpon>07-08PetitionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ESF_2\09LocationPage.xaml.cs">
+      <DependentUpon>09LocationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ESF_2\10-11ScheduleHRPage.xaml.cs">
+      <DependentUpon>10-11ScheduleHRPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ESF_2\12TrainingProvidersPage.xaml.cs">
+      <DependentUpon>12TrainingProvidersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ESF_2\13FinancingPage.xaml.cs">
+      <DependentUpon>13FinancingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ESF_2\14ConfirmationsPage.xaml.cs">
+      <DependentUpon>14ConfirmationsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ESF_2\15DeclarationsPage.xaml.cs">
+      <DependentUpon>15DeclarationsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ESF_2\BasicPage.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ListenToMeVoiceCommand.cs" />
+    <Compile Include="Model\Page.cs" />
+    <Compile Include="Model\PageStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -115,12 +156,60 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="VoiceCommands.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ESF_2\01CompanyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ESF_2\02AddressPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ESF_2\03-04LegalFormRegistrationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ESF_2\05-06RegisterEntriesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ESF_2\07-08PetitionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ESF_2\09LocationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ESF_2\10-11ScheduleHRPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ESF_2\12TrainingProvidersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ESF_2\13FinancingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ESF_2\14ConfirmationsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ESF_2\15DeclarationsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -130,6 +219,10 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>5.4.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Strings\" />
+    <Folder Include="View\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

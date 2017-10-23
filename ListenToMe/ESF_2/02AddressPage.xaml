@@ -1,0 +1,55 @@
+﻿<Page
+    x:Class="ListenToMe.ESF_2.AddressPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ListenToMe.ESF_2"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+        </Grid.RowDefinitions>
+
+        <TextBlock Name="DetailTitle" Grid.Row="0" HorizontalAlignment="Left" Text="Antragssteller-Sitz" VerticalAlignment="Top" Height="30" Width="139"/>
+
+        <!--Straße und Hausnummer-->
+        <TextBox Name="_2Street" Header="Straße" HorizontalAlignment="Left" MaxHeight="60" MaxWidth="300" PlaceholderText="bei natürlichen Pers. Wohnsitz" TextBox.MaxLength="80" Margin="5,0,75,0" Grid.Row="1" />
+        <TextBox Name="_2HouseNumber" Margin="290,0,0,0" Grid.Row="1" TextWrapping="Wrap" Header="Hausnr." PlaceholderText="zB 32a" RenderTransformOrigin="0.429,-0.611" TextBox.InputScope="AlphanumericHalfWidth"  TextBox.MaxLength="12"/>
+
+        <!--PLZ und Ort-->
+        <TextBox Name="_2PostalCode" HorizontalAlignment="Left" MaxWidth="135" Grid.Row="2"  Header="Postleitzahl" TextWrapping="Wrap" TextBox.InputScope="Number" TextBox.MaxLength="5"/>
+        <TextBox Name="_2Place"  Margin="80,0,0,0" Grid.Row="2" TextWrapping="Wrap" Header="Ort" TextBox.MaxLength="60"  VerticalAlignment="Stretch" />
+
+
+        <!-- Gemeinde und Gemeindeschlüssel -->
+        <TextBox   Name="_2township" Header="Gemeinde" HorizontalAlignment="Left" Grid.Row="3" TextWrapping="Wrap" Margin="10,0,0,10" TextBox.MaxLength="30"  Width="138" />
+        <TextBox   Name="_2townshipKey" Header="Amtl. Gemeindeschlüssel" Grid.Row="3" HorizontalAlignment="Stretch" Margin="153,0,0,10" TextWrapping="Wrap" TextBox.InputScope="Number" TextBox.MaxLength="8"></TextBox>
+
+        <!-- Postfachdaten-->
+        <TextBox   Name="_2POB" Header="Postfach" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Margin="10,0,0,10" Width="138" TextBox.InputScope="Number" TextBox.MaxLength="10"/>
+        <TextBox   Name="_2postalcodePOB" Header="PLZ Postfach" HorizontalAlignment="Stretch" Grid.Row="4" TextWrapping="Wrap" Margin="153,0,0,10" TextBox.MaxLength="5" TextBox.InputScope="Number" />
+
+        <!--Kontaktdaten-->
+        <TextBox   Name="_2telephone" Header="Telefon" HorizontalAlignment="Left" Grid.Row="5" TextWrapping="Wrap" PlaceholderText="+49 40 12345"  Width="138" Margin="10,0,0,10" TextBox.InputScope="TelephoneNumber" TextBox.MaxLength="40"/>
+        <TextBox   Name="_2district" Header="Landkreis" HorizontalAlignment="Stretch" Grid.Row="5" TextWrapping="Wrap" Margin="153,0,0,10" VerticalAlignment="Stretch" TextBox.MaxLength="40"/>
+        <TextBox   Name="_2email" HorizontalAlignment="Left" Grid.Row="6" TextWrapping="Wrap" Header="Email" PlaceholderText="mmuster@muster.de" VerticalAlignment="Top" Width="350" Height="60" Margin="10,0,0,0" TextBox.InputScope="EmailNameOrAddress" TextBox.MaxLength="40"/>
+        <TextBox   Name="_2url" HorizontalAlignment="Left" Grid.Row="7" TextWrapping="Wrap" Header="URL" PlaceholderText="Internetadresse des Antragsstellers" VerticalAlignment="Top" Width="340" Height="60" Margin="10,5,0,0" Grid.RowSpan="2" TextBox.InputScope="Url" TextBox.MaxLength="130"/>
+
+        <!--Navigation-->
+        <HyperlinkButton x:Name="buttonGoTo34"
+                Click="buttonGoTo34_Click"
+                Content="Juristisches" 
+                HorizontalAlignment="Right" Margin="10,-2,0,0"/>
+    </Grid>
+</Page>

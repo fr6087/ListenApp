@@ -7,7 +7,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <ScrollViewer>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Name="BackButton" Content="Back" Margin="0,0,10,0" Click="BackButton_Click" ></Button>
+                <Button x:Name="HomeButton" Content="ILBBaukasten" Foreground="Crimson" Background="White" Margin="0,0,10,0" Click="HomeButton_Click" />
+                <Button Name="NextButton" Content="Next" Margin="0,0,10,0" Click="NextButton_Click" ></Button>
+            </StackPanel>
 
-    </Grid>
+
+            <Frame Name="mainFrame"/>
+
+
+        </StackPanel>
+    </ScrollViewer>
 </Page>

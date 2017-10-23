@@ -1,0 +1,47 @@
+﻿<Page
+    x:Class="ListenToMe.ESF_2.LocationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ListenToMe.ESF_2"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollViewer>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="183"/>
+                <ColumnDefinition Width="161"/>
+            </Grid.ColumnDefinitions>
+
+            <HyperlinkButton Name="goTo10Button" Content="Zeit und Personal" Click="goTo10Button_Click" HorizontalAlignment="Right" Grid.Column="1"/>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Weiterbildungsort" Margin="10,10,3,10" />
+            <!-- Bezirk und Landkreis-->
+            <TextBox   Name="_91aDistrictJobOffice" Header="Agentur-für-Arbeit-Bezirk" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10,0,0,10" TextBox.MaxLength="60" VerticalAlignment="Stretch" Width="170" Grid.ColumnSpan="2" />
+            <TextBox   Name="_91bDistrict" Header="Landkreis" HorizontalAlignment="Left" Grid.Column="1"  Grid.Row="1" Margin="10,0,-16,0" TextBox.MaxLength="60" VerticalAlignment="Top" Width="167" Height="60"  />
+
+            <!--PLZ und Maßnahmenort-->
+            <TextBox   Name="_91cPostalCode" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="2" Header="PLZ"  VerticalAlignment="Top" MinHeight="60" Margin="10,0,0,0" Height="60" TextBox.InputScope="Digits" TextBox.MaxLength="5"  Width="85"/>
+            <TextBox   Name="_91dTrainingLocation" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="2" Header="Maßnahmenort"  VerticalAlignment="Top" MinHeight="60" Margin="10,0,-16,0" Height="60" TextBox.InputScope="Digits" TextBox.MaxLength="5"  Width="167"/>
+
+            <!-- Gemeinde und amtl. Gemeindeschlüssel-->
+            <TextBox   Name="_91eDistrict" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="3" Header="Gemeinde"  VerticalAlignment="Top" MinHeight="60" Margin="10,0,0,0" Height="60" TextBox.InputScope="AlphanumericHalfWidth"  TextBox.MaxLength="5"  Width="170"/>
+            <TextBox   Name="_91fDistrictKey" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="3" Header="amtl. Gemeindeschlüssel"  VerticalAlignment="Top" MinHeight="60" Margin="10,0,-16,0" Height="60" TextBox.InputScope="Digits" TextBox.MaxLength="5"  Width="167"/>
+            <HyperlinkButton Name="goToLookForKeyButton" Content="AGS nachschlagen" Grid.Column="1" Grid.Row="4" Margin="0,0,-16,0" NavigateUri="http://www.statistik-portal.de/Statistik-Portal/gemeindeverz.asp" Width="177"/>
+
+            <!-- EU-Zielregion-->
+            <TextBox Name="_92EU" Header="Zuordung der Maßnahme zur EU-Zielregion" Grid.ColumnSpan="2" Grid.Row="5" PlaceholderText="Zuordungskriterium: Kreisstadt von Sitz/&#x0a;Betriebsstätte des Unternehmens in Brandenburg" Margin="0,10,0,0" MinHeight="80" TextBox.InputScope="AlphanumericFullWidth" TextBox.MaxLength="120"/>
+            <TextBlock Name="_92EUInfo" Foreground="BlueViolet"  Grid.Row="6" Grid.ColumnSpan="2" Text="Nachweis von Sitz/Betriebsstätte bitte beibringen,&#x0a;wenn dies noch nicht mit der Registrierung&#x0a;im LASA Portal erfolgt ist." TextAlignment="Center"/>
+        </Grid>
+    </ScrollViewer>
+</Page>

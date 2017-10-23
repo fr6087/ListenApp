@@ -1,0 +1,56 @@
+﻿<Page
+    x:Class="ListenToMe.ESF_2.RegisterEntriesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ListenToMe.ESF_2"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="30" />
+            <RowDefinition Height="Auto" MinHeight="80"/>
+            <RowDefinition Height="Auto" MinHeight="80"/>
+            <RowDefinition Height="Auto" MinHeight="80"/>
+            <RowDefinition Height="Auto" MinHeight="80"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+        </Grid.RowDefinitions>
+
+        <TextBlock Name="RegistriesTitle" Grid.Row="0" Text="Registereinträge" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="139"/>
+
+        <!--Handelsregister und Eintragsdatum-->
+        <TextBox Name="_51TradeRegisterNumber" Grid.Row="1" TextWrapping="Wrap" Header="Handelsregister-Nummer (HR-Nummer):" TextBox.InputScope="Number"/>
+        <DatePicker Name="_51bTradeRegistrationDate" Margin="10,0,0,20" Grid.Row="2" Header="Datum des Eintrags ins HR" Width="320"></DatePicker>
+        <TextBox Name="_51clastPagetxt" Grid.Row="3" TextWrapping="Wrap" Header="Seitennummer letztes Blatt HR:" TextBox.InputScope="Number"/>
+        <DatePicker Name="_51dlastPageDate" Margin="10,0,0,20" Grid.Row="4" Header="Datum des letzten Eintrags" />
+
+        <!--Vereinsregister-->
+        <TextBox   Name="_52RegisterOfAssociationstxt" Header="Vereinsregister-Nummer (VR-Nummer):" HorizontalAlignment="Stretch" Grid.Row="8"  Margin="10,0,30,10"  />
+        <DatePicker Name="_52RegisterOfAssociationsDate"  Margin="10,0,0,0" Grid.Row="7"  Header="Datum des Eintrags ins VR" VerticalAlignment="Stretch" Width="320" />
+
+        <!--Genossenschaftssregister
+        <TextBox   Name="_52RegisterOfAssociationstxt" Header="Vereinsregister-Nummer (VR-Nummer):" HorizontalAlignment="Stretch" Grid.Row="4"  Margin="10,0,30,10"  />
+        <DatePicker Name="_52RegisterOfAssociationsDate"  Margin="10,0,0,0" Grid.Row="5"  Header="Datum des Eintrags ins VR" VerticalAlignment="Stretch" Width="320" />
+        -->
+        <!--Steuernummer-->
+        <TextBox   Name="_54taxNumber" Header="Steuer:" HorizontalAlignment="Stretch" Grid.Row="4"  Margin="10,0,30,10"  />
+        <DatePicker Name="_54localTaxOffice"  Margin="10,0,0,0" Grid.Row="5"  Header="zuständiges Finanzamt" VerticalAlignment="Stretch" Width="320" />
+
+        <!--Gesetzliche Vertreter-->
+        <TextBox   Name="_61SurName" Header="Name:" HorizontalAlignment="Stretch" Grid.Row="6"  Margin="10,0,30,10"  />
+        <TextBox   Name="_61FirstName" Header="Vorname:" HorizontalAlignment="Stretch" Grid.Row="6"  Margin="10,0,30,10"  />
+        <TextBox   Name="_61Funktion" Header="Funktion im Unternehmen:" HorizontalAlignment="Stretch" Grid.Row="6"  Margin="10,0,30,10"  />
+
+        <!--Navigation-->
+        <HyperlinkButton x:Name="buttonGoTo78"
+                Grid.Row="0"
+                Click="buttonGoTo78_Click"
+                Content="Petitionsdetails"
+                HorizontalAlignment="Right"/>
+    </Grid>
+</Page>

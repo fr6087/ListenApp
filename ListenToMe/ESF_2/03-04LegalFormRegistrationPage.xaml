@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="ListenToMe.ESF_2.LegalFormRegistrationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ListenToMe.ESF_2"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="30" />
+            <RowDefinition Height="Auto" MinHeight="80"/>
+            <RowDefinition Height="Auto" MinHeight="80"/>
+            <RowDefinition Height="Auto" MinHeight="80"/>
+            <RowDefinition Height="Auto" MinHeight="80"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+        </Grid.RowDefinitions>
+
+        <TextBlock Name="LegalTitle" Grid.Row="0" HorizontalAlignment="Left" Text="Juristisches" VerticalAlignment="Top" Height="30" Width="79" TextWrapping="Wrap"/>
+
+        <!--Rechtsform und Gründungsdatum-->
+        <TextBox Name="_31NaturalPerson" Margin="0,0,30,10" Grid.Row="1" TextWrapping="Wrap" Header="Rechtsform" Text="natürliche Person"/>
+        <DatePicker Name="_32FoundationDateOrBirthDate" Margin="10,0,0,20" Grid.Row="2" Header="Gründungsdatum/Geburtsdatum bei nat. Pers." Width="320"></DatePicker>
+
+
+        <!--Angaben zum angemeldeten Gewerbe-->
+        <DatePicker Name="_41TradeRegistration" Margin="10,0,0,20" Grid.Row="3" Header="Datum der Gewerbeanmeldungsbescheiningung" />
+        <DatePicker Name="_42BuisinessStart"  Margin="10,0,0,0" Grid.Row="4"  Header="Beginn der angemeldeten Tätigkeit" VerticalAlignment="Stretch" Width="320" />
+        <TextBox   Name="_43OperationStart" Header="Angemeldete Tätigkeit" HorizontalAlignment="Stretch" Grid.Row="5"  Margin="10,0,30,10"  />
+
+        <!--Navigation-->
+        <HyperlinkButton x:Name="buttonGoTo56"
+                Grid.Row="0"
+                Click="buttonGoTo56_Click"
+                Content="Registereinträge"
+                HorizontalAlignment="Right"/>
+
+    </Grid>
+</Page>

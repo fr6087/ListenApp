@@ -1,0 +1,58 @@
+﻿<Page
+    x:Class="ListenToMe.ESF_2.ScheduleHRPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ListenToMe.ESF_2"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollViewer>
+        <Grid Name="LayoutGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+
+            <HyperlinkButton x:Name="buttonGoTo12"
+                Grid.Row="0"
+                Click="buttonGoTo12_Click"
+                Content="Bildungsanbieter" HorizontalAlignment="Right">
+            </HyperlinkButton>
+
+            <TextBlock Name="ScheduleTitle" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Zeit und Personal" VerticalAlignment="Top" Height="20" Width="174"/>
+
+            <!--Bezeichung und Beschreibung-->
+            <TextBox Name="_101trainingTitle" Header="Kurzbezeichnung der Maßnahme(n)" Grid.Row="1" HorizontalAlignment="Stretch" Margin="10,0,0,0" TextBox.InputScope="AlphanumericHalfWidth"  TextBox.MaxLength="80"  TextWrapping="Wrap"  VerticalAlignment="Stretch" Height="60"/>
+            <TextBox Name="_102Aims" MinHeight="140" HorizontalAlignment="Stretch" Margin="10,0,0,0" Grid.Row="2" TextBox.InputScope="AlphanumericFullWidth"  TextBox.MaxLength="800"  TextWrapping="Wrap" Header="Ziele der Weiterbildungsmaßnahme(n)" 
+                     PlaceholderText="Beschreiben Sie bitte die mittel-und langfristigen&#x0a;Entwicklungsziele Ihres Unternehmens,&#x0a;zu deren Erreichung die Weiterbildungsmaßnahmen beitragen sollen." 
+                     VerticalAlignment="Stretch"  />
+
+
+            <!-- Maßnahmenzeitraum-->
+            <DatePicker Name="_103aTrainingstartDate" Header="Maßnahmenzeitraum" Grid.Row="3" HorizontalAlignment="Center" Width="250"/>
+            <DatePicker Name="_103bTrainingsendDate" Grid.Row="4"  HorizontalAlignment="Center" Width="250"/>
+            <TextBlock Grid.Row="3" Grid.RowSpan="2" Text="Von &#x0a;&#x0a;Bis" HorizontalAlignment="Left" Margin="0,28,0,0" TextAlignment="Right" Width="32"></TextBlock>
+
+            <!--Anzahl der Mitarbeiter/innen und Inhaber/innen des Unternehmens-->
+            <TextBlock Grid.Row="5" Text="Anzahl der MitarbeiterInnen und InhaberInnen" TextAlignment="Center"></TextBlock>
+            <TextBox Name="_111Femaletxt" Grid.Row="5" PlaceholderText="Frauen"  TextBox.InputScope="Number" TextBox.MaxLength="10" Margin="10,28,530,0" />
+            <TextBox Name="_111Maletxt" Grid.Row="5" PlaceholderText="Männer" TextBox.InputScope="Number" TextBox.MaxLength="10" Margin="249,28,279,0" RenderTransformOrigin="0.497,1.453" />
+            <TextBox Name="_111Totaltxt" Grid.Row="5" PlaceholderText="Insgesamt" TextBox.InputScope="Number" TextBox.MaxLength="10" Margin="491,28,10,0" />
+
+            <!--Anzahl der Teilnehmer an der Weiterbildung-->
+            <TextBlock Grid.Row="6" Text="Anzahl der Weiterbildungsteilnehmer" TextAlignment="Center"></TextBlock>
+            <TextBox Name="_112Femaletxt" Grid.Row="6" PlaceholderText="Frauen"  TextBox.InputScope="Number" TextBox.MaxLength="10" Margin="10,28,279,0" />
+            <TextBox Name="_112Maletxt" Grid.Row="6" PlaceholderText="Männer" TextBox.InputScope="Number" TextBox.MaxLength="10" Margin="126,28,154,0" />
+            <TextBox Name="_112Totaltxt" Grid.Row="6" PlaceholderText="Insgesamt" TextBox.InputScope="Number" TextBox.MaxLength="10" Margin="249,28,10,0" />
+
+        </Grid>
+    </ScrollViewer>
+</Page>

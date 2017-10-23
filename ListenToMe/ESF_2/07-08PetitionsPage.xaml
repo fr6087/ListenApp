@@ -1,0 +1,82 @@
+﻿<Page
+    x:Class="ListenToMe.ESF_2.PetitionsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ListenToMe.ESF_2"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Name="LayoutGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+
+        <HyperlinkButton x:Name="buttonGoTo9"
+                Grid.Column="2" Grid.Row="0"
+                Content="Ortsangaben"   
+                HorizontalAlignment="Right" 
+                Click="buttonGoTo9_Click"
+                VerticalAlignment="Top" 
+                Width="91" >
+        </HyperlinkButton>
+
+        <TextBlock Name="PetitionsTitle" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Petitionsangaben" VerticalAlignment="Top" Height="20" Width="174"/>
+
+        <!--Wirtschaftsbranche-->
+        <TextBox Name="_71economyBranch" HorizontalAlignment="Stretch" Grid.ColumnSpan="3" Grid.Row="1" Header="Wirtschaftsbranche des Antragsstellers" PlaceholderText="Vogaben der EU nach WZ 2003" VerticalAlignment="Stretch" Height="60"/>
+
+        <!--Beschäftigte-->
+        <TextBox Name="_72aMale" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="3" TextWrapping="Wrap" Header="männliche Beschäftigte" PlaceholderText="Anzahl" MinHeight="60" />
+        <TextBox Name="_72bFemale" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Header="weibliche Beschäftigte" PlaceholderText="Anzahl" MinHeight="60" />
+        <TextBox Name="_72cTotal" HorizontalAlignment="Stretch" Grid.Column="2" Grid.Row="3" TextWrapping="Wrap" Header="Beschäftigte insgesamt" PlaceholderText="Anzahl" MinHeight="60" />
+
+        <!-- Anmeldungsverbindlichkeiten -->
+        <TextBlock   Name="_81ExclusionReasons" Foreground="BlueViolet" Text="Eine Förderung ist ausgeschlossen, wenn sich der Antragsteller bereits verbindlich zur Weiterbildungsmaßnahme bzw. zu einem Kurs anmeldet, bevor die LASA Brandenburg GmbH einen Zuwendungssbescheid zur Förderung erteilt hat." 
+                         HorizontalAlignment="Left" Grid.ColumnSpan="3" Grid.Row="4" TextAlignment="Center" TextWrapping="Wrap"  />
+        <ToggleSwitch Name="ExclusionToggle" OffContent="Es gibt keinen Ausschlussgrund" OnContent="Es gibt einen Ausschlussgrund" Grid.ColumnSpan="3" Grid.Row="5">
+        </ToggleSwitch>
+        <ComboBox   Name="_82aRWK" Header="Das Unternehmen befindet sich in:" HorizontalAlignment="Stretch" Grid.ColumnSpan="3" Grid.Row="6" Margin="10,0,69,0" PlaceholderText="regionaler Wachstumskern..."  >
+            <ComboBoxItem FontSize="8" Content="Brandenburg a.d.H" />
+            <ComboBoxItem Content="Cottbus"/>
+            <ComboBoxItem Content="Eberswalde"/>
+            <ComboBoxItem Content="Eisenhüttenstadt"/>
+            <ComboBoxItem Content="Frankfurt (Oder)"/>
+            <ComboBoxItem Content="Luckenwalde"/>
+            <ComboBoxItem Content="Ludwigsfelde"/>
+            <ComboBoxItem Content="Neuruppin"/>
+            <ComboBoxItem Content="O-H-V"/>
+            <ComboBoxItem Content="Potsdam"/>
+            <ComboBoxItem Content="Prignitz"/>
+            <ComboBoxItem Content="Schönefelder Kreuz"/>
+            <ComboBoxItem Content="Spremberg"/>
+            <ComboBoxItem Content="Swendt / Oder"/>
+            <ComboBoxItem Content="Westlausitz"/>
+        </ComboBox>
+        <ComboBox   Name="_82bCluster" Header="Das Unternehmen befindet sich in:" HorizontalAlignment="Stretch" Grid.ColumnSpan="3" Grid.Row="7" Margin="10,0,69,0" PlaceholderText="Zukunftscluster..."  >
+            <ComboBoxItem Content="Energietechnik" FontSize="8"  />
+            <ComboBoxItem Content="Gesundheitswirtschaft" FontSize="8"/>
+            <ComboBoxItem Content="IKT/Medienkreativwirtschaft" FontSize="8" />
+            <ComboBoxItem Content="Verkehr/Mobilität/Logistik" FontSize="8" />
+            <ComboBoxItem Content="Optik" FontSize="8"/>
+            <ComboBoxItem Content="Ernährungswirtschaft" FontSize="8"/>
+            <ComboBoxItem Content="Kunststoffe/Chemie" FontSize="8"/>
+            <ComboBoxItem Content="Metall" FontSize="8"/>
+            <ComboBoxItem Content="Tourismuswirtschaft" FontSize="8"/>
+        </ComboBox>
+    </Grid>
+</Page>
