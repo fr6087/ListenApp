@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ListenToMe.ESF_2;
+using System.Diagnostics;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x407 dokumentiert.
 
@@ -83,7 +84,14 @@ namespace ListenToMe
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Navigate(typeof(MainPage));
+            String site = "https://www.ecosia.org";
+            Debug.Write("http://10.150.50.21/irj/portal");
+            WebView HTMLWebView = new WebView();
+            TopStackPanel.Children.Insert(0, HTMLWebView);
+            //mainFrame.
+           //HTMLWebView.Navigate("http://contonso.com");
+            mainFrame.Navigate(typeof(WebPage));
+            
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
