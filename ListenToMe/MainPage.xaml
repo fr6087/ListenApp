@@ -7,16 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <ScrollViewer
-            HorizontalScrollMode="Enabled"
-              HorizontalScrollBarVisibility="Visible"
-              IsHorizontalRailEnabled="True"
-
-              VerticalScrollMode="Enabled"
-              VerticalScrollBarVisibility="Visible"
-              IsVerticalRailEnabled="True"
-
-              IsScrollInertiaEnabled="True">
+    <ScrollViewer>
         <StackPanel Name="TopStackPanel">
             <StackPanel Orientation="Horizontal">
                 <Button Name="BackButton" Content="Back" Margin="0,0,10,0" Click="BackButton_Click" ></Button>
