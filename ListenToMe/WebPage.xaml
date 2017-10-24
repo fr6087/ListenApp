@@ -14,7 +14,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <TextBlock Grid.Row="0" Text="Hinweis: Diese Seite funktioniert am besten mit Internet Explorer als Standard-Browser."></TextBlock>
         <WebView Grid.Row="1" Name="myWebView" HorizontalAlignment="Left" Height="700" VerticalAlignment="Top" Width="1400"/>
-        <Button Grid.Row="0"  Name="getGoogle" Click="getGoogle_Click" Content="getGoogle"></Button>
+        
     </Grid>
 </Page>
