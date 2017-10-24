@@ -25,11 +25,7 @@ namespace ListenToMe
         public WebPage()
         {
             this.InitializeComponent();
-        }
-
-        private void getGoogle_Click(object sender, RoutedEventArgs e)
-        {
-            myWebView.Navigate(new Uri("https://www.google.de", UriKind.Absolute));
+            myWebView.Navigate(new Uri("http://10.150.50.21/irj/portal", UriKind.Absolute));
         }
     }
 }

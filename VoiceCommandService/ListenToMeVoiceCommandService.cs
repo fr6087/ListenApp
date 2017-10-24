@@ -11,6 +11,7 @@ using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Resources.Core;
 using Windows.ApplicationModel.VoiceCommands;
 using Windows.Storage;
+using Windows.UI.Popups;
 
 namespace ListenToMe.VoiceCommands
 {
@@ -67,9 +68,8 @@ namespace ListenToMe.VoiceCommands
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             serviceDeferral = taskInstance.GetDeferral();
-            MessageDialog message = new MessageDialog();
-            message.Content = "running VoiceCommandService";
-            await message.showAsync();
+            MessageDialog message = new MessageDialog("running VoiceCommandService");
+            await message.ShowAsync();
 
             // Register to receive an event if Cortana dismisses the background task. This will
             // occur if the task takes too long to respond, or if Cortana's UI is dismissed.

@@ -13,8 +13,9 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
+        <!---->
+        
         <WebView Grid.Row="1" Name="myWebView" HorizontalAlignment="Left" Height="700" VerticalAlignment="Top" Width="1400"/>
-        <Button Grid.Row="0"  Name="getGoogle" Click="getGoogle_Click" Content="getGoogle"></Button>
+        
     </Grid>
 </Page>
