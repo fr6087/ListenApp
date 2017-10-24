@@ -5,10 +5,25 @@
     xmlns:local="using:ListenToMe.ESF_2"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:WinUX.Xaml.Controls.Validation"
+    xmlns:rules="using:WinUX.Validation.Rules"
+    xmlns:validation="using:WinUX.Validation"
+    xmlns:validation1="using:WinUX.Validation"
     mc:Ignorable="d">
 
 
     <Grid Name="LayoutGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+           <!-- <validation1:ValidationRules x:Key="IsMaxLength">--does not work as in https://www.youtube.com/watch?v=AqKwCZmv-ao described.
+                <validation:ValidationRules.Rules>
+                    <rules:CharacteracterLimitValidationRule
+                        MinLength="2"
+                        MaxLength="50">
+
+                    </rules:CharacteracterLimitValidationRule>
+                </validation:ValidationRules.Rules>
+            </validation1:ValidationRules>-->
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />

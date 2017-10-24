@@ -22,7 +22,7 @@
         <TextBlock Name="LegalTitle" Grid.Row="0" HorizontalAlignment="Left" Text="Juristisches" VerticalAlignment="Top" Height="30" Width="79" TextWrapping="Wrap"/>
 
         <!--Rechtsform und Gründungsdatum-->
-        <TextBox Name="_31NaturalPerson" Margin="0,0,30,10" Grid.Row="1" TextWrapping="Wrap" Header="Rechtsform" Text="natürliche Person"/>
+        <TextBox Name="_31NaturalPerson" Margin="0,0,30,10" Grid.Row="1" TextWrapping="Wrap" Header="Rechtsform" PlaceholderText="natürliche Person"/>
         <DatePicker Name="_32FoundationDateOrBirthDate" Margin="10,0,0,20" Grid.Row="2" Header="Gründungsdatum/Geburtsdatum bei nat. Pers." Width="320"></DatePicker>
 
 

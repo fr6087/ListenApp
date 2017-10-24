@@ -132,7 +132,6 @@
     <Compile Include="ESF_2\15DeclarationsPage.xaml.cs">
       <DependentUpon>15DeclarationsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ESF_2\BasicPage.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -224,10 +223,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>5.4.0</Version>
+      <Version>6.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="WinUX.UWP">
+      <Version>2.4.17005.1</Version>
+    </PackageReference>
+    <PackageReference Include="WinUX.UWP.Xaml">
+      <Version>2.4.17005.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>2.3.4.247</Version>
+      <Version>2.4.0.18342</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

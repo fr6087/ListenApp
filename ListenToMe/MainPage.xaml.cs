@@ -25,7 +25,6 @@ namespace ListenToMe
     /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
     /// </summary>
     NavigationHelper navigationHelper;
-    List<Object> ESF_2_Pages;
         
 
         public MainPage()
@@ -41,17 +40,6 @@ namespace ListenToMe
         mainFrame.Navigate(typeof(CompanyPage), mainFrame);
     }
 
-       /* private void loadFormESF_2Pages()
-        {
-            ESF_2_Pages.Add(this);
-            ESF_2_Pages.Add(new CompanyPage());
-            ESF_2_Pages.Add(new AddressPage());
-            ESF_2_Pages.Add(new LegalFormRegistrationPage());
-            ESF_2_Pages.Add(new RegisterEntriesPage());
-            ESF_2_Pages.Add(new Pet
-
-
-        }*/
 
         private void navigationHelper_SaveState(object sender, SaveStateEventArgs e)
     {
@@ -84,12 +72,6 @@ namespace ListenToMe
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            String site = "https://www.ecosia.org";
-            Debug.Write("http://10.150.50.21/irj/portal");
-            WebView HTMLWebView = new WebView();
-            TopStackPanel.Children.Insert(0, HTMLWebView);
-            //mainFrame.
-           //HTMLWebView.Navigate("http://contonso.com");
             mainFrame.Navigate(typeof(WebPage));
             
         }
