@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ListenToMe.Common;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -16,7 +18,6 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using WinRTXamlToolkit.Input;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=234238 dokumentiert.
 
@@ -32,6 +33,7 @@ namespace ListenToMe.ESF_2
         {
             this.InitializeComponent();
             this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+ 
             //Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested +=
     //App_BackRequested;
 
@@ -60,8 +62,24 @@ namespace ListenToMe.ESF_2
                 return true;
             }
             return false;*/
+            TextBox[] mandatoryBoxes = new TextBox[4];
+            mandatoryBoxes[0] = _11Name;
+            mandatoryBoxes[1] = _13givenName;
+            mandatoryBoxes[2] = _13surname;
+            mandatoryBoxes[3] = _13telephone;
+
+            //(var boxes = Traverse(LayoutGrid.Children).ToArray();
+
+            Contract.Assert(ValidationHelper.MandatoryFieldsFilled(mandatoryBoxes, "Please fill in the mandatory fields"));
+            //Contract.Assert(validationHelper.alphaNumericFieldsValid());
             return true;
         }
+
+       /* public static IEnumerable<UIElement> Traverse(this UIElementCollection source)
+        {
+            var recursive_result = source.OfType<Grid>().SelectMany(v => Traverse(v.Children));
+            return recursive_result.Concat(source.Cast<TextBox>());
+        }*/
 
         private Boolean checkField(String ex, object sender)
         {

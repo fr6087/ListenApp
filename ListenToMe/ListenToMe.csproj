@@ -99,6 +99,7 @@
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\NavigationService.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Common\ValidationHelper.cs" />
     <Compile Include="ESF_2\01CompanyPage.xaml.cs">
       <DependentUpon>01CompanyPage.xaml</DependentUpon>
     </Compile>
