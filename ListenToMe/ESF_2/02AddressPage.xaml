@@ -5,6 +5,8 @@
     xmlns:local="using:ListenToMe.ESF_2"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:WinRTXamlToolkitControlExtensions="using:WinRTXamlToolkit.Controls.Extensions"
+    xmlns:controls="using:WinRTXamlToolkit.Controls"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -24,12 +26,30 @@
         <TextBlock Name="DetailTitle" Grid.Row="0" HorizontalAlignment="Left" Text="Antragssteller-Sitz" VerticalAlignment="Top" Height="30" Width="139"/>
 
         <!--Straße und Hausnummer-->
-        <TextBox Name="_2Street" Header="Straße" HorizontalAlignment="Left" MaxHeight="60" MaxWidth="300" PlaceholderText="bei natürlichen Pers. Wohnsitz" TextBox.MaxLength="80" Margin="5,0,75,0" Grid.Row="1" />
-        <TextBox Name="_2HouseNumber" Margin="290,0,0,0" Grid.Row="1" TextWrapping="Wrap" Header="Hausnr." PlaceholderText="zB 32a" RenderTransformOrigin="0.429,-0.611" TextBox.InputScope="AlphanumericHalfWidth"  TextBox.MaxLength="12"/>
+        <TextBox Name="_2Street" Header="Straße" HorizontalAlignment="Left" MaxHeight="60" MaxWidth="300" PlaceholderText="bei natürlichen Pers. Wohnsitz" TextBox.MaxLength="80" Margin="5,0,75,0" Grid.Row="1" 
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.Format="NonEmpty"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.NonEmptyErrorMessage="${mandatoryField}"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.MinLength="2"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.MinLengthErrorMessage="Mindestens 2 Buchstaben eintragen."/>
+        <TextBox Name="_2HouseNumber" Margin="290,0,0,0" Grid.Row="1" TextWrapping="Wrap" Header="Hausnr." PlaceholderText="zB 32a" RenderTransformOrigin="0.429,-0.611" TextBox.InputScope="AlphanumericHalfWidth"  TextBox.MaxLength="12"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.Format="NonEmpty"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.NonEmptyErrorMessage="PflichtFeld"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.MinLengthErrorMessage="${min1digit}"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.MinLength="1"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.InvalidBrush="Red"/>
 
         <!--PLZ und Ort-->
-        <TextBox Name="_2PostalCode" HorizontalAlignment="Left" MaxWidth="135" Grid.Row="2"  Header="Postleitzahl" TextWrapping="Wrap" TextBox.InputScope="Number" TextBox.MaxLength="5"/>
-        <TextBox Name="_2Place"  Margin="80,0,0,0" Grid.Row="2" TextWrapping="Wrap" Header="Ort" TextBox.MaxLength="60"  VerticalAlignment="Stretch" />
+        <TextBox Name="_2PostalCode" HorizontalAlignment="Left" MaxWidth="135" Grid.Row="2"  Header="Postleitzahl" TextWrapping="Wrap" TextBox.InputScope="Number" TextBox.MaxLength="5"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.Format="NonEmptyNumeric"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.NonEmptyErrorMessage="PflichtFeld"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.MinLengthErrorMessage="${min1digit}"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.MinLength="5"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.InvalidBrush="Red"/>
+        <TextBox Name="_2Place"  Margin="80,0,0,0" Grid.Row="2" TextWrapping="Wrap" Header="Ort" TextBox.MaxLength="60"  VerticalAlignment="Stretch" 
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.Format="NonEmpty"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.NonEmptyErrorMessage="PflichtFeld"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.MinLength="2"
+                 WinRTXamlToolkitControlExtensions:FieldValidationExtensions.MinLengthErrorMessage="Mindestens 2 Buchstaben eintragen."/> <!--Maybe possible to use AutocompleteTextbox, with WordDictionary="?"-element-->
 
 
         <!-- Gemeinde und Gemeindeschlüssel -->
@@ -38,7 +58,10 @@
 
         <!-- Postfachdaten-->
         <TextBox   Name="_2POB" Header="Postfach" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Margin="10,0,0,10" Width="138" TextBox.InputScope="Number" TextBox.MaxLength="10"/>
-        <TextBox   Name="_2postalcodePOB" Header="PLZ Postfach" HorizontalAlignment="Stretch" Grid.Row="4" TextWrapping="Wrap" Margin="153,0,0,10" TextBox.MaxLength="5" TextBox.InputScope="Number" />
+        <TextBox   Name="_2postalcodePOB" Header="PLZ Postfach" HorizontalAlignment="Stretch" Grid.Row="4" TextWrapping="Wrap" Margin="153,0,0,10" TextBox.MaxLength="5" TextBox.InputScope="Number"
+                   WinRTXamlToolkitControlExtensions:FieldValidationExtensions.Format="Numeric"
+                   WinRTXamlToolkitControlExtensions:FieldValidationExtensions.MinLength="5"
+                    WinRTXamlToolkitControlExtensions:FieldValidationExtensions.InvalidBrush="Red"/>
 
         <!--Kontaktdaten-->
         <TextBox   Name="_2telephone" Header="Telefon" HorizontalAlignment="Left" Grid.Row="5" TextWrapping="Wrap" PlaceholderText="+49 40 12345"  Width="138" Margin="10,0,0,10" TextBox.InputScope="TelephoneNumber" TextBox.MaxLength="40"/>

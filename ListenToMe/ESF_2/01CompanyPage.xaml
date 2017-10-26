@@ -5,6 +5,7 @@
     xmlns:local="using:ListenToMe.ESF_2"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:forms="using:Xamarin.Forms"
     mc:Ignorable="d">
    <!-- xmlns:controls="using:WinUX.Xaml.Controls.Validation"
     xmlns:rules="using:WinUX.Validation.Rules"
@@ -39,14 +40,14 @@
 
         <HyperlinkButton x:Name="buttonGoTo2"
                 Grid.Row="0"
-                Click="buttonGoTo2_Click"
+                Click="buttonGoTo2_ClickAsync"
                 Content="Adressangaben" HorizontalAlignment="Right">
         </HyperlinkButton>
-
+        <!--<forms:Entry UIElement="whatever"></forms:Entry> Relict from experiment with xamarin forms-->
         <TextBlock Name="DetailTitle" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Unternehmensangaben" VerticalAlignment="Top" Height="20" Width="174"/>
 
         <!--Unternehmensnahme und Steuerabzug-->
-        <TextBox Name="_11Name" Header="Name/Bezeichnung" Grid.Row="1" HorizontalAlignment="Stretch" Margin="10,0,0,0" PlaceholderText="Unternehmensname" TextBox.MaxLength="80"  TextWrapping="Wrap"  VerticalAlignment="Stretch" Height="60"/>
+        <TextBox Name="_11Name" Header="Name/Bezeichnung" Grid.Row="1" HorizontalAlignment="Stretch" Margin="10,0,0,0" PlaceholderText="Unternehmensname" TextBox.MaxLength="80" TextChanged="Some_AlphaNum_TextChanged" TextWrapping="Wrap"  VerticalAlignment="Stretch" Height="60"/>
         <ToggleSwitch Name="_12Tax" Header="Vorsteuerabzugsberechtigt" OffContent="nein" OnContent="ja"  Grid.Row="2"  HorizontalAlignment="Left" Margin="28,0,0,0" VerticalAlignment="Top" Height="60" Width="178" />
 
         <!--Anrede und Funktion-->

@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using ListenToMe.ESF_2;
 using ListenToMe.Common;
+using System.Text.RegularExpressions;
 
 namespace ListenToMe
 {
@@ -249,6 +250,23 @@ namespace ListenToMe
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Anwendungszustand speichern und alle Hintergrundaktivitäten beenden
             deferral.Complete();
+        }
+
+        /// <summary>
+        /// Filter changed is supposed to filter every sign from input string that's not alphanumerical. Unfortunately,
+        /// TextchangedEvent is only triggered between posts to the server, so this is inept try.
+        /// see reference: https://msdn.microsoft.com/en-us/library/system.web.ui.webcontrols.textbox.textchanged(v=vs.110).aspx
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        internal static void Filter_Changed(object sender, TextChangedEventArgs e, String regex)
+        {
+            Debug.WriteLine("Text Changed ");
+            var textboxSender = (TextBox)sender;
+            var cursorPosition = textboxSender.SelectionStart;
+            textboxSender.Text = Regex.Replace(textboxSender.Text, "^(?!"+regex+")$", "");
+            textboxSender.SelectionStart = cursorPosition;
+
         }
     }
 }
