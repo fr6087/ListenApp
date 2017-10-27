@@ -46,10 +46,6 @@ namespace ListenToMe.ESF_2
             {
                 Frame.Navigate(typeof(AddressPage));
             }
-            else
-            {
-                await new MessageDialog("please correct input.").ShowAsync();
-            }
             
         }
 
@@ -63,23 +59,29 @@ namespace ListenToMe.ESF_2
             }
             return false;*/
             TextBox[] mandatoryBoxes = new TextBox[4];
+            TextBlock[] alphanumericBoxes = new TextBox[];
             mandatoryBoxes[0] = _11Name;
             mandatoryBoxes[1] = _13givenName;
             mandatoryBoxes[2] = _13surname;
             mandatoryBoxes[3] = _13telephone;
+            //Contract.ContractFailed += new EventHandler<ContractFailedEventArgs>(Contract_ContractFailedAsync);
 
-            //(var boxes = Traverse(LayoutGrid.Children).ToArray();
-
-            Contract.Assert(ValidationHelper.MandatoryFieldsFilled(mandatoryBoxes, "Please fill in the mandatory fields"));
+            bool success;
+            Contract.Assert(success= ValidationHelper.MandatoryFieldsFilled(mandatoryBoxes), "Bitte Pflichtfelder ausfüllen: "+ getMandatoryFieldNames());  
             //Contract.Assert(validationHelper.alphaNumericFieldsValid());
-            return true;
+            return success;
         }
 
-       /* public static IEnumerable<UIElement> Traverse(this UIElementCollection source)
+        private string getMandatoryFieldNames()
         {
-            var recursive_result = source.OfType<Grid>().SelectMany(v => Traverse(v.Children));
-            return recursive_result.Concat(source.Cast<TextBox>());
-        }*/
+            return _11Name.Name + " " + _13givenName.Name + " " + _13surname.Name + " " + _13telephone.Name;
+        }
+
+        /* public static IEnumerable<UIElement> Traverse(this UIElementCollection source)
+         {
+             var recursive_result = source.OfType<Grid>().SelectMany(v => Traverse(v.Children));
+             return recursive_result.Concat(source.Cast<TextBox>());
+         }*/
 
         private Boolean checkField(String ex, object sender)
         {
