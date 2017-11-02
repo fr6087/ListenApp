@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ListenToMe.Model
 {
-    class CompanyPage
+    class CompanyPage_Dialog : LuisDialog
     {
     }
+
 }
