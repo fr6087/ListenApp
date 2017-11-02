@@ -9,4 +9,5 @@ namespace ListenToMe.Model
     class CompanyPage
     {
     }
+
 }

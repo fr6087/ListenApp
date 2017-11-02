@@ -13,11 +13,22 @@
                 <Button Name="BackButton" Content="Back" Margin="0,0,10,0" Click="BackButton_Click" ></Button>
                 <Button x:Name="HomeButton" Content="ILBBaukasten" Foreground="Crimson" Background="White" Margin="0,0,10,0" Click="HomeButton_Click" />
                 <Button Name="NextButton" Content="Next" Margin="0,0,10,0" Click="NextButton_Click" ></Button>
+                <ProgressRing Name="Listening" Foreground="Purple" VerticalAlignment="Top" HorizontalAlignment="Right">
+                    <ProgressRing.RenderTransform>
+                        <CompositeTransform ScaleX="1.5" ScaleY="1.5" CenterX="20"></CompositeTransform>
+                    </ProgressRing.RenderTransform>
+                </ProgressRing>
 
             </StackPanel>
             <Frame x:Name="mainFrame" >
             </Frame>
-
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="text" BorderBrush="Purple" FontSize="18" KeyUp="text_KeyDown" PlaceholderText="Sage etwas oder sage 'Zuhören'" Width="311" Height="45" ></TextBox>
+                <Button Name="button" Background="Purple" Height="50" Width="50" Click="button_Click" >
+                    <SymbolIcon Name="symbol" Foreground="White" HorizontalAlignment="Center" Width="50" Symbol="Microphone" />
+                </Button>
+            </StackPanel>
+            <MediaElement Name="Media"></MediaElement>
 
 
         </StackPanel>

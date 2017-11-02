@@ -40,7 +40,7 @@ namespace ListenToMe.ESF_2
         }
 
 
-        private async void buttonGoTo2_ClickAsync(object sender, RoutedEventArgs e)
+        private void buttonGoTo2_ClickAsync(object sender, RoutedEventArgs e)
         {
             if (ValidatePage())
             {
@@ -59,7 +59,6 @@ namespace ListenToMe.ESF_2
             }
             return false;*/
             TextBox[] mandatoryBoxes = new TextBox[4];
-            TextBlock[] alphanumericBoxes = new TextBox[];
             mandatoryBoxes[0] = _11Name;
             mandatoryBoxes[1] = _13givenName;
             mandatoryBoxes[2] = _13surname;
