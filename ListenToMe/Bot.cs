@@ -51,20 +51,16 @@ namespace VoiceCommandService
             // but be warned, it's very much rated R. The id is 6
             private string botId = "93dfe8db-873d-46aa-9604-d5c22df499ad";//"<INSERT YOUR BOT NUMBER HERE>";
 
-            public IAsyncOperation<string> SendMessageAndGetIntentFromBot(string message)
+            public IAsyncOperation<Rootobject> SendMessageAndGetIntentFromBot(string message)
             {
-                return Task.Run<string>(async () =>
+                return Task.Run<Rootobject>(async () =>
                 {
-                    if (key == "<INSERT YOUR API KEY HERE>" || botId == "<INSERT YOUR BOT NUMBER HERE>")
-                    {
-                        return "Please update the API key and/or botId in Bot.cs in order to talk to me!";
-                    }
 
                     string intent = "none";
-
+                    Rootobject myObject = null;
                     try
                     {
-                        Rootobject myObject= await Proxy.GetJSON(message);//toDo return the rootobject (because it also has discovered entities)
+                        myObject= await Proxy.GetJSON(message);//toDo return the rootobject (because it also has discovered entities)
                         var topscoringIntent = myObject.topScoringIntent;
                         intent = topscoringIntent.intent;
                         Debug.WriteLine("topScoringIntent" + intent);
@@ -75,8 +71,8 @@ namespace VoiceCommandService
                         // no op
                         Debug.WriteLine(e.Message);
                     }
-
-                    return intent;
+                    Debug.WriteLine("Bot is returning "+myObject.ToString());
+                    return myObject;
                 }).AsAsyncOperation();
             }
         }
