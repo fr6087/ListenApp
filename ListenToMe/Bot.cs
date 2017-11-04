@@ -35,7 +35,7 @@ namespace VoiceCommandService
  /// ],
   ///"entities": [
     ///{
-      ///"entity": "dax",       -----> these two are important. here will later be ideally entity: "address", type: "field_name"
+      ///"entity": "dax",
       ///"type": "StockSymbol"
    /// }
   ///]
@@ -50,23 +50,18 @@ namespace VoiceCommandService
             // or create your own bot. I've been using the example bot from the API
             // but be warned, it's very much rated R. The id is 6
             private string botId = "93dfe8db-873d-46aa-9604-d5c22df499ad";//"<INSERT YOUR BOT NUMBER HERE>";
-            public Rootobject jsonMessage;
 
-            public IAsyncOperation<string> SendMessageAndGetIntentFromBot(string message)
+            public IAsyncOperation<Rootobject> SendMessageAndGetIntentFromBot(string message)
             {
-                return Task.Run<string>(async () =>
+                return Task.Run<Rootobject>(async () =>
                 {
-                    if (key == "<INSERT YOUR API KEY HERE>" || botId == "<INSERT YOUR BOT NUMBER HERE>")
-                    {
-                        return "Please update the API key and/or botId in Bot.cs in order to talk to me!";
-                    }
 
                     string intent = "none";
-
+                    Rootobject myObject = null;
                     try
                     {
-                        jsonMessage= await Proxy.GetJSON(message);//toDo return the rootobject (because it also has discovered entities)
-                        var topscoringIntent = jsonMessage.topScoringIntent;
+                        myObject= await Proxy.GetJSON(message);//toDo return the rootobject (because it also has discovered entities)
+                        var topscoringIntent = myObject.topScoringIntent;
                         intent = topscoringIntent.intent;
                         Debug.WriteLine("topScoringIntent" + intent);
 
@@ -76,8 +71,8 @@ namespace VoiceCommandService
                         // no op
                         Debug.WriteLine(e.Message);
                     }
-
-                    return intent;
+                    Debug.WriteLine("Bot is returning "+myObject.ToString());
+                    return myObject;
                 }).AsAsyncOperation();
             }
         }

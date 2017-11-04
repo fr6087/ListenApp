@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using VoiceCommandService;
 using Windows.Media.SpeechSynthesis;
 using Windows.UI.Popups;
+using Newtonsoft.Json.Linq;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x407 dokumentiert.
 
@@ -62,6 +63,7 @@ namespace ListenToMe
     }
     protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
+            Debug.Write("MainPage_OnNavig");
             messages = new ObservableCollection<Message>();
             bot = new VoiceCommandService.Bot();
             Media.MediaEnded += Media_MediaEnded;
@@ -69,8 +71,12 @@ namespace ListenToMe
 
             if (e.Parameter != null && e.Parameter is bool) //if activated with voicecommand?
             {
-                var intent = await bot.SendMessageAndGetIntentFromBot("hello there"); //might be later rootobject
-                var response = determineResponse(intent);
+                var rootObject = await bot.SendMessageAndGetIntentFromBot("hello there"); //might be later rootobject
+                Debug.Write("in Text: "+rootObject.ToString());
+                String intent = rootObject.topScoringIntent.intent; //the intent
+                var fieldValue = rootObject.entities[0].entity; //the value of the field, if discovered
+                var fieldType = rootObject.entities[0].type; //the Type e.g. "Address"
+                var response = determineResponse(intent, fieldValue, fieldType);
                 messages.Add(new Message() { Text = "  > " + response });
                 await SpeakAsync(response);
                 await SetListeningAsync(true);
@@ -87,13 +93,23 @@ namespace ListenToMe
         /// </summary>
         /// <param name="intent"></param>
         /// <returns></returns>
-        private string determineResponse(string intent)
+        private string determineResponse(string intent, string textValue, string usersFieldName)
         {
-            var page = (CompanyPage)mainFrame.Content;//this is static, todo mke dynamic mainFrame.SourcePageType???
-            TextBox box = (TextBox)page.FindName("_11Name");
-            box.Text = intent;
+            Debug.WriteLine(intent + " textWert: " + textValue + "Feldname " + usersFieldName);
+            var page = mainFrame.Content as Page;//this is static, todo mke dynamic mainFrame.SourcePageType???
+            usersFieldName = "_11Name"; //toDo: write function that mapps usersFieldName to FormFieldsName
+            TextBox textfield = (TextBox)page.FindName(usersFieldName);
+            if (textfield != null && !String.IsNullOrWhiteSpace(usersFieldName)) //if the user has named a field to label the value in
+            {
+                textfield.Text = textValue;
+            }
+            else//if not, then append the intent to output textbox
+            {
+                text.Text = intent;
+                //DependencyObject child = VisualTreeHelper.GetChild(page, 0);
+                //TextBox box = (TextBox)page.F;
+            }
             return "done";
-
 
         }
 
@@ -252,19 +268,19 @@ namespace ListenToMe
 
             Debug.WriteLine("sending: " + message);
             messages.Add(new Message() { Text = message });
-
+            
             var response = await bot.SendMessageAndGetIntentFromBot(message);
             messages.Add(new Message() { Text = "  > " + response });
-            determineResponse(response);
+           // determineResponse(response);
             if (speak)
             {
                 Debug.WriteLine("starting to speak");
-                await SpeakAsync(response);
+                //await SpeakAsync(response);
                 Debug.WriteLine("done speaking");
 
             }
-
-            return response;
+            return "Change line 280 in MainPage, F!";
+            //return response;
         }
 
         private async Task SpeakAsync(string toSpeak)
