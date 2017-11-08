@@ -1,15 +1,21 @@
 ﻿using ListenToMe.Model;
+using Microsoft.Bot.Connector.DirectLine;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization.Json;
+//using System.ServiceModel.Channels;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Foundation;
+using Microsoft.Bot.Connector.DirectLine.Models;
+using Windows.Web.Http;
+using Windows.Web.Http.Headers;
 
 namespace VoiceCommandService
 {
@@ -43,15 +49,20 @@ namespace VoiceCommandService
     /// </summary>
         public sealed class Bot
         {
-            // You will need to create your own API key and enable simple API
-            private string key = "a5de48ea62014f2bbdc4ad05943f2081";//"<INSERT YOUR API KEY HERE>";
 
-            // You will need to either use a bot that  has been enabled for the API
-            // or create your own bot. I've been using the example bot from the API
-            // but be warned, it's very much rated R. The id is 6
-            private string botId = "93dfe8db-873d-46aa-9604-d5c22df499ad";//"<INSERT YOUR BOT NUMBER HERE>";
+        //reference: https://github.com/Psychlist1972/InternetOfStrangerThings
+        #region Secret
+        const string _directLineSecret = "gwSQkgDM-h4.cwA.huI.LjySX_oD-XTJQDRBkw9l4WBbyZf5rN8cd5qkVXM6qUA";
+        #endregion
 
-            public IAsyncOperation<Rootobject> SendMessageAndGetIntentFromBot(string message)
+
+        // TODO: Change the URL to match your bot
+        private const string _botBaseUrl = "https://luisformbot.azurewebsites.net/api/messages";
+
+        private DirectLineClient _directLine;
+        private string _conversationId;
+
+        public IAsyncOperation<Rootobject> SendMessageAndGetIntentFromBot(string message)
             {
                 return Task.Run<Rootobject>(async () =>
                 {
@@ -75,6 +86,79 @@ namespace VoiceCommandService
                     return myObject;
                 }).AsAsyncOperation();
             }
+        
+        //these are methods that have yet to be tested.
+
+        public async Task ConnectAsync()
+        {
+            _directLine = new DirectLineClient(_directLineSecret);
+            
+            var conversation = await _directLine.Conversations.NewConversationWithHttpMessagesAsync();
+            _conversationId = conversation.Body.ConversationId;
+
+            System.Diagnostics.Debug.WriteLine("Bot connection set up.");
         }
+
+        private async Task<string> GetResponse()
+        {
+            try
+            {
+                var httpMessages = await _directLine.Conversations.GetMessagesWithHttpMessagesAsync(_conversationId);
+                var messages = httpMessages.Body.Messages;
+
+                // our bot only returns a single message, so we won't loop through
+                // First message is the question, second message is the response
+                if (messages?.Count > 1)
+                {
+                    // select latest message -- the response
+                    var text = messages[messages.Count()-1].Text;
+                    System.Diagnostics.Debug.WriteLine("Response from bot was: " + text);
+
+                    return text;
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("Response from bot was empty.");
+                    return string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+
+                throw;
+            }
+
+        }
+
+
+        public async Task<string> TalkToTheUpsideDownAsync(string message)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine("Sending bot message");
+
+                var msg = new Message();
+                msg.Text = message;
+
+
+                System.Diagnostics.Debug.WriteLine("Posting");
+
+                await _directLine.Conversations.PostMessageAsync(_conversationId, msg);
+
+                System.Diagnostics.Debug.WriteLine("Post complete");
+
+                return await GetResponse();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+
+                throw;
+            }
+        }
+
+
     }
+}
 

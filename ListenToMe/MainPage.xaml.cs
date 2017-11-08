@@ -23,6 +23,9 @@ using VoiceCommandService;
 using Windows.Media.SpeechSynthesis;
 using Windows.UI.Popups;
 using Newtonsoft.Json.Linq;
+using Windows.Networking.Sockets;
+using Windows.Networking;
+using Windows.Storage.Streams;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x407 dokumentiert.
 
@@ -51,8 +54,100 @@ namespace ListenToMe
             //loadFormESF_2Pages();
 
         mainFrame.Navigate(typeof(CompanyPage), mainFrame);
+        
     }
 
+        private async void testHttpConnection()
+        {
+            // Define some variables and set values
+StreamSocket clientSocket = new StreamSocket();
+            //https//"www.timecockpit.com"
+            HostName serverHost = new HostName("www.hs-emden-leer.de");
+string serverServiceName = "http";
+
+// For simplicity, the sample omits implementation of the
+// NotifyUser method used to display status and error messages 
+
+// Try to connect to contoso using HTTP (port 80)
+try {
+    // Call ConnectAsync method with a plain socket
+    await clientSocket.ConnectAsync(serverHost, serverServiceName, SocketProtectionLevel.PlainSocket);
+
+    NotifyUser("Connected");
+
+}
+catch (Exception exception) {
+                Debug.WriteLine("Connection failed.");
+    // If this is an unknown status it means that the error is fatal and retry will likely fail.
+    if (SocketError.GetStatus(exception.HResult) == SocketErrorStatus.Unknown) {
+        throw;
+    }
+
+                NotifyUser("Connect failed with error: " + exception.Message);//, NotifyType.ErrorMessage);
+    // Could retry the connection, but for this simple example
+    // just close the socket.
+
+    clientSocket.Dispose();
+    clientSocket = null; 
+    return;
+}
+
+// Now try to sent some data
+DataWriter writer = new DataWriter(clientSocket.OutputStream);
+string hello = "Hello World ☺ ";
+Int32 len = (int) writer.MeasureString(hello); // Gets the UTF-8 string length.
+writer.WriteInt32(len);
+writer.WriteString(hello);
+NotifyUser("Client: sending hello");
+
+try {
+    // Call StoreAsync method to store the hello message
+    await writer.StoreAsync();
+
+    NotifyUser("Client: sent data");
+
+    writer.DetachStream(); // Detach stream, if not, DataWriter destructor will close it.
+}
+catch (Exception exception) {
+    NotifyUser("Store failed with error: " + exception.Message);
+    // Could retry the store, but for this simple example
+        // just close the socket.
+
+        clientSocket.Dispose();
+        clientSocket = null; 
+        return;
+}
+
+// Now upgrade the client to use SSL
+try {
+    // Try to upgrade to SSL
+    await clientSocket.UpgradeToSslAsync(SocketProtectionLevel.Ssl, serverHost);
+
+    NotifyUser("Client: upgrade to SSL completed");
+
+    // Add code to send and receive data 
+    // The close clientSocket when done
+}
+catch (Exception exception) {
+    // If this is an unknown status it means that the error is fatal and retry will likely fail.
+    if (SocketError.GetStatus(exception.HResult) == SocketErrorStatus.Unknown) {
+        throw;
+    }
+
+    NotifyUser("Upgrade to SSL failed with error: " + exception.Message);
+
+    clientSocket.Dispose();
+    clientSocket = null; 
+    return;
+}
+        }
+
+        private async void NotifyUser(string message)
+        {
+            Debug.WriteLine("called Notify. Message: "+message);
+            MessageDialog dialog = new MessageDialog(message);
+            await dialog.ShowAsync();
+        }
 
         private void navigationHelper_SaveState(object sender, SaveStateEventArgs e)
     {
@@ -86,6 +181,7 @@ namespace ListenToMe
                 await SendMessage(e.Parameter as string, true);
                 await SetListeningAsync(true);
             }
+            testHttpConnection();
             navigationHelper.OnNavigatedTo(e);
     }
         /// <summary>
