@@ -18,12 +18,12 @@ namespace ListenToMe.Model
     {
 
         // You will need to create your own API key and enable simple API
-        private string key = "a5de48ea62014f2bbdc4ad05943f2081";//"<INSERT YOUR API KEY HERE>";
+        //private string key = "a5de48ea62014f2bbdc4ad05943f2081";//"<INSERT YOUR API KEY HERE>";
 
         // You will need to either use a bot that  has been enabled for the API
         // or create your own bot. I've been using the example bot from the API
         // but be warned, it's very much rated R. The id is 6
-        private string botId = "93dfe8db-873d-46aa-9604-d5c22df499ad";//"<INSERT YOUR BOT NUMBER HERE>";
+        //private string botId = "93dfe8db-873d-46aa-9604-d5c22df499ad";//"<INSERT YOUR BOT NUMBER HERE>";
         public async static Task<Rootobject> GetJSON(string query)
 
         {

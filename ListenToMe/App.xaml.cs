@@ -131,25 +131,25 @@ namespace ListenToMe
             {
                 VoiceCommandActivatedEventArgs cmdArgs = e as VoiceCommandActivatedEventArgs;
                 SpeechRecognitionResult result = cmdArgs.Result;
-
+                
                 string commandName = result.RulePath[0];
                 Debug.Write("command found: " + commandName);
-                dialog.Content = "You have a voice command activation";
-                await dialog.ShowAsync();
+                //dialog.Content = "You have a voice command activation";
+                //await dialog.ShowAsync();
                 switch (commandName)
                 {
-                    case "ShutDownComputer":
+                    case "Shutdown":
                         dialog.Content = "shut computer down.";
 
                         Debug.WriteLine("found shut down command");
                         await dialog.ShowAsync();
-                        navigationToPageType = typeof(AddressPage);
+                        Application.Current.Exit();
+                        navigationToPageType = typeof(MainPage);
                         break;
                     //do something
                     case "Edit":
                         await dialog.ShowAsync();
                         dialog.Content = "Edit";//+ result.RulePath[1];
-
                         Debug.WriteLine("found edit command");
                         await dialog.ShowAsync();
                         navigationToPageType = typeof(ConfirmationsPage);
@@ -188,15 +188,15 @@ namespace ListenToMe
                 await mymessage.ShowAsync();
                 navigationToPageType = typeof(ESF_2.CompanyPage);
             }
-                else
-                {
-                dialog.Content = "something else";
-                await dialog.ShowAsync();
-                    // If we were launched via any other mechanism, fall back to the main page view.
-                    // Otherwise, we'll hang at a splash screen.
-                    //navigationToPageType = typeof(View.TripListView);
-                    navigationToPageType = typeof(MainPage);
-                }
+            else
+            {
+            dialog.Content = "something else";
+            await dialog.ShowAsync();
+                // If we were launched via any other mechanism, fall back to the main page view.
+                // Otherwise, we'll hang at a splash screen.
+                //navigationToPageType = typeof(View.TripListView);
+                navigationToPageType = typeof(MainPage);
+            }
 
             // Repeat the same basic initialization as OnLaunched() above, taking into account whether
             // or not the app is already active.

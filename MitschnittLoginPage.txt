@@ -1,0 +1,333 @@
+http://10.150.50.21/irj/portal/anonymous/login
+
+POST /irj/portal/anonymous/login HTTP/1.1
+Host: 10.150.50.21
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://10.150.50.21/irj/portal/anonymous/login
+Cookie: com.sap.engine.security.authentication.original_application_url=GET#ihTSVz9am7qcDynF6Qyz%2FiNnc21FZGAVbAk2TrEFWaojNAECmcOsZRdzgH%2F5VzBGPdM7T8ORPHFRI3PmBTDxV%2BrdvPZqenQyIOyJhBrYQvKR9mGToNomIg%3D%3D; PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMgUABAAAAAgKAAZGUjYwODf%2FAQQwggEABgkqhkiG9w0BBwKggfIwge8CAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGBzzCBzAIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMjIwWjAjBgkqhkiG9w0BCQQxFgQUSbhdInLJC2lw!MpfkbFiOgbPGkIwCQYHKoZIzjgEAwQuMCwCFHCwV9PiKmlq7TWfDJEj!9aq5RhIAhQYOvQGg2OlKW3DUFz3ccmjJvnslw%3D%3D; JSESSIONMARKID=AVDG2Qx20889PgQpiLbUXEWvmZGIKs11zS6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 163
+login_submit=on&login_do_redirect=1&no_cert_storing=on&j_salt=y8C8h6SDoM5Lih9OlYiQa2ACs4c%3D&j_username=fr6087&j_password=OraEtLabora%211&uidPasswordLogon=Anmelden
+HTTP/1.1 302 Found
+Date: Fri, 10 Nov 2017 13:23:04 GMT
+Server: Apache/2.4.10 (Debian)
+Content-Type: text/html;charset=UTF-8
+Location: http://10.150.50.21/irj/portal/anonymous/login
+Content-Encoding: gzip
+Content-Length: 693
+Set-Cookie: MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMwUABAAAAAgKAAZGUjYwODf%2FAQUwggEBBgkqhkiG9w0BBwKggfMwgfACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGB0DCBzQIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMzA0WjAjBgkqhkiG9w0BCQQxFgQU913l9bJlCYHyscokr6lNqoBuG3owCQYHKoZIzjgEAwQvMC0CFHjfLUN1TGgYrAQDDxngZNEfPCNRAhUA7ODMmZoh8za3a7kjThd85paEiBw%3D;path=/;HttpOnly
+Set-Cookie: PortalAlias=portal/anonymous; Path=/
+Set-Cookie: com.sap.engine.security.authentication.original_application_url=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; path=/irj; HttpOnly
+Set-Cookie: JSESSIONMARKID=omD2qgn61kMhZS5vzOR9M1xLREaXhb_n7c6r5_EgA; Version=1; Path=/; HttpOnly
+Connection: close
+----------------------------------------------------------
+http://10.150.50.21/irj/portal/anonymous/login
+
+GET /irj/portal/anonymous/login HTTP/1.1
+Host: 10.150.50.21
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://10.150.50.21/irj/portal/anonymous/login
+Cookie: PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMwUABAAAAAgKAAZGUjYwODf%2FAQUwggEBBgkqhkiG9w0BBwKggfMwgfACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGB0DCBzQIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMzA0WjAjBgkqhkiG9w0BCQQxFgQU913l9bJlCYHyscokr6lNqoBuG3owCQYHKoZIzjgEAwQvMC0CFHjfLUN1TGgYrAQDDxngZNEfPCNRAhUA7ODMmZoh8za3a7kjThd85paEiBw%3D; JSESSIONMARKID=omD2qgn61kMhZS5vzOR9M1xLREaXhb_n7c6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+HTTP/1.1 200 OK
+Date: Fri, 10 Nov 2017 13:23:04 GMT
+Server: Apache/2.4.10 (Debian)
+Content-Type: text/html; charset=UTF-8
+x-ua-compatible: IE=EmulateIE7
+Pragma: no-cache
+Cache-Control: no-store, no-cache, must-revalidate
+Expires: 0
+Content-Encoding: gzip
+Set-Cookie: PortalAlias=portal/anonymous; Path=/
+Connection: close
+Transfer-Encoding: chunked
+----------------------------------------------------------
+http://10.150.50.21/de.abakus.kundenportal.portal.layout.framework/styles/abk-header.css.jsp
+
+GET /de.abakus.kundenportal.portal.layout.framework/styles/abk-header.css.jsp HTTP/1.1
+Host: 10.150.50.21
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://10.150.50.21/irj/portal/anonymous/login
+Cookie: PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMwUABAAAAAgKAAZGUjYwODf%2FAQUwggEBBgkqhkiG9w0BBwKggfMwgfACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGB0DCBzQIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMzA0WjAjBgkqhkiG9w0BCQQxFgQU913l9bJlCYHyscokr6lNqoBuG3owCQYHKoZIzjgEAwQvMC0CFHjfLUN1TGgYrAQDDxngZNEfPCNRAhUA7ODMmZoh8za3a7kjThd85paEiBw%3D; JSESSIONMARKID=omD2qgn61kMhZS5vzOR9M1xLREaXhb_n7c6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d
+Connection: keep-alive
+
+HTTP/1.1 200 OK
+Date: Fri, 10 Nov 2017 13:23:04 GMT
+Server: Apache/2.4.10 (Debian)
+Content-Type: text/css;charset=ISO-8859-1
+Content-Encoding: gzip
+Content-Length: 332
+Connection: close
+----------------------------------------------------------
+http://10.150.50.21/de.abakus.kundenportal.portal.layout.framework/styles/abk-frameworklayout.css.jsp
+
+GET /de.abakus.kundenportal.portal.layout.framework/styles/abk-frameworklayout.css.jsp HTTP/1.1
+Host: 10.150.50.21
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://10.150.50.21/irj/portal/anonymous/login
+Cookie: PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMwUABAAAAAgKAAZGUjYwODf%2FAQUwggEBBgkqhkiG9w0BBwKggfMwgfACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGB0DCBzQIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMzA0WjAjBgkqhkiG9w0BCQQxFgQU913l9bJlCYHyscokr6lNqoBuG3owCQYHKoZIzjgEAwQvMC0CFHjfLUN1TGgYrAQDDxngZNEfPCNRAhUA7ODMmZoh8za3a7kjThd85paEiBw%3D; JSESSIONMARKID=omD2qgn61kMhZS5vzOR9M1xLREaXhb_n7c6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d
+Connection: keep-alive
+
+HTTP/1.1 200 OK
+Date: Fri, 10 Nov 2017 13:23:04 GMT
+Server: Apache/2.4.10 (Debian)
+Content-Type: text/css;charset=ISO-8859-1
+Content-Encoding: gzip
+Content-Length: 338
+Connection: close
+----------------------------------------------------------
+http://10.150.50.21/de.abakus.kundenportal.portal.layout.framework/styles/abk-information.css.jsp
+
+GET /de.abakus.kundenportal.portal.layout.framework/styles/abk-information.css.jsp HTTP/1.1
+Host: 10.150.50.21
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://10.150.50.21/irj/portal/anonymous/login
+Cookie: PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMwUABAAAAAgKAAZGUjYwODf%2FAQUwggEBBgkqhkiG9w0BBwKggfMwgfACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGB0DCBzQIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMzA0WjAjBgkqhkiG9w0BCQQxFgQU913l9bJlCYHyscokr6lNqoBuG3owCQYHKoZIzjgEAwQvMC0CFHjfLUN1TGgYrAQDDxngZNEfPCNRAhUA7ODMmZoh8za3a7kjThd85paEiBw%3D; JSESSIONMARKID=omD2qgn61kMhZS5vzOR9M1xLREaXhb_n7c6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d
+Connection: keep-alive
+
+HTTP/1.1 200 OK
+Date: Fri, 10 Nov 2017 13:23:04 GMT
+Server: Apache/2.4.10 (Debian)
+Content-Type: text/css;charset=ISO-8859-1
+Content-Encoding: gzip
+Content-Length: 451
+Connection: close
+----------------------------------------------------------
+http://10.150.50.21/de.abakus.kundenportal.portal.layout.framework/styles/abk-toplevelnavigation.css.jsp
+
+GET /de.abakus.kundenportal.portal.layout.framework/styles/abk-toplevelnavigation.css.jsp HTTP/1.1
+Host: 10.150.50.21
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://10.150.50.21/irj/portal/anonymous/login
+Cookie: PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMwUABAAAAAgKAAZGUjYwODf%2FAQUwggEBBgkqhkiG9w0BBwKggfMwgfACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGB0DCBzQIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMzA0WjAjBgkqhkiG9w0BCQQxFgQU913l9bJlCYHyscokr6lNqoBuG3owCQYHKoZIzjgEAwQvMC0CFHjfLUN1TGgYrAQDDxngZNEfPCNRAhUA7ODMmZoh8za3a7kjThd85paEiBw%3D; JSESSIONMARKID=omD2qgn61kMhZS5vzOR9M1xLREaXhb_n7c6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d
+Connection: keep-alive
+
+HTTP/1.1 200 OK
+Date: Fri, 10 Nov 2017 13:23:04 GMT
+Server: Apache/2.4.10 (Debian)
+Content-Type: text/css;charset=ISO-8859-1
+Content-Encoding: gzip
+Content-Length: 459
+Connection: close
+----------------------------------------------------------
+http://10.150.50.21/de.abakus.kundenportal.portal.layout.framework/scripts/portal.js.jsp
+
+GET /de.abakus.kundenportal.portal.layout.framework/scripts/portal.js.jsp HTTP/1.1
+Host: 10.150.50.21
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0
+Accept: */*
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://10.150.50.21/irj/portal/anonymous/login
+Cookie: PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMwUABAAAAAgKAAZGUjYwODf%2FAQUwggEBBgkqhkiG9w0BBwKggfMwgfACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGB0DCBzQIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMzA0WjAjBgkqhkiG9w0BCQQxFgQU913l9bJlCYHyscokr6lNqoBuG3owCQYHKoZIzjgEAwQvMC0CFHjfLUN1TGgYrAQDDxngZNEfPCNRAhUA7ODMmZoh8za3a7kjThd85paEiBw%3D; JSESSIONMARKID=omD2qgn61kMhZS5vzOR9M1xLREaXhb_n7c6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d
+Connection: keep-alive
+
+HTTP/1.1 200 OK
+Date: Fri, 10 Nov 2017 13:23:04 GMT
+Server: Apache/2.4.10 (Debian)
+Content-Type: text/javascript;charset=ISO-8859-1
+Content-Encoding: gzip
+Content-Length: 1118
+Connection: close
+----------------------------------------------------------
+http://10.150.50.21/de.abakus.kundenportal.portal.layout.framework/styles/abk-popup.css.jsp
+
+GET /de.abakus.kundenportal.portal.layout.framework/styles/abk-popup.css.jsp HTTP/1.1
+Host: 10.150.50.21
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://10.150.50.21/irj/portal/anonymous/login
+Cookie: PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMwUABAAAAAgKAAZGUjYwODf%2FAQUwggEBBgkqhkiG9w0BBwKggfMwgfACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGB0DCBzQIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMzA0WjAjBgkqhkiG9w0BCQQxFgQU913l9bJlCYHyscokr6lNqoBuG3owCQYHKoZIzjgEAwQvMC0CFHjfLUN1TGgYrAQDDxngZNEfPCNRAhUA7ODMmZoh8za3a7kjThd85paEiBw%3D; JSESSIONMARKID=omD2qgn61kMhZS5vzOR9M1xLREaXhb_n7c6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d
+Connection: keep-alive
+
+HTTP/1.1 200 OK
+Date: Fri, 10 Nov 2017 13:23:04 GMT
+Server: Apache/2.4.10 (Debian)
+Content-Type: text/css;charset=ISO-8859-1
+Content-Encoding: gzip
+Content-Length: 361
+Connection: close
+----------------------------------------------------------
+http://10.150.50.21/de.abakus.kundenportal.portal.layout.framework/scripts/IdleTimer.js.jsp
+
+GET /de.abakus.kundenportal.portal.layout.framework/scripts/IdleTimer.js.jsp HTTP/1.1
+Host: 10.150.50.21
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0
+Accept: */*
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://10.150.50.21/irj/portal/anonymous/login
+Cookie: PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMwUABAAAAAgKAAZGUjYwODf%2FAQUwggEBBgkqhkiG9w0BBwKggfMwgfACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGB0DCBzQIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMzA0WjAjBgkqhkiG9w0BCQQxFgQU913l9bJlCYHyscokr6lNqoBuG3owCQYHKoZIzjgEAwQvMC0CFHjfLUN1TGgYrAQDDxngZNEfPCNRAhUA7ODMmZoh8za3a7kjThd85paEiBw%3D; JSESSIONMARKID=omD2qgn61kMhZS5vzOR9M1xLREaXhb_n7c6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d
+Connection: keep-alive
+
+HTTP/1.1 200 OK
+Date: Fri, 10 Nov 2017 13:23:04 GMT
+Server: Apache/2.4.10 (Debian)
+Content-Type: text/javascript;charset=ISO-8859-1
+Content-Encoding: gzip
+Content-Length: 919
+Connection: close
+----------------------------------------------------------
+http://10.150.50.21/de.abakus.kundenportal.portal.layout.framework/scripts/AbkPortalFramework.js.jsp
+
+GET /de.abakus.kundenportal.portal.layout.framework/scripts/AbkPortalFramework.js.jsp HTTP/1.1
+Host: 10.150.50.21
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0
+Accept: */*
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://10.150.50.21/irj/portal/anonymous/login
+Cookie: PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMwUABAAAAAgKAAZGUjYwODf%2FAQUwggEBBgkqhkiG9w0BBwKggfMwgfACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGB0DCBzQIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMzA0WjAjBgkqhkiG9w0BCQQxFgQU913l9bJlCYHyscokr6lNqoBuG3owCQYHKoZIzjgEAwQvMC0CFHjfLUN1TGgYrAQDDxngZNEfPCNRAhUA7ODMmZoh8za3a7kjThd85paEiBw%3D; JSESSIONMARKID=omD2qgn61kMhZS5vzOR9M1xLREaXhb_n7c6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d
+Connection: keep-alive
+
+HTTP/1.1 200 OK
+Date: Fri, 10 Nov 2017 13:23:04 GMT
+Server: Apache/2.4.10 (Debian)
+Content-Type: text/javascript;charset=ISO-8859-1
+Content-Encoding: gzip
+Content-Length: 1453
+Connection: close
+----------------------------------------------------------
+http://10.150.50.21/irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fabakus_kundenportal!2flayout!2fframeworkpage_kundenportal!2fSessionControl
+
+POST /irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fabakus_kundenportal!2flayout!2fframeworkpage_kundenportal!2fSessionControl HTTP/1.1
+Host: 10.150.50.21
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0
+Accept: */*
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://10.150.50.21/irj/portal/anonymous/login
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 18
+Cookie: PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMwUABAAAAAgKAAZGUjYwODf%2FAQUwggEBBgkqhkiG9w0BBwKggfMwgfACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGB0DCBzQIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMzA0WjAjBgkqhkiG9w0BCQQxFgQU913l9bJlCYHyscokr6lNqoBuG3owCQYHKoZIzjgEAwQvMC0CFHjfLUN1TGgYrAQDDxngZNEfPCNRAhUA7ODMmZoh8za3a7kjThd85paEiBw%3D; JSESSIONMARKID=omD2qgn61kMhZS5vzOR9M1xLREaXhb_n7c6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d
+Connection: keep-alive
+function=heartbeat
+HTTP/1.1 200 OK
+Date: Fri, 10 Nov 2017 13:23:04 GMT
+Server: Apache/2.4.10 (Debian)
+Content-Type: text/html; charset=UTF-8
+Pragma: no-cache
+Cache-Control: no-store, no-cache, must-revalidate
+Expires: 0
+Content-Encoding: gzip
+Connection: close
+Transfer-Encoding: chunked
+----------------------------------------------------------
+http://10.150.50.21/irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fabakus_kundenportal!2flayout!2fdesktop_kundenportal!2fframeworkPages!2fframeworkpage_kundenportal!2fcom.sap.portal.innerpage?windowId=WID1510320182969
+
+GET /irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fabakus_kundenportal!2flayout!2fdesktop_kundenportal!2fframeworkPages!2fframeworkpage_kundenportal!2fcom.sap.portal.innerpage?windowId=WID1510320182969 HTTP/1.1
+Host: 10.150.50.21
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://10.150.50.21/irj/portal/anonymous/login
+Cookie: PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMwUABAAAAAgKAAZGUjYwODf%2FAQUwggEBBgkqhkiG9w0BBwKggfMwgfACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGB0DCBzQIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMzA0WjAjBgkqhkiG9w0BCQQxFgQU913l9bJlCYHyscokr6lNqoBuG3owCQYHKoZIzjgEAwQvMC0CFHjfLUN1TGgYrAQDDxngZNEfPCNRAhUA7ODMmZoh8za3a7kjThd85paEiBw%3D; JSESSIONMARKID=omD2qgn61kMhZS5vzOR9M1xLREaXhb_n7c6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+HTTP/1.1 200 OK
+Date: Fri, 10 Nov 2017 13:23:04 GMT
+Server: Apache/2.4.10 (Debian)
+Content-Type: text/html; charset=UTF-8
+x-ua-compatible: IE=EmulateIE7
+Pragma: no-cache
+Cache-Control: no-store, no-cache, must-revalidate
+Expires: 0
+Content-Encoding: gzip
+Connection: close
+Transfer-Encoding: chunked
+----------------------------------------------------------
+http://10.150.50.21/irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fabakus_kundenportal!2flayout!2fdesktop_kundenportal!2fframeworkPages!2fframeworkpage_kundenportal!2f(2f)ABK(2f)WD_GB_GS_BLIND?windowId=WID1510320182969
+
+GET /irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fabakus_kundenportal!2flayout!2fdesktop_kundenportal!2fframeworkPages!2fframeworkpage_kundenportal!2f(2f)ABK(2f)WD_GB_GS_BLIND?windowId=WID1510320182969 HTTP/1.1
+Host: 10.150.50.21
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://10.150.50.21/irj/portal/anonymous/login
+Cookie: PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMwUABAAAAAgKAAZGUjYwODf%2FAQUwggEBBgkqhkiG9w0BBwKggfMwgfACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGB0DCBzQIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMzA0WjAjBgkqhkiG9w0BCQQxFgQU913l9bJlCYHyscokr6lNqoBuG3owCQYHKoZIzjgEAwQvMC0CFHjfLUN1TGgYrAQDDxngZNEfPCNRAhUA7ODMmZoh8za3a7kjThd85paEiBw%3D; JSESSIONMARKID=omD2qgn61kMhZS5vzOR9M1xLREaXhb_n7c6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+HTTP/1.1 200 OK
+Date: Fri, 10 Nov 2017 13:23:04 GMT
+Server: Apache/2.4.10 (Debian)
+Content-Type: text/html; charset=UTF-8
+Pragma: no-cache
+Cache-Control: no-store, no-cache, must-revalidate
+Expires: 0
+Content-Encoding: gzip
+Set-Cookie: SAPWP_active=1; Domain=150.50.21; Path=/
+Connection: close
+Transfer-Encoding: chunked
+----------------------------------------------------------
+http://10.150.50.21/de.abakus.kundenportal.portal.layout.framework/styles/abk-contentlayout.css.jsp
+
+GET /de.abakus.kundenportal.portal.layout.framework/styles/abk-contentlayout.css.jsp HTTP/1.1
+Host: 10.150.50.21
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://10.150.50.21/irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fabakus_kundenportal!2flayout!2fdesktop_kundenportal!2fframeworkPages!2fframeworkpage_kundenportal!2fcom.sap.portal.innerpage?windowId=WID1510320182969
+Cookie: PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMwUABAAAAAgKAAZGUjYwODf%2FAQUwggEBBgkqhkiG9w0BBwKggfMwgfACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGB0DCBzQIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMzA0WjAjBgkqhkiG9w0BCQQxFgQU913l9bJlCYHyscokr6lNqoBuG3owCQYHKoZIzjgEAwQvMC0CFHjfLUN1TGgYrAQDDxngZNEfPCNRAhUA7ODMmZoh8za3a7kjThd85paEiBw%3D; JSESSIONMARKID=omD2qgn61kMhZS5vzOR9M1xLREaXhb_n7c6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d
+Connection: keep-alive
+
+HTTP/1.1 200 OK
+Date: Fri, 10 Nov 2017 13:23:04 GMT
+Server: Apache/2.4.10 (Debian)
+Content-Type: text/css;charset=ISO-8859-1
+Content-Encoding: gzip
+Content-Length: 279
+Connection: close
+----------------------------------------------------------
+http://10.150.50.21/sap/bc/webdynpro/ABK/WD_GB_GS_BLIND;sap-ext-sid=_8bqEcTGy6SvaOEMvY1xkg--uZjKEk1EfPUIA3uqm823YA--?sap-ep-iviewhandle=0071559666549&sap-wd-configId=&sap-ep-iviewid=pcdshort%3A%2FRb1FmZC4%2Fy6GiPkTIA6e87ihcwc%3D&sap-ep-pcdunit=pcdshort%3A%2FHZplqML71AzGa9CqaJMtQgCzF8M%3D&sap-client=901&sap-language=DE&sap-accessibility=&sap-rtl=&sap-ep-version=7.50.201609052114&sap-wd-tstamp=1510320184776&sap-explanation=null&sap-cssurl=http%3A%2F%2F10.150.50.21%3A80%2Fcom.sap.portal.design.urdesigndata%2Fthemes%2Fportal%2Fcustom_kupo_theme%2Fls%2Fls_nn7.css%3Fv%3D10.30.6.253519.1493994178194&sap-theme=custom_kupo_theme%40http%3A%2F%2F10.150.50.21%3A80%2Fcom.sap.portal.theming.webdav.themeswebdavlistener%2FGUID%3Aa86975d436fc52f735db8757e181fb8d&sap-cssversion=10.30.6.253519.0&sap-tray-type=PLAIN&sap-tray-padding=X&sap-ie=EmulateIE8&sap-browserhistory=disabled
+
+GET /sap/bc/webdynpro/ABK/WD_GB_GS_BLIND;sap-ext-sid=_8bqEcTGy6SvaOEMvY1xkg--uZjKEk1EfPUIA3uqm823YA--?sap-ep-iviewhandle=0071559666549&sap-wd-configId=&sap-ep-iviewid=pcdshort%3A%2FRb1FmZC4%2Fy6GiPkTIA6e87ihcwc%3D&sap-ep-pcdunit=pcdshort%3A%2FHZplqML71AzGa9CqaJMtQgCzF8M%3D&sap-client=901&sap-language=DE&sap-accessibility=&sap-rtl=&sap-ep-version=7.50.201609052114&sap-wd-tstamp=1510320184776&sap-explanation=null&sap-cssurl=http%3A%2F%2F10.150.50.21%3A80%2Fcom.sap.portal.design.urdesigndata%2Fthemes%2Fportal%2Fcustom_kupo_theme%2Fls%2Fls_nn7.css%3Fv%3D10.30.6.253519.1493994178194&sap-theme=custom_kupo_theme%40http%3A%2F%2F10.150.50.21%3A80%2Fcom.sap.portal.theming.webdav.themeswebdavlistener%2FGUID%3Aa86975d436fc52f735db8757e181fb8d&sap-cssversion=10.30.6.253519.0&sap-tray-type=PLAIN&sap-tray-padding=X&sap-ie=EmulateIE8&sap-browserhistory=disabled HTTP/1.1
+Host: 10.150.50.21
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://10.150.50.21/irj/servlet/prt/portal/prtroot/pcd!3aportal_content!2fabakus_kundenportal!2flayout!2fdesktop_kundenportal!2fframeworkPages!2fframeworkpage_kundenportal!2f(2f)ABK(2f)WD_GB_GS_BLIND?windowId=WID1510320182969
+Cookie: PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMwUABAAAAAgKAAZGUjYwODf%2FAQUwggEBBgkqhkiG9w0BBwKggfMwgfACAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGB0DCBzQIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMzA0WjAjBgkqhkiG9w0BCQQxFgQU913l9bJlCYHyscokr6lNqoBuG3owCQYHKoZIzjgEAwQvMC0CFHjfLUN1TGgYrAQDDxngZNEfPCNRAhUA7ODMmZoh8za3a7kjThd85paEiBw%3D; JSESSIONMARKID=omD2qgn61kMhZS5vzOR9M1xLREaXhb_n7c6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+HTTP/1.1 200 OK
+Date: Fri, 10 Nov 2017 13:22:38 GMT
+Server: Apache/2.4.10 (Debian)
+Content-Type: text/html; charset=utf-8
+Content-Length: 3044
+Expires: -1
+Cache-Control: no-cache, no-store, private, must-revalidate
+Pragma: private, no-cache
+Content-Encoding: gzip
+Connection: close
+----------------------------------------------------------

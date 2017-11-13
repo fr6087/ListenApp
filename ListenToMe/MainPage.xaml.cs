@@ -1,11 +1,14 @@
 ﻿using ListenToMe.Common;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using System.Globalization; 
+using System.IO; 
+using System.Linq; 
+using System.Net.Security; 
+using System.Net.Sockets; 
+using System.Security; 
+using System.Security.Authentication; 
+
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,11 +29,17 @@ using Newtonsoft.Json.Linq;
 using Windows.Networking.Sockets;
 using Windows.Networking;
 using Windows.Storage.Streams;
+using Windows.Web.Http;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x407 dokumentiert.
 
 namespace ListenToMe
 {
+
     public partial class MainPage : Page { 
     /// <summary>
     /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
@@ -60,37 +69,34 @@ namespace ListenToMe
         private async void testHttpConnection()
         {
             // Define some variables and set values
-StreamSocket clientSocket = new StreamSocket();
-            //https//"www.timecockpit.com"
-            HostName serverHost = new HostName("www.hs-emden-leer.de");
-string serverServiceName = "http";
+        StreamSocket clientSocket = new StreamSocket();
+            HostName serverHost = new HostName("ecosia.org");
+            string serverServiceName = "https";
 
-// For simplicity, the sample omits implementation of the
-// NotifyUser method used to display status and error messages 
+        // Try to connect to contoso using HTTP (port 80)
+        try {
+            
+            // Call ConnectAsync method with a plain socket
+            await clientSocket.ConnectAsync(serverHost, serverServiceName, SocketProtectionLevel.PlainSocket);
 
-// Try to connect to contoso using HTTP (port 80)
-try {
-    // Call ConnectAsync method with a plain socket
-    await clientSocket.ConnectAsync(serverHost, serverServiceName, SocketProtectionLevel.PlainSocket);
+            NotifyUser("Connected");
 
-    NotifyUser("Connected");
+        }
+        catch (Exception exception) {
+                        Debug.WriteLine("Connection failed.");
+            // If this is an unknown status it means that the error is fatal and retry will likely fail.
+            if (Windows.Networking.Sockets.SocketError.GetStatus(exception.HResult) == SocketErrorStatus.Unknown) {
+                throw;
+            }
 
-}
-catch (Exception exception) {
-                Debug.WriteLine("Connection failed.");
-    // If this is an unknown status it means that the error is fatal and retry will likely fail.
-    if (SocketError.GetStatus(exception.HResult) == SocketErrorStatus.Unknown) {
-        throw;
-    }
+                        NotifyUser("Connect failed with error: " + exception.Message);//, NotifyType.ErrorMessage);
+            // Could retry the connection, but for this simple example
+            // just close the socket.
 
-                NotifyUser("Connect failed with error: " + exception.Message);//, NotifyType.ErrorMessage);
-    // Could retry the connection, but for this simple example
-    // just close the socket.
-
-    clientSocket.Dispose();
-    clientSocket = null; 
-    return;
-}
+            clientSocket.Dispose();
+            clientSocket = null; 
+            return;
+        }
 
 // Now try to sent some data
 DataWriter writer = new DataWriter(clientSocket.OutputStream);
@@ -118,8 +124,8 @@ catch (Exception exception) {
         return;
 }
 
-// Now upgrade the client to use SSL
-try {
+    /*// Now upgrade the client to use SSL
+    try {
     // Try to upgrade to SSL
     await clientSocket.UpgradeToSslAsync(SocketProtectionLevel.Ssl, serverHost);
 
@@ -127,8 +133,8 @@ try {
 
     // Add code to send and receive data 
     // The close clientSocket when done
-}
-catch (Exception exception) {
+    }
+    catch (Exception exception) {
     // If this is an unknown status it means that the error is fatal and retry will likely fail.
     if (SocketError.GetStatus(exception.HResult) == SocketErrorStatus.Unknown) {
         throw;
@@ -139,14 +145,14 @@ catch (Exception exception) {
     clientSocket.Dispose();
     clientSocket = null; 
     return;
-}
+    }*/
         }
 
-        private async void NotifyUser(string message)
+        private void NotifyUser(string message)
         {
             Debug.WriteLine("called Notify. Message: "+message);
-            MessageDialog dialog = new MessageDialog(message);
-            await dialog.ShowAsync();
+            //MessageDialog dialog = new MessageDialog(message);
+            //await dialog.ShowAsync();
         }
 
         private void navigationHelper_SaveState(object sender, SaveStateEventArgs e)
@@ -181,9 +187,125 @@ catch (Exception exception) {
                 await SendMessage(e.Parameter as string, true);
                 await SetListeningAsync(true);
             }
-            testHttpConnection();
+            //testHttpConnection();
+            //testHTTPWebCon();
+            testHelloWorldLogin();
+
             navigationHelper.OnNavigatedTo(e);
     }
+
+        private async void testHelloWorldLogin()
+        {
+            string formUrl = "https://moodle.hs-emden-leer.de/moodle/login/index.php?"; // NOTE: This is the URL the form POSTs to, not the URL of the form (you can find this in the "action" attribute of the HTML's form tag
+            string formParams = string.Format("username={0}&password={1}", "fr6087", "aTXB3Oir");
+          
+            string teamResponse = formUrl+formParams;
+            Debug.WriteLine(teamResponse);
+
+            Windows.Web.Http.HttpClient client = new Windows.Web.Http.HttpClient();
+
+            try
+            {
+                Windows.Web.Http.HttpResponseMessage response = await client.PostAsync(new Uri(teamResponse), null);
+
+                response.EnsureSuccessStatusCode();
+                testWebView.Navigate(new Uri(teamResponse));
+                string responseBody = await response.Content.ReadAsStringAsync();
+
+                Debug.WriteLine(responseBody);
+            }
+            catch (HttpRequestException e)
+            {
+                Debug.WriteLine("\nException Caught!");
+                Debug.WriteLine("Message :{0} ", e.Message);
+            }
+
+        }
+
+        private async void testHTTPWebCon()
+        {
+            var uri = new Uri("http://10.150.50.21/irj/portal/anonymous/login");
+            string returnData = string.Empty;
+            var handler = new HttpClientHandler() { UseCookies = false };
+            var httpClient = new System.Net.Http.HttpClient(handler) { BaseAddress = uri };
+
+            try
+            {
+                //Set up the request
+                httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0");
+                httpClient.DefaultRequestHeaders.Add("Host", "10.150.50.21");
+                httpClient.DefaultRequestHeaders.Add("Referer", "http://10.150.50.21/irj/portal/anonymous/login");
+                httpClient.DefaultRequestHeaders.Add("Connection", "keep-alive");
+                httpClient.DefaultRequestHeaders.Add("AcceptLanguage", "de,en-US;q=0.7,en;q=0.3");
+                httpClient.DefaultRequestHeaders.Add("AcceptEncoding", "gzip, deflate");
+                httpClient.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+
+                //Format the POST data
+                StringBuilder postData = new StringBuilder();
+                postData.Append("login_submit=on&login_do_redirect=1&no_cert_storing=on&j_salt=y8C8h6SDoM5Lih9OlYiQa2ACs4c%3D&j_username=fr6087&j_password=OraEtLabora%211&uidPasswordLogon=Anmelden");
+                using (handler)
+                using (httpClient)
+                {
+                    var req = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, uri);
+                    //reference https://stackoverflow.com/questions/12373738/how-do-i-set-a-cookie-on-httpclients-httprequestmessage
+                    req.Headers.Add("Cookie", "com.sap.engine.security.authentication.original_application_url = GET#ihTSVz9am7qcDynF6Qyz%2FiNnc21FZGAVbAk2TrEFWaojNAECmcOsZRdzgH%2F5VzBGPdM7T8ORPHFRI3PmBTDxV%2BrdvPZqenQyIOyJhBrYQvKR9mGToNomIg%3D%3D; PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMgUABAAAAAgKAAZGUjYwODf%2FAQQwggEABgkqhkiG9w0BBwKggfIwge8CAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGBzzCBzAIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMjIwWjAjBgkqhkiG9w0BCQQxFgQUSbhdInLJC2lw!MpfkbFiOgbPGkIwCQYHKoZIzjgEAwQuMCwCFHCwV9PiKmlq7TWfDJEj!9aq5RhIAhQYOvQGg2OlKW3DUFz3ccmjJvnslw%3D%3D; JSESSIONMARKID=AVDG2Qx20889PgQpiLbUXEWvmZGIKs11zS6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d");
+                    req.Content = new StringContent("application/x-www-form-urlencoded");
+                    //req.Content.Headers.ContentType = new MediaTypeHeaderValue();
+                    req.Content.Headers.ContentLength = 163;
+                    var resp = await httpClient.SendAsync(req);
+                    resp.EnsureSuccessStatusCode();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            finally
+            {
+                httpClient.Dispose();
+            }
+            
+                
+            
+            
+            /*
+            request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.Headers["Host"]= "";
+            request.Headers["UserAgent"] = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0";
+            request.Headers["Referer"] = "";
+            request.Headers["AllowAutoRedirect"] = "true";
+            request.Headers["KeepAlive"] = "true";
+            request.CookieContainer = cookies;
+
+
+            var httpClient = new HttpClient();
+            
+
+                // Always catch network exceptions for async methods
+                try
+                {
+                    var result = await httpClient.GetStringAsync(uri);
+                    Debug.WriteLine("hey, got connected." + result);
+                }
+                catch
+                {
+                    Debug.WriteLine("Connection Failed...........");
+                // Details in ex.Message and ex.HResult.       
+                }
+                finally
+                {
+                    // Once your app is done using the HttpClient object call dispose to 
+                    // free up system resources (the underlying socket and memory used for the object)
+                    httpClient.Dispose();
+                }*/
+             
+            
+
+            
+        }
+
         /// <summary>
         /// simple debugging method
         /// </summary>

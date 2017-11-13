@@ -28,6 +28,9 @@
                     <SymbolIcon Name="symbol" Foreground="White" HorizontalAlignment="Center" Width="50" Symbol="Microphone" />
                 </Button>
             </StackPanel>
+            <StackPanel Orientation="Vertical" Height="920">
+                <WebView Name="testWebView" Source="https://moodle.hs-emden-leer.de/moodle/login/index.php"  Width="1000" Height="527"></WebView>
+            </StackPanel>
             <MediaElement Name="Media"></MediaElement>
 
 
