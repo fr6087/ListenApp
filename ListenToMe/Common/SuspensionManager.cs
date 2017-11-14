@@ -260,7 +260,7 @@ namespace ListenToMe.Common
         }
 
         public SuspensionManagerException(Exception e)
-            : base("SuspensionManager failed", e)
+            : base("SuspensionManager Console.Error.WriteLineAsynced", e)
         {
 
         }

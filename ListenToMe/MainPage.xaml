@@ -5,6 +5,7 @@
     xmlns:local="using:ListenToMe"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:WinRT="using:WinRTXamlToolkit.Controls"
     mc:Ignorable="d">
 
     <ScrollViewer>
@@ -20,15 +21,16 @@
                 </ProgressRing>
 
             </StackPanel>
-            <Frame x:Name="mainFrame" >
-            </Frame>
+            <Frame x:Name="mainFrame" x:FieldModifier="public" >
+             </Frame>
             <StackPanel Orientation="Horizontal">
-                <TextBox Name="text" BorderBrush="Purple" FontSize="18" KeyUp="text_KeyDown" PlaceholderText="Sage etwas oder sage 'Zuhören'" Width="311" Height="45" ></TextBox>
+                <TextBox Name="text" BorderBrush="Purple" FontSize="18" KeyUp="text_KeyDown" PlaceholderText="Sage etwas oder schreibe'Information'" Width="311" Height="45" ></TextBox>
                 <Button Name="button" Background="Purple" Height="50" Width="50" Click="button_Click" >
                     <SymbolIcon Name="symbol" Foreground="White" HorizontalAlignment="Center" Width="50" Symbol="Microphone" />
                 </Button>
             </StackPanel>
             <StackPanel Orientation="Vertical" Height="920">
+                <!--<WinRT:WebBrowser Name="webViewBrowser" Width="1000" Height="527"></WinRT:WebBrowser>-->
                 <WebView Name="testWebView" Source="https://moodle.hs-emden-leer.de/moodle/login/index.php"  Width="1000" Height="527"></WebView>
             </StackPanel>
             <MediaElement Name="Media"></MediaElement>

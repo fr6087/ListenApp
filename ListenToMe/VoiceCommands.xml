@@ -5,22 +5,6 @@
 <AppName> ListenToMe </AppName>
 <Example> You can list example commands here </Example>
 
-<Command Name="Shutdown">
-  <Example> shut down, power off, I'm going to bed </Example>
-  <ListenFor>shut down</ListenFor>
-  <ListenFor>power off</ListenFor>
-  <ListenFor>I'm going to bed</ListenFor>
-  <Feedback> I'll turn myself off </Feedback>
-  <Navigate />
-</Command>
-
-<Command Name="Upload">
-  <Example> Upload file </Example>
-  <ListenFor>upload</ListenFor>
-  <Feedback> I'll open the file upload</Feedback>
-  <Navigate />
-</Command>
-
 <Command Name="Edit">
   <Example> Edit Page </Example>
   <ListenFor RequireAppName="BeforeOrAfterPhrase">Edit [my] {Page} [Page]</ListenFor>
@@ -30,6 +14,34 @@
   <Feedback> I'll open the file upload</Feedback>
   <Navigate />
 </Command>
+
+  <Command Name="Information">
+    <Example> Edit Page </Example>
+    <ListenFor>Information</ListenFor>
+    <ListenFor>
+      What can I say?
+    </ListenFor>
+    <ListenFor>help</ListenFor>
+    <Feedback> I'll open the file upload</Feedback>
+    <VoiceCommandService Target="ListenToMeVoiceCommandService" />
+  </Command>
+  
+<Command Name="Upload">
+  <Example> Upload file </Example>
+  <ListenFor>upload</ListenFor>
+  <Feedback> I'll open the file upload</Feedback>
+  <Navigate />
+</Command>
+  
+  <Command Name="Shutdown">
+    <Example> shut down, power off, I'm going to bed </Example>
+    <ListenFor>shut down</ListenFor>
+    <ListenFor>power off</ListenFor>
+    <ListenFor>I'm going to bed</ListenFor>
+    <Feedback> I'll turn myself off </Feedback>
+    <Navigate />
+  </Command>
+
 
 <PhraseList Label="Page">
   <Item>Address</Item>
@@ -46,22 +58,7 @@
   <AppName> ListenToMe</AppName>
   <Example> HörMirZu, ich gehe zu Bett </Example>
 
-  <Command Name="Shutdown">
-    <Example> Ich gehe zu Bett, Ausschalten </Example>
-    <ListenFor>Ausschalten</ListenFor>
-    <ListenFor>Herunterfahren</ListenFor>
-    <ListenFor>Ich gehe zu Bett {builtin:AppName}</ListenFor>
-    <Feedback> Ich schalte die App aus </Feedback>
-    <!--<VoiceCommandService target="ListenToMeVoiceCommandService"/>-->
-    <Navigate/>
-  </Command>
-
-  <Command Name="Upload">
-    <Example> Datei hochladen</Example>
-   <ListenFor>upload</ListenFor> 
-    <Feedback> Ich öffne den Dateiupload</Feedback>
-    <Navigate />
-  </Command>
+  
 
   <Command Name="Edit">
     <Example> Edit Page </Example>
@@ -72,6 +69,34 @@
     <ListenFor RequireAppName="ExplicitlySpecified">Ändere [meine] {builtin:AppName} {Page}</ListenFor>
     <Feedback> Ich öffne die Seite</Feedback>
     <!--<VoiceCommandService Target="ListenToMeVoiceCommandService"/> -->
+    <Navigate/>
+  </Command>
+  
+  <Command Name="Information">
+    <Example> Edit Page </Example>
+    <ListenFor>Information</ListenFor>
+    <ListenFor>Was kann ich sagen?
+    </ListenFor>
+    <ListenFor>Information</ListenFor>
+    <ListenFor>Hilfe</ListenFor>
+    <Feedback> I'll open the file upload</Feedback>
+    <VoiceCommandService Target="ListenToMeVoiceCommandService" />
+  </Command>
+
+  <Command Name="Upload">
+    <Example> Datei hochladen</Example>
+    <ListenFor>upload</ListenFor>
+    <Feedback> Ich öffne den Dateiupload</Feedback>
+    <Navigate />
+  </Command>
+
+  <Command Name="Shutdown">
+    <Example> Ich gehe zu Bett, Ausschalten </Example>
+    <ListenFor>Ausschalten</ListenFor>
+    <ListenFor>Herunterfahren</ListenFor>
+    <ListenFor>Ich gehe zu Bett {builtin:AppName}</ListenFor>
+    <Feedback> Ich schalte die App aus </Feedback>
+    <!--<VoiceCommandService target="ListenToMeVoiceCommandService"/>-->
     <Navigate/>
   </Command>
 

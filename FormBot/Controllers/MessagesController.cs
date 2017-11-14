@@ -7,6 +7,10 @@ using Microsoft.Bot.Connector;
 
 namespace FormBot
 {
+    /// <summary>
+    /// POST: api/Messages
+    /// Receive a message from a user and reply to it
+    /// </summary>
     [BotAuthentication]
     public class MessagesController : ApiController
     {
@@ -18,7 +22,7 @@ namespace FormBot
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                await Conversation.SendAsync(activity, () => new Dialogs.LuisDialog());
+                await Conversation.SendAsync(activity, () => new Dialogs.LuisDialog().DefaultIfException());
             }
             else
             {

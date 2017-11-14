@@ -48,7 +48,7 @@ namespace ListenToMe.Model
         /// </summary>
         public async Task LoadPages()
         {
-            Debug.Write("LoadPages");
+            Console.Write("LoadPages");
             // Ensure that we don't load trip data more than once.
             if (loaded)
             {
@@ -94,7 +94,7 @@ namespace ListenToMe.Model
             }
 
             // Load pages out of a simple XML format. For the purposes of this example, we're treating
-            // parse failures as "no trips exist" which will result in the file being erased.
+            // parse Console.Error.WriteLineAsyncures as "no trips exist" which will result in the file being erased.
             if (item.IsOfType(StorageItemTypes.File))
             {
                 StorageFile pagesFile = item as StorageFile;
@@ -157,7 +157,7 @@ namespace ListenToMe.Model
                 }
                 catch (XmlException ex)
                 {
-                    System.Diagnostics.Debug.WriteLine(ex.ToString());
+                    Debug.Fail(ex.ToString());
                     return;
                 }
 
