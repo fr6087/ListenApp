@@ -36,7 +36,7 @@ namespace ListenToMe.Common
             {
                 var type = typeof(T);
             
-            Console.Write(parameter.ToString());
+            Debug.Write(parameter.ToString());
             
                 return Navigate(type, parameter);
             }
@@ -49,18 +49,7 @@ namespace ListenToMe.Common
             /// <returns></returns>
             public bool Navigate(Type t, object parameter = null)
             {
-            
-               /* if(parameter is Frame)
-                {
-                    Frame givenFrame = parameter as Frame;
-                    return givenFrame.Navigate(t);
-                }
-                else
-                {*/
-                     Debug.WriteLine("Navigate at NavigationService");
-                    return frame.Navigate(t, parameter);
-               // }
-               
+                return frame.Navigate(t, parameter);
             }
 
             /// <summary>

@@ -42,7 +42,7 @@
       </uap:VisualElements>
       <Extensions>
         <uap:Extension Category="windows.appService" EntryPoint="ListenToMe.VoiceCommands.ListenToMeVoiceCommandService">
-          <uap:AppService Name="ListenToMeVoiceCommandService" a:SupportsMultipleInstances="true" xmlns:a="http://schemas.microsoft.com/appx/manifest/uap/windows10/4"/>
+          <uap:AppService Name="ListenToMeVoiceCommandService"/>
         </uap:Extension>
         <uap:Extension Category="windows.personalAssistantLaunch"/>
       </Extensions>

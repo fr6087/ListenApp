@@ -34,7 +34,7 @@ namespace ListenToMe.Model
                 query);
 
             var result = await response.Content.ReadAsStringAsync();
-            Console.Write(result);
+            Debug.Write(result);
             var serializer = new DataContractJsonSerializer(typeof(Rootobject));
 
 

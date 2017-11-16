@@ -42,11 +42,10 @@ namespace ListenToMe.ESF_2
 
         private void buttonGoTo2_ClickAsync(object sender, RoutedEventArgs e)
         {
-           // if (ValidatePage())
-           // {
-                App.NavigationService.Navigate(typeof(AddressPage), Frame);
-                //Frame.Navigate(typeof(AddressPage));
-           // }
+            if (ValidatePage())
+            {
+                Frame.Navigate(typeof(AddressPage));
+            }
             
         }
 
@@ -64,7 +63,7 @@ namespace ListenToMe.ESF_2
             mandatoryBoxes[1] = _13givenName;
             mandatoryBoxes[2] = _13surname;
             mandatoryBoxes[3] = _13telephone;
-            //Contract.ContractConsole.Error.WriteLineAsynced += new EventHandler<ContractConsole.Error.WriteLineAsyncedEventArgs>(Contract_ContractConsole.Error.WriteLineAsyncedAsync);
+            //Contract.ContractFailed += new EventHandler<ContractFailedEventArgs>(Contract_ContractFailedAsync);
 
             bool success;
             Contract.Assert(success= ValidationHelper.MandatoryFieldsFilled(mandatoryBoxes), "Bitte Pflichtfelder ausfüllen: "+ getMandatoryFieldNames());  

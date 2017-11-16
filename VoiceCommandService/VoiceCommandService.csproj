@@ -7,7 +7,7 @@
     <ProjectGuid>{E8B176DD-02A3-4279-B819-D8A46F675D49}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ListenToMe.VoiceCommands</RootNamespace>
+    <RootNamespace>VoiceCommandService</RootNamespace>
     <AssemblyName>VoiceCommandService</AssemblyName>
     <DefaultLanguage>de-DE</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
@@ -114,9 +114,12 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.1</Version>
     </PackageReference>
-    <PackageReference Include="System.Console">
-      <Version>4.3.0</Version>
-    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ListenToMe\ListenToMe.csproj">
+      <Project>{72b08cb8-6f57-4c46-9188-e8fdadeb0745}</Project>
+      <Name>ListenToMe</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

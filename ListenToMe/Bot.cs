@@ -72,23 +72,15 @@ namespace VoiceCommandService
                     try
                     {
                         myObject= await Proxy.GetJSON(message);//toDo return the rootobject (because it also has discovered entities)
-                        
-                        if (String.IsNullOrWhiteSpace(myObject.topScoringIntent.intent))
-                        {
-                            Debug.WriteLine("Error at Bot.SendMessageAndGetIntentFromBot");
-                        }
-                        else
-                        {
-                            var topscoringIntent = myObject.topScoringIntent;
-                            intent = topscoringIntent.intent;
-                        }
+                        var topscoringIntent = myObject.topScoringIntent;
+                        intent = topscoringIntent.intent;
                         Debug.WriteLine("topScoringIntent" + intent);
 
                     }
                     catch (Exception e)
                     {
                         // no op
-                        Debug.Fail(e.Message);
+                        Debug.WriteLine(e.Message);
                     }
                     Debug.WriteLine("Bot is returning "+myObject.ToString());
                     return myObject;
@@ -104,7 +96,7 @@ namespace VoiceCommandService
             var conversation = await _directLine.Conversations.NewConversationWithHttpMessagesAsync();
             _conversationId = conversation.Body.ConversationId;
 
-            Debug.WriteLine("Bot connection set up.");
+            System.Diagnostics.Debug.WriteLine("Bot connection set up.");
         }
 
         private async Task<string> GetResponse()
@@ -120,19 +112,19 @@ namespace VoiceCommandService
                 {
                     // select latest message -- the response
                     var text = messages[messages.Count()-1].Text;
-                    Debug.WriteLine("Response from bot was: " + text);
+                    System.Diagnostics.Debug.WriteLine("Response from bot was: " + text);
 
                     return text;
                 }
                 else
                 {
-                    Debug.WriteLine("Response from bot was empty.");
+                    System.Diagnostics.Debug.WriteLine("Response from bot was empty.");
                     return string.Empty;
                 }
             }
             catch (Exception ex)
             {
-                Debug.Fail(ex.ToString());
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
 
                 throw;
             }
@@ -144,23 +136,23 @@ namespace VoiceCommandService
         {
             try
             {
-                Debug.WriteLine("Sending bot message");
+                System.Diagnostics.Debug.WriteLine("Sending bot message");
 
                 var msg = new Message();
                 msg.Text = message;
 
 
-                Debug.WriteLine("Posting");
+                System.Diagnostics.Debug.WriteLine("Posting");
 
                 await _directLine.Conversations.PostMessageAsync(_conversationId, msg);
 
-                Debug.WriteLine("Post complete");
+                System.Diagnostics.Debug.WriteLine("Post complete");
 
                 return await GetResponse();
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.ToString());
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
 
                 throw;
             }
