@@ -5,6 +5,7 @@
     xmlns:local="using:ListenToMe"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:forms="using:System.Windows.Forms"
     mc:Ignorable="d">
 
     <ScrollViewer>
@@ -29,7 +30,8 @@
                 </Button>
             </StackPanel>
             <StackPanel Orientation="Vertical" Height="920">
-                <WebView Name="testWebView" Source="https://moodle.hs-emden-leer.de/moodle/login/index.php"  Width="1000" Height="527"></WebView>
+                <WebView Name="testWebView" Source="http://10.150.50.21/irj/portal/anonymous/login"  Width="1000" Height="527"></WebView>
+                <!--<forms:WebBrowser Name="testWebView"></forms:WebBrowser>-->
             </StackPanel>
             <MediaElement Name="Media"></MediaElement>
 

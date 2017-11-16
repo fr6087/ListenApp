@@ -266,6 +266,12 @@
   <ItemGroup>
     <None Include="project.json" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VoiceCommandService\VoiceCommandService.csproj">
+      <Project>{e8b176dd-02a3-4279-b819-d8a46f675d49}</Project>
+      <Name>VoiceCommandService</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

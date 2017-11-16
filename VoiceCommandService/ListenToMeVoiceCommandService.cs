@@ -111,20 +111,21 @@ namespace ListenToMe.VoiceCommands
                     switch (voiceCommand.CommandName)
                     {
                         case "Shutdown":
-                            var destination = voiceCommand.Properties["destination"][0];
-                            await SendCompletionMessageForDestinationAsync(destination);
+                            //var destination = voiceCommand.Properties["destination"][0];
+                            //await SendCompletionMessageForDestinationAsync(destination);
                             break;
                         case "Edit":
-                            var cancelDestination = voiceCommand.Properties["destination"][0];
-                            await SendCompletionMessageForCancellationAsync(cancelDestination);
+                            Debug.WriteLine("called Edit.");
+                            //var cancelDestination = voiceCommand.Properties["destination"][0];
+                            //await SendCompletionMessageForCancellationAsync(cancelDestination);
                             break;
                         case "Page":
-                            var pageName = voiceCommand.Properties["destination"][0];
-                            await SendCompletionMessageForCancellationAsync(pageName);
+                            //var pageName = voiceCommand.Properties["destination"][0];
+                            //await SendCompletionMessageForCancellationAsync(pageName);
                             break;
                         case "Upload":
-                            var uploadFile = voiceCommand.Properties["destination"][0];
-                            await SendCompletionMessageForCancellationAsync(uploadFile);
+                            //var uploadFile = voiceCommand.Properties["destination"][0];
+                            //await SendCompletionMessageForCancellationAsync(uploadFile);
                             break;
                         default:
                             // As with app activation VCDs, we need to handle the possibility that
@@ -140,7 +141,7 @@ namespace ListenToMe.VoiceCommands
                 }
             }
         }
-
+        /*
         private async Task SendCompletionMessageForDestinationAsync(string destination)
         {
             // If this operation is expected to take longer than 0.5 seconds, the task must
@@ -151,7 +152,7 @@ namespace ListenToMe.VoiceCommands
                        destination);
             await ShowProgressScreenAsync(loadingPageToEdit);
             //Model.TripStore store = new Model.TripStore(); 
-            ListenToMe.Model.PageStore store = new ListenToMe.Model.PageStore();
+            //ListenToMe.Model.PageStore store = new ListenToMe.Model.PageStore();
             //await store.LoadTrips();
             await store.LoadPages();
 
@@ -159,7 +160,7 @@ namespace ListenToMe.VoiceCommands
             // provided, and the subsequently updated phrase list, so it should be a 1:1 match, including case.
             // However, we might have multiple trips to the destination. For now, we just pick the first.
             //IEnumerable<Model.Trip> trips = store.Trips.Where(p => p.Destination == destination);
-            IEnumerable<ListenToMe.Model.Page> pages = store.Pages.Where(page => page.destination == destination);
+            //IEnumerable<ListenToMe.Model.Page> pages = store.Pages.Where(page => page.destination == destination);
             var userMessage = new VoiceCommandUserMessage();
             var destinationsContentTiles = new List<VoiceCommandContentTile>();
             if (pages.Count() == 0)
@@ -185,7 +186,7 @@ namespace ListenToMe.VoiceCommands
                 else
                 {
                     message = cortanaResourceMap.GetValue("SingularUpcomingTrip", cortanaContext).ValueAsString;
-                }*/
+                }
                 userMessage.DisplayMessage = message;
                 userMessage.SpokenMessage = message;
 
@@ -210,7 +211,7 @@ namespace ListenToMe.VoiceCommands
                         destinationTile.TextLine1 = page.StartDate.Value.ToString(dateFormatInfo.LongDatePattern);
                     }
                     else
-                    {*/
+                    {
                     destinationTile.TextLine1 = page.destination + " " + i;
                     //}
 
@@ -227,8 +228,9 @@ namespace ListenToMe.VoiceCommands
             }
 
             await voiceServiceConnection.ReportSuccessAsync(response);
-        }
+        }*/
 
+            /*
         /// <summary>
         /// search for and find single page in cortana
         /// </summary>
@@ -243,13 +245,13 @@ namespace ListenToMe.VoiceCommands
                        cortanaResourceMap.GetValue("LoadingTripToDestination", cortanaContext).ValueAsString,
                        destination);
             await ShowProgressScreenAsync(loadingPageToDestination);
-            ListenToMe.Model.PageStore store = new ListenToMe.Model.PageStore();
-            await store.LoadPages();
+            //ListenToMe.Model.PageStore store = new ListenToMe.Model.PageStore();
+            //await store.LoadPages();
 
             // Look for the specified trip. The destination *should* be pulled from the grammar we
             // provided, and the subsequently updated phrase list, so it should be a 1:1 match, including case.
             // However, we might have multiple trips to the destination. For now, we just pick the first.
-            IEnumerable<ListenToMe.Model.Page> pages = store.Pages.Where(p => p.destination == destination);
+            //IEnumerable<ListenToMe.Model.Page> pages = store.Pages.Where(p => p.destination == destination);
 
             var userMessage = new VoiceCommandUserMessage();
             var destinationsContentTiles = new List<VoiceCommandContentTile>();
@@ -300,7 +302,7 @@ namespace ListenToMe.VoiceCommands
                         destinationTile.TextLine1 = page.StartDate.Value.ToString(dateFormatInfo.LongDatePattern);
                     }
                     else
-                    {*/
+                    {
                     destinationTile.TextLine1 = page.destination + " " + i;
                     //}
 
@@ -318,7 +320,7 @@ namespace ListenToMe.VoiceCommands
 
             await voiceServiceConnection.ReportSuccessAsync(response);
         }
-
+*/
         private async Task ShowProgressScreenAsync(string message)
         {
             var userProgressMessage = new VoiceCommandUserMessage();

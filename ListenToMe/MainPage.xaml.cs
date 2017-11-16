@@ -1,14 +1,6 @@
 ﻿using ListenToMe.Common;
 using System;
-using System.Collections.Generic;
-using System.Globalization; 
-using System.IO; 
-using System.Linq; 
-using System.Net.Security; 
-using System.Net.Sockets; 
-using System.Security; 
-using System.Security.Authentication; 
-
+using System.Collections.Generic; 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -60,9 +52,31 @@ namespace ListenToMe
         this.navigationHelper = new NavigationHelper(this);
         this.navigationHelper.LoadState += navigationHelper_LoadState;
         this.navigationHelper.SaveState += navigationHelper_SaveState;
+
+            testWebView.InvokeScriptAsync("eval", new[]
+            {
+                @"(function()
+                {
+                    for (var i = 0; i < document.links.length; i++) { document.links[i].onclick = function() { window.external.notify('LaunchLink:' + this.href); return false; } }
+                    
+
+                    // Codestrecke 2
+                    var hyperlinks = document.getElementsByTagName('a');
+                    for(var i = 0; i < hyperlinks.length; i++)
+                    {
+                        if(hyperlinks[i].getAttribute('target') != null)
+                        {
+                            hyperlinks[i].setAttribute('target', '_self');
+                        }
+                    }
+                })()"
+            });
+
+            testWebView.ScriptNotify += WebView_ScriptNotify;
+
             //loadFormESF_2Pages();
 
-        mainFrame.Navigate(typeof(CompanyPage), mainFrame);
+            mainFrame.Navigate(typeof(CompanyPage), mainFrame);
         
     }
 
@@ -189,9 +203,10 @@ catch (Exception exception) {
             }
             //testHttpConnection();
             //testHTTPWebCon();
-            testHelloWorldLogin();
-
+           // testHelloWorldLogin();
+           
             navigationHelper.OnNavigatedTo(e);
+            testWebView.Navigate(new Uri(testWebView.Source+ "?login_submit=on&login_do_redirect=1&no_cert_storing=on&j_salt=y8C8h6SDoM5Lih9OlYiQa2ACs4c%3D&j_username=fr6087&j_password=OraEtLabora%211&uidPasswordLogon=Anmelden"));
     }
 
         private async void testHelloWorldLogin()
@@ -222,12 +237,31 @@ catch (Exception exception) {
 
         }
 
+        async private void WebView_ScriptNotify(object sender, NotifyEventArgs e)
+        {
+            try
+            {
+                string data = e.Value;
+                Debug.WriteLine("foo");
+                if (data.ToLower().StartsWith("launchlink:"))
+                {
+                    Debug.WriteLine(new Uri(data.Substring("launchlink:".Length), UriKind.Absolute).ToString());
+
+                    // await Launcher.LaunchUriAsync(new Uri(data.Substring("launchlink:".Length), UriKind.Absolute));
+                }
+            }
+            catch (Exception)
+            {
+                // Could not build a proper Uri. Abandon.
+            }
+        }
         private async void testHTTPWebCon()
         {
             var uri = new Uri("http://10.150.50.21/irj/portal/anonymous/login");
             string returnData = string.Empty;
             var handler = new HttpClientHandler() { UseCookies = false };
             var httpClient = new System.Net.Http.HttpClient(handler) { BaseAddress = uri };
+            
 
             try
             {
@@ -251,6 +285,7 @@ catch (Exception exception) {
                     req.Headers.Add("Cookie", "com.sap.engine.security.authentication.original_application_url = GET#ihTSVz9am7qcDynF6Qyz%2FiNnc21FZGAVbAk2TrEFWaojNAECmcOsZRdzgH%2F5VzBGPdM7T8ORPHFRI3PmBTDxV%2BrdvPZqenQyIOyJhBrYQvKR9mGToNomIg%3D%3D; PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMgUABAAAAAgKAAZGUjYwODf%2FAQQwggEABgkqhkiG9w0BBwKggfIwge8CAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGBzzCBzAIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMjIwWjAjBgkqhkiG9w0BCQQxFgQUSbhdInLJC2lw!MpfkbFiOgbPGkIwCQYHKoZIzjgEAwQuMCwCFHCwV9PiKmlq7TWfDJEj!9aq5RhIAhQYOvQGg2OlKW3DUFz3ccmjJvnslw%3D%3D; JSESSIONMARKID=AVDG2Qx20889PgQpiLbUXEWvmZGIKs11zS6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d");
                     req.Content = new StringContent("application/x-www-form-urlencoded");
                     //req.Content.Headers.ContentType = new MediaTypeHeaderValue();
+                    testWebView.Navigate(new Uri(uri + "?" + postData.ToString()));
                     req.Content.Headers.ContentLength = 163;
                     var resp = await httpClient.SendAsync(req);
                     resp.EnsureSuccessStatusCode();
