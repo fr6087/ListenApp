@@ -123,7 +123,6 @@ namespace ListenToMe
         protected async override void OnActivated(IActivatedEventArgs e)
         {
             base.OnActivated(e);
-            Type navigationToPageType;
             Model.ListenToMeVoiceCommand.VoiceCommand? navigationCommand = null;
 
             MessageDialog dialog = new MessageDialog("");
@@ -134,13 +133,14 @@ namespace ListenToMe
                 
                 string commandName = result.RulePath[0];
                 Debug.Write("command found: " + commandName);
-                //dialog.Content = "You have a voice command activation";
-                //await dialog.ShowAsync();
-                switch (commandName)
+                dialog.Content = "You have a voice command activation";
+                await dialog.ShowAsync();
+                await performCommandAsync(commandName);
+
+                /*switch (commandName)
                 {
                     case "Shutdown":
                         dialog.Content = "shut computer down.";
-
                         Debug.WriteLine("found shut down command");
                         await dialog.ShowAsync();
                         Application.Current.Exit();
@@ -162,7 +162,7 @@ namespace ListenToMe
                         break;
 
 
-                }
+                }*/
             }
             else if (e.Kind == ActivationKind.Protocol)
             {
@@ -186,16 +186,17 @@ namespace ListenToMe
                 
                 MessageDialog mymessage = new MessageDialog("Todo here some navigation by protocol ");
                 await mymessage.ShowAsync();
-                navigationToPageType = typeof(ESF_2.CompanyPage);
+                //--navigationToPageType = typeof(ESF_2.CompanyPage);
+                NavigationService.Navigate(typeof(ESF_2.CompanyPage), navigationCommand);
             }
             else
             {
-            dialog.Content = "something else";
-            await dialog.ShowAsync();
+                dialog.Content = "something else";
+                await dialog.ShowAsync();
                 // If we were launched via any other mechanism, fall back to the main page view.
                 // Otherwise, we'll hang at a splash screen.
                 //navigationToPageType = typeof(View.TripListView);
-                navigationToPageType = typeof(MainPage);
+                //--navigationToPageType = typeof(MainPage);
             }
 
             // Repeat the same basic initialization as OnLaunched() above, taking into account whether
@@ -216,17 +217,81 @@ namespace ListenToMe
                     Window.Current.Content = rootFrame;
                 }
 
-                // Since we're expecting to always show a details page, navigate even if 
-                // a content frame is in place (unlike OnLaunched).
-                // Navigate to either the main trip list page, or if a valid voice command
-                // was provided, to the details page for that trip.
-                rootFrame.Navigate(navigationToPageType, navigationCommand);
-
+            // Since we're expecting to always show a details page, navigate even if 
+            // a content frame is in place (unlike OnLaunched).
+            // Navigate to either the main trip list page, or if a valid voice command
+            // was provided, to the details page for that trip.
+            //--rootFrame.Navigate(navigationToPageType, navigationCommand);
+            NavigationService.Navigate(typeof(MainPage), navigationCommand);
                 // Ensure the current window is active
                 Window.Current.Activate();
 
             }
-        
+
+        private async Task performCommandAsync(string commandName)
+        {
+
+            Frame bigFrame = Window.Current.Content as Frame;
+            MessageDialog message = new MessageDialog("sss"+bigFrame.Name);
+            await message.ShowAsync();
+            //toDo prevent this if current Page is already mainpage 
+            //if (bigFrame.Content == null)
+            //{
+                bigFrame.Content = new MainPage();
+            //}
+            var page = (MainPage)bigFrame.Content;
+            Frame subFrame = page.mainFrame;
+           // message.Content = "sss" + subFrame.Name;
+           // await message.ShowAsync();
+
+            Window.Current.Content = bigFrame;
+            MessageDialog dialog = new MessageDialog("");
+            switch (commandName)
+            {
+                //do something
+                case "Edit":
+                    dialog.Content = "Edit";//result.RulePath[1];
+                    Debug.WriteLine("found 2 edit command ");
+                    await dialog.ShowAsync();
+                    NavigationService nana = new NavigationService(subFrame);
+
+                    nana.Navigate(typeof(ConfirmationsPage));
+
+                    //dialog.Content = "have now page " + page;
+                    //await dialog.ShowAsync();
+                    break;
+
+                case "Information":
+                    VoiceCommandUserMessage messageM = new VoiceCommandUserMessage();
+                    messageM.DisplayMessage = "You can say: 'Edit <Field xyz>' or 'Shutdown'";
+                    Debug.WriteLine("found information command");
+                    //Application.Current.Exit();
+                    //return typeof(MainPage);
+                    break;
+                case "Menu":
+                    dialog.Content = "showing menu";
+                    Debug.WriteLine("found shut down command");
+                    await dialog.ShowAsync();
+                    Debug.WriteLine("found information command");
+                    NavigationService.Navigate(typeof(MainPage));
+                    break;
+                case "Shutdown":
+                    dialog.Content = "shut computer down.";
+                    Debug.WriteLine("found shut down command");
+                    await dialog.ShowAsync();
+                    Application.Current.Exit();
+                    break;// return typeof(MainPage);
+                default:
+                    Debug.WriteLine("Couldn't find command name");
+                    dialog.Content = "default of onActivated";
+                    await dialog.ShowAsync();
+                    NavigationService.Navigate(typeof(MainPage));
+                    break;
+                    //return typeof(MainPage);
+
+            }
+        }
+
 
         /// <summary>
         /// Wird aufgerufen, wenn die Navigation auf eine bestimmte Seite fehlschlägt

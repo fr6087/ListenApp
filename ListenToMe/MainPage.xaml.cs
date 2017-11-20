@@ -26,6 +26,8 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using HtmlAgilityPack;
+using System.Linq;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x407 dokumentiert.
 
@@ -38,11 +40,14 @@ namespace ListenToMe
     /// </summary>
     NavigationHelper navigationHelper;
     bool listening = false;
+        //public event NotifyEventHandler ScriptNotify<testWebView>;
         private SpeechRecognizer speechRecognizerContinuous;
         private VoiceCommandService.Bot bot;
         private SpeechRecognizer speechRecognizer;
         private ObservableCollection<Message> messages; //toDo needed?
         private ManualResetEvent manualResetEvent;
+        private String userName = "fr6087";
+        private String password = "OraEtLabora%211";
 
         public MainPage()
     {
@@ -52,12 +57,38 @@ namespace ListenToMe
         this.navigationHelper = new NavigationHelper(this);
         this.navigationHelper.LoadState += navigationHelper_LoadState;
         this.navigationHelper.SaveState += navigationHelper_SaveState;
+            
+           
 
-            testWebView.InvokeScriptAsync("eval", new[]
-            {
+            testWebView.ScriptNotify += WebView_ScriptNotify;
+            testWebView.NavigationStarting += webView_OnNavigationStarting;
+            //testWebView.NavigationCompleted += webView_OnNavigationCompletedAsync;
+
+            //loadFormESF_2Pages();
+
+            mainFrame.Navigate(typeof(CompanyPage), mainFrame);
+        
+        
+    }
+        private void webView_OnNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        {
+            Debug.WriteLine("Navigation Starting");
+        }
+
+        //does not have any effects at all as far at all
+        private async void webView_OnNavigationCompletedAsync(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            Debug.WriteLine("called CompletedNavigation.");
+            await testWebView.InvokeScriptAsync("eval", new[]
+           {
                 @"(function()
                 {
-                    for (var i = 0; i < document.links.length; i++) { document.links[i].onclick = function() { window.external.notify('LaunchLink:' + this.href); return false; } }
+                    for (var i = 0; i < document.links.length; i++) { 
+                        document.links[i].onclick = function() { 
+                                window.external.notify('LaunchLink:' + this.href); 
+                                return false; 
+                        }
+                    }
                     
 
                     // Codestrecke 2
@@ -71,14 +102,7 @@ namespace ListenToMe
                     }
                 })()"
             });
-
-            testWebView.ScriptNotify += WebView_ScriptNotify;
-
-            //loadFormESF_2Pages();
-
-            mainFrame.Navigate(typeof(CompanyPage), mainFrame);
-        
-    }
+        }
 
         private async void testHttpConnection()
         {
@@ -112,61 +136,38 @@ namespace ListenToMe
             return;
         }
 
-// Now try to sent some data
-DataWriter writer = new DataWriter(clientSocket.OutputStream);
-string hello = "Hello World ☺ ";
-Int32 len = (int) writer.MeasureString(hello); // Gets the UTF-8 string length.
-writer.WriteInt32(len);
-writer.WriteString(hello);
-NotifyUser("Client: sending hello");
+        // Now try to sent some data
+        DataWriter writer = new DataWriter(clientSocket.OutputStream);
+        string hello = "Hello World ☺ ";
+        Int32 len = (int) writer.MeasureString(hello); // Gets the UTF-8 string length.
+        writer.WriteInt32(len);
+        writer.WriteString(hello);
+        NotifyUser("Client: sending hello");
 
-try {
-    // Call StoreAsync method to store the hello message
-    await writer.StoreAsync();
+        try {
+            // Call StoreAsync method to store the hello message
+            await writer.StoreAsync();
 
-    NotifyUser("Client: sent data");
+            NotifyUser("Client: sent data");
 
-    writer.DetachStream(); // Detach stream, if not, DataWriter destructor will close it.
+            writer.DetachStream(); // Detach stream, if not, DataWriter destructor will close it.
+        }
+        catch (Exception exception) {
+            NotifyUser("Store failed with error: " + exception.Message);
+            // Could retry the store, but for this simple example
+            // just close the socket.
+
+            clientSocket.Dispose();
+            clientSocket = null; 
+            return;
 }
-catch (Exception exception) {
-    NotifyUser("Store failed with error: " + exception.Message);
-    // Could retry the store, but for this simple example
-        // just close the socket.
-
-        clientSocket.Dispose();
-        clientSocket = null; 
-        return;
-}
-
-    /*// Now upgrade the client to use SSL
-    try {
-    // Try to upgrade to SSL
-    await clientSocket.UpgradeToSslAsync(SocketProtectionLevel.Ssl, serverHost);
-
-    NotifyUser("Client: upgrade to SSL completed");
-
-    // Add code to send and receive data 
-    // The close clientSocket when done
-    }
-    catch (Exception exception) {
-    // If this is an unknown status it means that the error is fatal and retry will likely fail.
-    if (SocketError.GetStatus(exception.HResult) == SocketErrorStatus.Unknown) {
-        throw;
-    }
-
-    NotifyUser("Upgrade to SSL failed with error: " + exception.Message);
-
-    clientSocket.Dispose();
-    clientSocket = null; 
-    return;
-    }*/
         }
 
-        private void NotifyUser(string message)
+        private async void NotifyUser(string message)
         {
             Debug.WriteLine("called Notify. Message: "+message);
-            //MessageDialog dialog = new MessageDialog(message);
-            //await dialog.ShowAsync();
+            MessageDialog dialog = new MessageDialog(message);
+            await dialog.ShowAsync();
         }
 
         private void navigationHelper_SaveState(object sender, SaveStateEventArgs e)
@@ -202,12 +203,12 @@ catch (Exception exception) {
                 await SetListeningAsync(true);
             }
             //testHttpConnection();
-            //testHTTPWebCon();
-           // testHelloWorldLogin();
-           
+            //testHTTPWebCon(); !broken
+            //testHelloWorldLogin();
+            //testWebView.Navigate(new Uri("https://friederike-geissler.jimdo.com/deutsch/kontakt/"));
+            postFieldValues(new KeyValuePair<string, string>("field","value"));
             navigationHelper.OnNavigatedTo(e);
-            testWebView.Navigate(new Uri(testWebView.Source+ "?login_submit=on&login_do_redirect=1&no_cert_storing=on&j_salt=y8C8h6SDoM5Lih9OlYiQa2ACs4c%3D&j_username=fr6087&j_password=OraEtLabora%211&uidPasswordLogon=Anmelden"));
-    }
+   }
 
         private async void testHelloWorldLogin()
         {
@@ -239,10 +240,11 @@ catch (Exception exception) {
 
         async private void WebView_ScriptNotify(object sender, NotifyEventArgs e)
         {
+            Debug.WriteLine("ScriptNotify called");
             try
             {
                 string data = e.Value;
-                Debug.WriteLine("foo");
+               
                 if (data.ToLower().StartsWith("launchlink:"))
                 {
                     Debug.WriteLine(new Uri(data.Substring("launchlink:".Length), UriKind.Absolute).ToString());
@@ -255,10 +257,144 @@ catch (Exception exception) {
                 // Could not build a proper Uri. Abandon.
             }
         }
-        private async void testHTTPWebCon()
+        // http://10.150.50.21/formularservice/formular/A_FOREX_ANTRAG_ESF_2/appl/d556026e-991d-11e7-9fb1-27c0f1da4ec4/?lang=de&backURL=aHR0cCUzQSUyRiUyRjEwLjE1MC41MC4yMSUyRmlyaiUyRnBvcnRhbCUzRk5hdmlnYXRpb25UYXJnZXQlM0RST0xFUyUzQSUyRnBvcnRhbF9jb250ZW50JTJGRVUtRExSX1JlZmFjdG9yaW5nJTJGT0FNX1BPUlRBTF9BUFBMSUNBTlRfSU5ESVZJRFVBTCUyRk9ubGluZUFwcGxpY2F0aW9uQUUlMjZhcHBsaWNhdGlvbklEJTNEODEwMDQ3MTA%3D&transactionID=436e9272-0b2a-4db9-8200-cd70e4b85689
+        private async void postFieldValuesSuccess(KeyValuePair<String, String> keyValuePair)
+        {
+            var uri =new Uri("https://friederike-geissler.jimdo.com/deutsch/kontakt/");
+            var handler = new HttpClientHandler() { UseCookies = false };
+            var httpClient = new Windows.Web.Http.HttpClient();
+
+            using (handler)
+            using (httpClient)
+            {
+                var req = new Windows.Web.Http.HttpRequestMessage(Windows.Web.Http.HttpMethod.Get, uri);
+                req.Headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+                req.Headers["Accept-Language"] = "de,en-US;q=0.7,en;q=0.3";
+                req.Headers["Accept-Encoding"] = "gzip, deflate, br";
+                req.Headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0";
+                req.Headers["Connection"] = "keep-alive";
+                req.Headers["Host"] = "friederike-geissler.jimdo.com";
+                testWebView.NavigateWithHttpRequestMessage(req);
+                //req.Content.Headers.ContentLength = 163;
+                var resp = await httpClient.SendRequestAsync(req);
+                var respForm = await httpClient.SendRequestAsync(new Windows.Web.Http.HttpRequestMessage(Windows.Web.Http.HttpMethod.Get, uri));
+                readResponse(resp);
+                resp.EnsureSuccessStatusCode();
+
+            }
+
+        }
+        private async void postFieldValues(KeyValuePair<String, String> keyValuePair)
+        {
+           var httpClient = new Windows.Web.Http.HttpClient();
+            Uri loginUri = new Uri("http://10.150.50.21/irj/portal"+"?"+ "login_submit=on&login_do_redirect=1&no_cert_storing=on&j_salt=y8C8h6SDoM5Lih9OlYiQa2ACs4c%3D&j_username="+userName+"&j_password="+password+"&uidPasswordLogon=Anmelden");
+            using (httpClient)
+            {
+                //first request
+                Uri uri1 = new Uri("http://10.150.50.21/irj/portal/anonymous/login"+"?"+ "login_submit=on&login_do_redirect=1&no_cert_storing=on&j_salt=y8C8h6SDoM5Lih9OlYiQa2ACs4c%3D&j_username="+userName+"&j_password="+password+"&uidPasswordLogon=Anmelden");
+                var req = new Windows.Web.Http.HttpRequestMessage(Windows.Web.Http.HttpMethod.Get, uri1);
+                req.Headers["Accept"] = "text/html,application/xhtml+xml,application/xml; q=0.9,*/*; q=0.8";
+                req.Headers["Accept-Language"] = "de-DE";
+                req.Headers["Accept-Encoding"] = "gzip, deflate";
+                req.Headers["User-Agent"] = "Mozilla/5.0(Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0";
+                req.Headers["Connection"] = "Keep-Alive";
+                req.Headers["Host"] = "10.150.50.21";
+                req.Headers["Cookie"] = "com.sap.engine.security.authentication.original_application_url = GET#ihTSVz9am7qcDynF6Qyz%2FiNnc21FZGAVbAk2TrEFWaojNAECmcOsZRdzgH%2F5VzBGPdM7T8ORPHFRI3PmBTDxV%2BrdvPZqenQyIOyJhBrYQvKR9mGToNomIg%3D%3D; PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMgUABAAAAAgKAAZGUjYwODf%2FAQQwggEABgkqhkiG9w0BBwKggfIwge8CAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGBzzCBzAIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMjIwWjAjBgkqhkiG9w0BCQQxFgQUSbhdInLJC2lw!MpfkbFiOgbPGkIwCQYHKoZIzjgEAwQuMCwCFHCwV9PiKmlq7TWfDJEj!9aq5RhIAhQYOvQGg2OlKW3DUFz3ccmjJvnslw%3D%3D; JSESSIONMARKID=AVDG2Qx20889PgQpiLbUXEWvmZGIKs11zS6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d";
+                testWebView.NavigateWithHttpRequestMessage(req);
+                var resp = await httpClient.SendRequestAsync(req);
+                resp.EnsureSuccessStatusCode();
+                
+                //second request
+                var uri = new Uri("http://10.150.50.21/formularservice/formular/A_FOREX_ANTRAG_ESF_2/appl/d556026e-991d-11e7-9fb1-27c0f1da4ec4/?lang=de&backURL=aHR0cCUzQSUyRiUyRjEwLjE1MC41MC4yMSUyRmlyaiUyRnBvcnRhbCUzRk5hdmlnYXRpb25UYXJnZXQlM0RST0xFUyUzQSUyRnBvcnRhbF9jb250ZW50JTJGRVUtRExSX1JlZmFjdG9yaW5nJTJGT0FNX1BPUlRBTF9BUFBMSUNBTlRfSU5ESVZJRFVBTCUyRk9ubGluZUFwcGxpY2F0aW9uQUUlMjZhcHBsaWNhdGlvbklEJTNEODEwMDQ3MTA%3D&transactionID=2dac5e8f-0e58-4069-a4d4-e3892c0ca1f0");
+                Windows.Web.Http.HttpRequestMessage req2 = TryReadForm(Windows.Web.Http.HttpMethod.Get, uri);
+                var resp2 = await httpClient.SendRequestAsync(req2);
+                readResponse(resp2);//listing Input fields in pdf
+                resp2.EnsureSuccessStatusCode();
+
+            }
+
+        }
+
+
+        private Windows.Web.Http.HttpRequestMessage TryReadForm(Windows.Web.Http.HttpMethod get, Uri uri)
+        {
+            var req = new Windows.Web.Http.HttpRequestMessage(Windows.Web.Http.HttpMethod.Get, uri);
+            req.Headers["Accept"] = "image/gif, image/jpeg, image/pjpeg, application/x-ms-application, application/xaml+xml, application/x-ms-xbap, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*";
+            req.Headers["Accept-Language"] = "de-DE";
+            req.Headers["Accept-Encoding"] = "gzip, deflate";
+            req.Headers["User-Agent"] = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; Tablet PC 2.0)";
+            req.Headers["Connection"] = "Keep-Alive";
+            req.Headers["Host"] = "10.150.50.21";
+            req.Headers["Cookie"] = "PortalAlias=portal; saplb_*=(J2EE1212320)1212350; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTE3MTUyOQUABAAAAAgKAAZGUjYwODf%2FAQQwggEABgkqhkiG9w0BBwKggfIwge8CAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGBzzCBzAIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTE3MTUyOTMzWjAjBgkqhkiG9w0BCQQxFgQUEjdhHl%2FTB5kCSSHg8SUGFPZVi!QwCQYHKoZIzjgEAwQuMCwCFACCPpy2eaFmvwUv7hgjv0uFpGqiAhQBKZBVtWfgzxglADfF64so1nCjuA%3D%3D; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; JSESSIONMARKID=P-vQEg6mYNaqiSPOOLe1mQqgs-O1KEh2jVF75_EgA; sap-usercontext=sap-language=DE&sap-client=901; SAP_SESSIONID_FQ2_901=XgTWiAyJdKGMgMjRJiTmGxnyDRnLrBHngO0AUFarFvM%3d";
+            testWebView.NavigateWithHttpRequestMessage(req);
+            return req;
+            
+        }
+
+        private async void readResponse(Windows.Web.Http.HttpResponseMessage resp)
+        {
+
+            string responseBody = await resp.Content.ReadAsStringAsync();
+            //var startIndex = responseBody.IndexOf("<form");
+           
+            var doc = new HtmlDocument();
+            
+            doc.LoadHtml(responseBody);
+            Debug.WriteLine(responseBody);
+
+            testGetInputLabel(doc);
+       
+
+        }
+
+        private List<String> testGetInputLabel(HtmlDocument doc)
+        {
+            var nodes = doc.DocumentNode
+            //.SelectNodes("//input[@type='text']|//input[@type='email']") //@ng-bind='\"::text.label'
+            .SelectNodes("//inn-text|//inn-codelist|//inn-date|//inn-email|//inn-fax//inn-iban|//inn-number|//inn-phone|//inn-plz")
+            .ToArray();
+            List<String> labelNames = new List<String>();
+            foreach (HtmlNode field in nodes)
+            {
+                String name = GetName(field);
+                labelNames.Add(name);
+                Debug.WriteLine(name);//prints all the input labels
+            }
+            return labelNames;
+        }
+
+        private String GetName(HtmlNode node)
+        {
+            if (node.Attributes != null)
+            {
+                var nameAttribute = node.Attributes["inn-configname"];
+                if (nameAttribute != null)
+                    return nameAttribute.Value;
+                if(node.Name=="inn-phone")//following fields have no name-attributes:phone
+                    return "Telefon";
+                if (node.Name == "inn-plz")//...:plz 
+                    return "Postleitzahl";
+                if (node.Name == "inn-iban") //..:Iban
+                    return "IBAN";
+                if (node.Name == "inn-number")
+                {
+                    nameAttribute = node.Attributes["inn-config"];
+                    if (nameAttribute != null)
+                        return nameAttribute.Value;
+                }   
+                throw new InvalidOperationException("'inn-configname' or 'inn-config' attribute in "+node.Name+" not found.");
+            }
+            throw new InvalidOperationException("Node "+node.OuterHtml+" has no attributes.");
+        }
+
+        public Frame getSmallFrame()
+        {
+            return mainFrame;
+        }
+
+        private async void testHTTPWebCon() //does not work. stops after the GET
         {
             var uri = new Uri("http://10.150.50.21/irj/portal/anonymous/login");
-            string returnData = string.Empty;
             var handler = new HttpClientHandler() { UseCookies = false };
             var httpClient = new System.Net.Http.HttpClient(handler) { BaseAddress = uri };
             
@@ -273,7 +409,7 @@ catch (Exception exception) {
                 httpClient.DefaultRequestHeaders.Add("AcceptLanguage", "de,en-US;q=0.7,en;q=0.3");
                 httpClient.DefaultRequestHeaders.Add("AcceptEncoding", "gzip, deflate");
                 httpClient.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-
+                
                 //Format the POST data
                 StringBuilder postData = new StringBuilder();
                 postData.Append("login_submit=on&login_do_redirect=1&no_cert_storing=on&j_salt=y8C8h6SDoM5Lih9OlYiQa2ACs4c%3D&j_username=fr6087&j_password=OraEtLabora%211&uidPasswordLogon=Anmelden");
@@ -288,6 +424,7 @@ catch (Exception exception) {
                     testWebView.Navigate(new Uri(uri + "?" + postData.ToString()));
                     req.Content.Headers.ContentLength = 163;
                     var resp = await httpClient.SendAsync(req);
+                    Debug.WriteLine(await resp.Content.ReadAsStringAsync());
                     resp.EnsureSuccessStatusCode();
                 }
             }
@@ -301,41 +438,6 @@ catch (Exception exception) {
             }
             
                 
-            
-            
-            /*
-            request = (HttpWebRequest)WebRequest.Create(uri);
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.Headers["Host"]= "";
-            request.Headers["UserAgent"] = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0";
-            request.Headers["Referer"] = "";
-            request.Headers["AllowAutoRedirect"] = "true";
-            request.Headers["KeepAlive"] = "true";
-            request.CookieContainer = cookies;
-
-
-            var httpClient = new HttpClient();
-            
-
-                // Always catch network exceptions for async methods
-                try
-                {
-                    var result = await httpClient.GetStringAsync(uri);
-                    Debug.WriteLine("hey, got connected." + result);
-                }
-                catch
-                {
-                    Debug.WriteLine("Connection Failed...........");
-                // Details in ex.Message and ex.HResult.       
-                }
-                finally
-                {
-                    // Once your app is done using the HttpClient object call dispose to 
-                    // free up system resources (the underlying socket and memory used for the object)
-                    httpClient.Dispose();
-                }*/
-             
             
 
             

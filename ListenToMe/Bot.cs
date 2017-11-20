@@ -73,7 +73,12 @@ namespace VoiceCommandService
                     {
                         myObject= await Proxy.GetJSON(message);//toDo return the rootobject (because it also has discovered entities)
                         var topscoringIntent = myObject.topScoringIntent;
-                        intent = topscoringIntent.intent;
+                        try{
+                            intent = topscoringIntent.intent;
+                        }catch(System.NullReferenceException e)
+                            {
+                            Debug.WriteLine("No topScoringIntent discovered by Bot.cs.SendMessageAndGetIntentFromBot()");
+                            }
                         Debug.WriteLine("topScoringIntent" + intent);
 
                     }

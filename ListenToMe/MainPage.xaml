@@ -21,7 +21,7 @@
                 </ProgressRing>
 
             </StackPanel>
-            <Frame x:Name="mainFrame" >
+            <Frame x:Name="mainFrame" x:FieldModifier="public">
             </Frame>
             <StackPanel Orientation="Horizontal">
                 <TextBox Name="text" BorderBrush="Purple" FontSize="18" KeyUp="text_KeyDown" PlaceholderText="Sage etwas oder sage 'Zuhören'" Width="311" Height="45" ></TextBox>
@@ -30,7 +30,7 @@
                 </Button>
             </StackPanel>
             <StackPanel Orientation="Vertical" Height="920">
-                <WebView Name="testWebView" Source="http://10.150.50.21/irj/portal/anonymous/login"  Width="1000" Height="527"></WebView>
+                <WebView Name="testWebView" ScriptNotify="WebView_ScriptNotify"  Source="http://10.150.50.21/irj/portal/anonymous/login"  Width="1000" Height="527"></WebView>
                 <!--<forms:WebBrowser Name="testWebView"></forms:WebBrowser>-->
             </StackPanel>
             <MediaElement Name="Media"></MediaElement>
