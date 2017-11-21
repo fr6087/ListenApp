@@ -364,13 +364,12 @@ namespace ListenToMe
         private List<String> testGetInputLabel(HtmlDocument doc)
         {
             var nodes = doc.DocumentNode
-            .SelectNodes("////@ng-bind='\"::text.label'") //input[@type='text']|//input[@type='email']" 
-            //.SelectNodes("//inn-text|//inn-codelist|//inn-date|//inn-email|//inn-fax//inn-iban|//inn-number|//inn-phone|//inn-plz")
+            .SelectNodes("//span[@ng-bind]") //input[@type='text']|//input[@type='email']" "//inn-text|//inn-codelist|//inn-date|//inn-email|//inn-fax//inn-iban|//inn-number|//inn-phone|//inn-plz")
             .ToArray();
             List<String> labelNames = new List<String>();
             foreach (HtmlNode field in nodes)
             {
-                String name = GetName(field);
+                String name = field.InnerHtml;//GetName(field);
                 labelNames.Add(name);
                 Debug.WriteLine(name);//prints all the input labels
             }
