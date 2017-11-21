@@ -101,6 +101,11 @@
     <Compile Include="Common\NavigationService.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Common\ValidationHelper.cs" />
+    <Compile Include="Connected Services\WCFServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="ESF_2\01CompanyPage.xaml.cs">
       <DependentUpon>01CompanyPage.xaml</DependentUpon>
     </Compile>
@@ -166,6 +171,13 @@
     <!--<None Include="AlphabetRemoteArduino_TemporaryKey.pfx" />-->
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\WCFServiceReference\Service1.disco" />
+    <None Include="Connected Services\WCFServiceReference\configuration91.svcinfo" />
+    <None Include="Connected Services\WCFServiceReference\configuration.svcinfo" />
+    <None Include="Connected Services\WCFServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -271,13 +283,27 @@
     <Folder Include="View\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\WCFServiceReference\Service1.wsdl" />
+    <None Include="Connected Services\WCFServiceReference\Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WCFServiceReference\Service11.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="project.json" />
+    <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VoiceCommandService\VoiceCommandService.csproj">
       <Project>{e8b176dd-02a3-4279-b819-d8a46f675d49}</Project>
       <Name>VoiceCommandService</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\WCFServiceReference\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

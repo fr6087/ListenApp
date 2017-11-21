@@ -7,7 +7,7 @@ using System.Web.Routing;
 
 namespace FormBot
 {
-    public class WebApiApplication : System.Web.HttpApplication
+    public class myWebApiApplication : System.Web.HttpApplication //before no "my"
     {
         protected void Application_Start()
         {

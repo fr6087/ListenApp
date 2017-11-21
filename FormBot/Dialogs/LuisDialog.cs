@@ -12,7 +12,8 @@ namespace FormBot.Dialogs
 {
     // For more information about this template visit http://aka.ms/azurebots-csharp-luis
     
-    [LuisModel("57c99374-f736-4f77-a952-1a1fe90500be", "499b2f80014047168cf1e56b32fa7d41")]
+    [LuisModel("b0ea3d44-cf05-42df-8fae-96b45e08cef7", "a5de48ea62014f2bbdc4ad05943f2081")]
+    //[LuisModel("57c99374-f736-4f77-a952-1a1fe90500be", "499b2f80014047168cf1e56b32fa7d41", domain: "https://westus.api.cognitive.microsoft.com")]
     [Serializable]
     public partial class LuisDialog : LuisDialog<object>
     {
@@ -23,6 +24,7 @@ namespace FormBot.Dialogs
         [LuisIntent("None")]
         public async Task NoneIntent(IDialogContext context, LuisResult result)
         {
+            //jdkfj
             await context.PostAsync($"You have reached the none intent. You said: {result.Query}"); //
             context.Wait(MessageReceived);
         }

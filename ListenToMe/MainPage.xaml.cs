@@ -28,6 +28,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using HtmlAgilityPack;
 using System.Linq;
+using Windows.System;
+using ListenToMe.WCFServiceReference;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x407 dokumentiert.
 
@@ -205,10 +207,20 @@ namespace ListenToMe
             //testHttpConnection();
             //testHTTPWebCon(); !broken
             //testHelloWorldLogin();
-            //testWebView.Navigate(new Uri("https://friederike-geissler.jimdo.com/deutsch/kontakt/"));
-            postFieldValues(new KeyValuePair<string, string>("field","value"));
+            // postFieldValues(new KeyValuePair<string, string>("field","value")); !extracts static html tags, but not dynamic ones loaded by javascript functiposn
+            testWCFServiceClient();
             navigationHelper.OnNavigatedTo(e);
    }
+
+        private async void testWCFServiceClient()
+        {
+            Service1Client client = new Service1Client();
+            String htmlDocWithoutJavascript = await client.GetDataVariant2Async();
+            Debug.WriteLine(htmlDocWithoutJavascript);
+            readResponse(htmlDocWithoutJavascript);
+            await client.CloseAsync();
+
+        }
 
         private async void testHelloWorldLogin()
         {
@@ -249,7 +261,7 @@ namespace ListenToMe
                 {
                     Debug.WriteLine(new Uri(data.Substring("launchlink:".Length), UriKind.Absolute).ToString());
 
-                    // await Launcher.LaunchUriAsync(new Uri(data.Substring("launchlink:".Length), UriKind.Absolute));
+                    await Launcher.LaunchUriAsync(new Uri(data.Substring("launchlink:".Length), UriKind.Absolute));
                 }
             }
             catch (Exception)
@@ -257,8 +269,7 @@ namespace ListenToMe
                 // Could not build a proper Uri. Abandon.
             }
         }
-        // http://10.150.50.21/formularservice/formular/A_FOREX_ANTRAG_ESF_2/appl/d556026e-991d-11e7-9fb1-27c0f1da4ec4/?lang=de&backURL=aHR0cCUzQSUyRiUyRjEwLjE1MC41MC4yMSUyRmlyaiUyRnBvcnRhbCUzRk5hdmlnYXRpb25UYXJnZXQlM0RST0xFUyUzQSUyRnBvcnRhbF9jb250ZW50JTJGRVUtRExSX1JlZmFjdG9yaW5nJTJGT0FNX1BPUlRBTF9BUFBMSUNBTlRfSU5ESVZJRFVBTCUyRk9ubGluZUFwcGxpY2F0aW9uQUUlMjZhcHBsaWNhdGlvbklEJTNEODEwMDQ3MTA%3D&transactionID=436e9272-0b2a-4db9-8200-cd70e4b85689
-        private async void postFieldValuesSuccess(KeyValuePair<String, String> keyValuePair)
+      private async void postFieldValuesSuccess(KeyValuePair<String, String> keyValuePair)
         {
             var uri =new Uri("https://friederike-geissler.jimdo.com/deutsch/kontakt/");
             var handler = new HttpClientHandler() { UseCookies = false };
@@ -300,7 +311,6 @@ namespace ListenToMe
                 req.Headers["Connection"] = "Keep-Alive";
                 req.Headers["Host"] = "10.150.50.21";
                 req.Headers["Cookie"] = "com.sap.engine.security.authentication.original_application_url = GET#ihTSVz9am7qcDynF6Qyz%2FiNnc21FZGAVbAk2TrEFWaojNAECmcOsZRdzgH%2F5VzBGPdM7T8ORPHFRI3PmBTDxV%2BrdvPZqenQyIOyJhBrYQvKR9mGToNomIg%3D%3D; PortalAlias=portal/anonymous; saplb_*=(J2EE1212320)1212350; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; sap-usercontext=sap-language=DE&sap-client=901; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTEwMTMyMgUABAAAAAgKAAZGUjYwODf%2FAQQwggEABgkqhkiG9w0BBwKggfIwge8CAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGBzzCBzAIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTEwMTMyMjIwWjAjBgkqhkiG9w0BCQQxFgQUSbhdInLJC2lw!MpfkbFiOgbPGkIwCQYHKoZIzjgEAwQuMCwCFHCwV9PiKmlq7TWfDJEj!9aq5RhIAhQYOvQGg2OlKW3DUFz3ccmjJvnslw%3D%3D; JSESSIONMARKID=AVDG2Qx20889PgQpiLbUXEWvmZGIKs11zS6r5_EgA; SAP_SESSIONID_FQ2_901=njV7NvjCNY8ZjRms7B5f3y4GRl7GGhHngO0AUFarFvM%3d";
-                testWebView.NavigateWithHttpRequestMessage(req);
                 var resp = await httpClient.SendRequestAsync(req);
                 resp.EnsureSuccessStatusCode();
                 
@@ -309,7 +319,12 @@ namespace ListenToMe
                 Windows.Web.Http.HttpRequestMessage req2 = TryReadForm(Windows.Web.Http.HttpMethod.Get, uri);
                 var resp2 = await httpClient.SendRequestAsync(req2);
                 readResponse(resp2);//listing Input fields in pdf
+                testWebView.NavigateWithHttpRequestMessage(req2);
+               // testWebView.InvokeScriptAsync("doSomething", null);
                 resp2.EnsureSuccessStatusCode();
+
+                var web1 = new HtmlWeb();
+                
 
             }
 
@@ -326,32 +341,31 @@ namespace ListenToMe
             req.Headers["Connection"] = "Keep-Alive";
             req.Headers["Host"] = "10.150.50.21";
             req.Headers["Cookie"] = "PortalAlias=portal; saplb_*=(J2EE1212320)1212350; MYSAPSSO2=AjExMDAgAA1wb3J0YWw6RlI2MDg3iAATYmFzaWNhdXRoZW50aWNhdGlvbgEABkZSNjA4NwIAAzAwMAMAA09RMgQADDIwMTcxMTE3MTUyOQUABAAAAAgKAAZGUjYwODf%2FAQQwggEABgkqhkiG9w0BBwKggfIwge8CAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHATGBzzCBzAIBATAiMB0xDDAKBgNVBAMTA09RMjENMAsGA1UECxMESjJFRQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTcxMTE3MTUyOTMzWjAjBgkqhkiG9w0BCQQxFgQUEjdhHl%2FTB5kCSSHg8SUGFPZVi!QwCQYHKoZIzjgEAwQuMCwCFACCPpy2eaFmvwUv7hgjv0uFpGqiAhQBKZBVtWfgzxglADfF64so1nCjuA%3D%3D; JSESSIONID=DVV9kKB_pYvfAxWO-Z8CMRV_ExSmXwG-fxIA_SAPNZFSv0VwhtyWPGvgo_zax24H; JSESSIONMARKID=P-vQEg6mYNaqiSPOOLe1mQqgs-O1KEh2jVF75_EgA; sap-usercontext=sap-language=DE&sap-client=901; SAP_SESSIONID_FQ2_901=XgTWiAyJdKGMgMjRJiTmGxnyDRnLrBHngO0AUFarFvM%3d";
-            testWebView.NavigateWithHttpRequestMessage(req);
             return req;
             
         }
 
         private async void readResponse(Windows.Web.Http.HttpResponseMessage resp)
         {
-
             string responseBody = await resp.Content.ReadAsStringAsync();
+            if (String.IsNullOrEmpty(responseBody))
+                throw new Exception("Website gibt leere Antwort zurück oder keine.");
             //var startIndex = responseBody.IndexOf("<form");
-           
+            readResponse(responseBody);
+        }
+        private void readResponse(String responseBody)
+        {
             var doc = new HtmlDocument();
-            
             doc.LoadHtml(responseBody);
-            Debug.WriteLine(responseBody);
-
+            //Debug.WriteLine(responseBody);
             testGetInputLabel(doc);
-       
-
         }
 
         private List<String> testGetInputLabel(HtmlDocument doc)
         {
             var nodes = doc.DocumentNode
-            //.SelectNodes("//input[@type='text']|//input[@type='email']") //@ng-bind='\"::text.label'
-            .SelectNodes("//inn-text|//inn-codelist|//inn-date|//inn-email|//inn-fax//inn-iban|//inn-number|//inn-phone|//inn-plz")
+            .SelectNodes("////@ng-bind='\"::text.label'") //input[@type='text']|//input[@type='email']" 
+            //.SelectNodes("//inn-text|//inn-codelist|//inn-date|//inn-email|//inn-fax//inn-iban|//inn-number|//inn-phone|//inn-plz")
             .ToArray();
             List<String> labelNames = new List<String>();
             foreach (HtmlNode field in nodes)
