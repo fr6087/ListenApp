@@ -30,6 +30,7 @@ using HtmlAgilityPack;
 using System.Linq;
 using Windows.System;
 using ListenToMe.ServiceReference1;
+using Windows.UI;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x407 dokumentiert.
 
@@ -52,6 +53,8 @@ namespace ListenToMe
         private String password = "OraEtLabora%211";
         private string formUrl = "http://10.150.50.21/formularservice/formular/A_FOREX_ANTRAG_ESF_2/appl/d556026e-991d-11e7-9fb1-27c0f1da4ec4/?lang=de";
 
+        public CompanyPage companyPage { get; private set; }
+
         public MainPage()
     {
         this.InitializeComponent();
@@ -70,8 +73,7 @@ namespace ListenToMe
             //loadFormESF_2Pages();
 
             mainFrame.Navigate(typeof(CompanyPage), mainFrame);
-        
-        
+            companyPage = mainFrame.Content as CompanyPage;
     }
         private void webView_OnNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
@@ -79,7 +81,7 @@ namespace ListenToMe
         }
 
         //does not have any effects at all as far at all
-        private async void webView_OnNavigationCompletedAsync(WebView sender, WebViewNavigationCompletedEventArgs args)
+       /* private async void webView_OnNavigationCompletedAsync(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
             Debug.WriteLine("called CompletedNavigation.");
             await testWebView.InvokeScriptAsync("eval", new[]
@@ -105,7 +107,7 @@ namespace ListenToMe
                     }
                 })()"
             });
-        }
+        }*/
 
         private async void testHttpConnection()
         {
@@ -174,12 +176,12 @@ namespace ListenToMe
         }
 
         private void navigationHelper_SaveState(object sender, SaveStateEventArgs e)
-    {
-    }
+        {
+        }
 
-    private void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
-    {
-    }
+        private void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        {
+        }
     protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
             Debug.Write("MainPage_OnNavig");
@@ -209,20 +211,25 @@ namespace ListenToMe
             //testHTTPWebCon(); !broken
             //testHelloWorldLogin();
             // postFieldValues(new KeyValuePair<string, string>("field","value")); !extracts static html tags, but not dynamic ones loaded by javascript functiposn
-            testWCFServiceClient();
+           
             navigationHelper.OnNavigatedTo(e);
    }
 
-        private async void testWCFServiceClient()
+        private async Task<List<String>> ReadLabelsFromWCFServiceClient()
         {
             Service1Client client = new Service1Client();
             await client.LoginAsync(userName, password);//System.ServiceModel.CommunicationException: "The server did not provide a meaningful reply; this might be caused by a contract mismatch, a premature session shutdown or an internal server error."
-            String htmlDocWithoutJavascript=await client.GetFormAsync(formUrl);
-            Debug.WriteLine(htmlDocWithoutJavascript);
-            readResponse(htmlDocWithoutJavascript);
+          
+            var doc = new HtmlDocument();
+            String form = await client.GetFormAsync(formUrl);
+            Debug.WriteLine(form);
+            doc.LoadHtml(form);
             await client.CloseAsync();
+            List<String> allLabels = new List<String>();
+            return readResponse(form);
 
         }
+        
 
         private async void testHelloWorldLogin()
         {
@@ -355,18 +362,17 @@ namespace ListenToMe
             //var startIndex = responseBody.IndexOf("<form");
             readResponse(responseBody);
         }
-        private void readResponse(String responseBody)
+        private List<String> readResponse(String responseBody)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(responseBody);
-            //Debug.WriteLine(responseBody);
-            testGetInputLabel(doc);
+            return testGetInputLabel(doc);
         }
 
         private List<String> testGetInputLabel(HtmlDocument doc)
         {
             var nodes = doc.DocumentNode
-            .SelectNodes("//span[@ng-bind='::text.label']") //input[@type='text']|//input[@type='email']" "//inn-text|//inn-codelist|//inn-date|//inn-email|//inn-fax//inn-iban|//inn-number|//inn-phone|//inn-plz")
+            .SelectNodes("//span[@ng-bind='::text.label']")///(* except following::span[@area-hidden='true'])") //input[@type='text']|//input[@type='email']" "//inn-text|//inn-codelist|//inn-date|//inn-email|//inn-fax//inn-iban|//inn-number|//inn-phone|//inn-plz")
             .ToArray();
             List<String> labelNames = new List<String>();
             foreach (HtmlNode field in nodes)
@@ -542,12 +548,30 @@ namespace ListenToMe
         }
 
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private async void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            List<String> labels = await ReadLabelsFromWCFServiceClient();
+            Page nextPage = new Page();
+            StackPanel myPanel = new StackPanel();
+            myPanel.Background = new SolidColorBrush(Color.FromArgb(255, 48, 179, 221));
+            myPanel.Name = "dynamicPanel";
+            myPanel.Orientation = Orientation.Vertical;
+            for (int i = 0; i<8; i++)
+            {
+
+                TextBox myText = new TextBox();
+                myText.Header = labels.ElementAt(i);
+                myPanel.Children.Add(myText);
+            }
+            nextPage.Content = myPanel;
+            mainFrame.Content= nextPage;
+            
+            
+            /*
             if (mainFrame.CanGoBack)
             {
                 mainFrame.GoBack();
-            }
+            }*/
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
