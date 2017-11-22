@@ -216,7 +216,7 @@ namespace ListenToMe
         private async void testWCFServiceClient()
         {
             Service1Client client = new Service1Client();
-            await client.LoginAsync(userName, password);
+            await client.LoginAsync(userName, password);//System.ServiceModel.CommunicationException: "The server did not provide a meaningful reply; this might be caused by a contract mismatch, a premature session shutdown or an internal server error."
             String htmlDocWithoutJavascript=await client.GetFormAsync(formUrl);
             Debug.WriteLine(htmlDocWithoutJavascript);
             readResponse(htmlDocWithoutJavascript);
@@ -366,7 +366,7 @@ namespace ListenToMe
         private List<String> testGetInputLabel(HtmlDocument doc)
         {
             var nodes = doc.DocumentNode
-            .SelectNodes("//span[@ng-bind]") //input[@type='text']|//input[@type='email']" "//inn-text|//inn-codelist|//inn-date|//inn-email|//inn-fax//inn-iban|//inn-number|//inn-phone|//inn-plz")
+            .SelectNodes("//span[@ng-bind='::text.label']") //input[@type='text']|//input[@type='email']" "//inn-text|//inn-codelist|//inn-date|//inn-email|//inn-fax//inn-iban|//inn-number|//inn-phone|//inn-plz")
             .ToArray();
             List<String> labelNames = new List<String>();
             foreach (HtmlNode field in nodes)
