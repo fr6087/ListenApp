@@ -29,7 +29,7 @@ using System.Text;
 using HtmlAgilityPack;
 using System.Linq;
 using Windows.System;
-using ListenToMe.WCFServiceReference;
+using ListenToMe.ServiceReference1;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x407 dokumentiert.
 
@@ -50,6 +50,7 @@ namespace ListenToMe
         private ManualResetEvent manualResetEvent;
         private String userName = "fr6087";
         private String password = "OraEtLabora%211";
+        private string formUrl = "http://10.150.50.21/formularservice/formular/A_FOREX_ANTRAG_ESF_2/appl/d556026e-991d-11e7-9fb1-27c0f1da4ec4/?lang=de";
 
         public MainPage()
     {
@@ -215,7 +216,8 @@ namespace ListenToMe
         private async void testWCFServiceClient()
         {
             Service1Client client = new Service1Client();
-            String htmlDocWithoutJavascript = await client.GetDataVariant2Async();
+            await client.LoginAsync(userName, password);
+            String htmlDocWithoutJavascript=await client.GetFormAsync(formUrl);
             Debug.WriteLine(htmlDocWithoutJavascript);
             readResponse(htmlDocWithoutJavascript);
             await client.CloseAsync();
@@ -225,7 +227,7 @@ namespace ListenToMe
         private async void testHelloWorldLogin()
         {
             string formUrl = "https://moodle.hs-emden-leer.de/moodle/login/index.php?"; // NOTE: This is the URL the form POSTs to, not the URL of the form (you can find this in the "action" attribute of the HTML's form tag
-            string formParams = string.Format("username={0}&password={1}", "fr6087", "aTXB3Oir");
+            string formParams = string.Format("username={0}&password={1}", "fr6087", "********");
           
             string teamResponse = formUrl+formParams;
             Debug.WriteLine(teamResponse);
