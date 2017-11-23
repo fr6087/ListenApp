@@ -99,7 +99,7 @@ namespace VoiceCommandService
             _directLine = new DirectLineClient(_directLineSecret);
             
             var conversation = await _directLine.Conversations.NewConversationWithHttpMessagesAsync();
-            _conversationId = conversation.Body.ConversationId;
+            _conversationId = "999";//conversation.Body.ConversationId;
 
             System.Diagnostics.Debug.WriteLine("Bot connection set up.");
         }
@@ -109,14 +109,14 @@ namespace VoiceCommandService
             try
             {
                 var httpMessages = await _directLine.Conversations.GetMessagesWithHttpMessagesAsync(_conversationId);
-                var messages = httpMessages.Body.Messages;
+                var messages = httpMessages.Body.ToString().Split('.');//httpMessages.Body.Messages;
 
                 // our bot only returns a single message, so we won't loop through
                 // First message is the question, second message is the response
-                if (messages?.Count > 1)
+                if (messages.Length > 1)// messages?.Count > 1
                 {
                     // select latest message -- the response
-                    var text = messages[messages.Count()-1].Text;
+                    var text = messages[messages.Count()-1];//.Text
                     System.Diagnostics.Debug.WriteLine("Response from bot was: " + text);
 
                     return text;

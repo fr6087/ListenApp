@@ -24,8 +24,11 @@ namespace ListenToMe.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetForm", ReplyAction="http://tempuri.org/IService1/GetFormResponse")]
         System.Threading.Tasks.Task<string> GetFormAsync(string domainOfForm);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetFieldLabelsPerSection", ReplyAction="http://tempuri.org/IService1/GetFieldLabelsPerSectionResponse")]
-        System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<System.Collections.ObjectModel.ObservableCollection<string>>> GetFieldLabelsPerSectionAsync(string domainOfForm);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetHeadings", ReplyAction="http://tempuri.org/IService1/GetHeadingsResponse")]
+        System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<string>> GetHeadingsAsync(string username, string password, string domain);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetJason", ReplyAction="http://tempuri.org/IService1/GetJasonResponse")]
+        System.Threading.Tasks.Task<string> GetJasonAsync(string username, string password, string domain);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -79,8 +82,12 @@ namespace ListenToMe.ServiceReference1 {
             return base.Channel.GetFormAsync(domainOfForm);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<System.Collections.ObjectModel.ObservableCollection<string>>> GetFieldLabelsPerSectionAsync(string domainOfForm) {
-            return base.Channel.GetFieldLabelsPerSectionAsync(domainOfForm);
+        public System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<string>> GetHeadingsAsync(string username, string password, string domain) {
+            return base.Channel.GetHeadingsAsync(username, password, domain);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetJasonAsync(string username, string password, string domain) {
+            return base.Channel.GetJasonAsync(username, password, domain);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {

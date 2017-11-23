@@ -23,6 +23,7 @@ using System.Diagnostics;
 using ListenToMe.ESF_2;
 using ListenToMe.Common;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace ListenToMe
 {
@@ -36,6 +37,7 @@ namespace ListenToMe
         /// to transition between views.
         /// </summary>
        public static NavigationService NavigationService { get; private set; }
+        public static JsonSerializer JsonFormatter { get; internal set; }
 
         private RootFrameNavigationHelper rootFrameNavigationHelper;
 

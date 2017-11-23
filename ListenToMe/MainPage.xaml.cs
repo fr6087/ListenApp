@@ -31,6 +31,7 @@ using System.Linq;
 using Windows.System;
 using ListenToMe.ServiceReference1;
 using Windows.UI;
+using Newtonsoft.Json;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x407 dokumentiert.
 
@@ -214,19 +215,33 @@ namespace ListenToMe
            
             navigationHelper.OnNavigatedTo(e);
    }
-
-        private async Task<List<String>> ReadLabelsFromWCFServiceClient()
+            private async Task<String> ReadLabelsFromWCFServiceClient() //afore Task<List<String>>
         {
             Service1Client client = new Service1Client();
             await client.LoginAsync(userName, password);//System.ServiceModel.CommunicationException: "The server did not provide a meaningful reply; this might be caused by a contract mismatch, a premature session shutdown or an internal server error."
           
             var doc = new HtmlDocument();
             String form = await client.GetFormAsync(formUrl);
+            String output = "";
             Debug.WriteLine(form);
             doc.LoadHtml(form);
+            // doc.OptionOutputAsXml = true;
+            //System.IO.StringWriter sw = new System.IO.StringWriter();
+            //System.Xml.XmlTextWriter xw = new System.Xml.XmlTextWriter(sw);
+            //doc.Save(xw);
+            //string result = sw.ToString();
+            var xpath = "//*[self::h3 or self::h4 or self::h5 or self::span[@ng-bind='::text.label']] ";
+            foreach (var node in doc.DocumentNode.SelectNodes(xpath))
+            {
+
+                String JasonNode = JsonConvert.SerializeObject(node);
+                output += JasonNode;
+                Debug.WriteLine(JasonNode);
+            }
             await client.CloseAsync();
-            List<String> allLabels = new List<String>();
-            return readResponse(form);
+            /*List<String> allLabels = new List<String>();
+            return readResponse(form);*/
+            return output;
 
         }
         
@@ -329,7 +344,6 @@ namespace ListenToMe
                 var resp2 = await httpClient.SendRequestAsync(req2);
                 readResponse(resp2);//listing Input fields in pdf
                 testWebView.NavigateWithHttpRequestMessage(req2);
-               // testWebView.InvokeScriptAsync("doSomething", null);
                 resp2.EnsureSuccessStatusCode();
 
                 var web1 = new HtmlWeb();
@@ -359,7 +373,7 @@ namespace ListenToMe
             string responseBody = await resp.Content.ReadAsStringAsync();
             if (String.IsNullOrEmpty(responseBody))
                 throw new Exception("Website gibt leere Antwort zurück oder keine.");
-            //var startIndex = responseBody.IndexOf("<form");
+      
             readResponse(responseBody);
         }
         private List<String> readResponse(String responseBody)
@@ -550,7 +564,7 @@ namespace ListenToMe
 
         private async void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            List<String> labels = await ReadLabelsFromWCFServiceClient();
+            /*List<String> labels = await ReadLabelsFromWCFServiceClient();
             Page nextPage = new Page();
             StackPanel myPanel = new StackPanel();
             myPanel.Background = new SolidColorBrush(Color.FromArgb(255, 48, 179, 221));
@@ -564,9 +578,103 @@ namespace ListenToMe
                 myPanel.Children.Add(myText);
             }
             nextPage.Content = myPanel;
-            mainFrame.Content= nextPage;
+            mainFrame.Content= nextPage;*/
+            Service1Client client = new Service1Client();
+            await client.LoginAsync(userName, password);//System.ServiceModel.CommunicationException: "The server did not provide a meaningful reply; this might be caused by a contract mismatch, a premature session shutdown or an internal server error."
+            //var config = GlobalConfiguration.Configuration;
+            //App.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            var doc = new HtmlDocument();
+            String form = await client.GetFormAsync(formUrl);
+            String output = "";
+            Debug.WriteLine(form);
+            doc.LoadHtml(form);
+            // doc.OptionOutputAsXml = true;
+            //System.IO.StringWriter sw = new System.IO.StringWriter();
+            //System.Xml.XmlTextWriter xw = new System.Xml.XmlTextWriter(sw);
+            //doc.Save(xw);
+            //string result = sw.ToString();
+            var xpath = "//*[self::h3 or self::h4 or self::h5 or self::label or self::span[@ng-bind='::text.label']] ";
+            foreach (var node in doc.DocumentNode.SelectNodes(xpath))
+            {
+
+                //JsonToken attributes = new JsonToken();
+                myControl control = new myControl();
+                control.Type = node.Name;
+
+                control.Label = node.InnerHtml;
+
+                    if (node.Name.Equals("label"))
+                    {
+                    Boolean isRadioButton = this.isRadioButton(node);
+                        //test if there are childNodes
+                        if (!isRadioButton)//if there are, test for type text. Exclude radiobutton-Nodes that have for attribute
+                        {
+                        Debug.WriteLine("label nodehas childs");
+                            //search for first span node containing ng-bind='::text.label' because that one contains the label
+                            if (node.FirstChild.GetAttributeValue("ng-bind", "").Equals("::text.label"))
+                            {
+                                //search for input node. If you find one set type to type
+                                if (node.SelectSingleNode("//input") != null)
+                                {
+                                    control.Label = node.FirstChild.InnerHtml;
+                                    control.Type = "text";
+                                    control.Name = "input";
+                                    control.Attributes = node.Attributes.ToString();
+                                    String someObject = JsonConvert.SerializeObject(control);
+                                    Debug.WriteLine(someObject);
+                                }
+                            }
+                        }else if (isRadioButton)
+                        {
+
+                            Debug.WriteLine("label node of radiobutton found");
+                        }
+                        else//if there are no Childnodes, its likely a radiobutton or checkbox label
+                        {
+                        
+                            Debug.WriteLine("label"+ node.InnerHtml + " nodehas NO!childs. isRadioButton: "+(isRadioButton)+node.OuterHtml);
+                        
+                            //try to get parent node then search for input
+                            if (node.ParentNode != null){
+
+                            }
+                        }
+                        
+                    }else{//its likely a heading
+                        //but check whether inner text is empty!
+                        Debug.WriteLine("heading"+node.InnerHtml);
+                    }
+                //for this type go to child nodes
+                //do something vor textinput labels
+                //for these type go to preceding input node
+                //do something for radiobutton labels
+                /*
+                HtmlNode LabelTextNode = node.SelectSingleNode("//span[@ng-bind='::text.label']");
+                control.Label = LabelTextNode.InnerHtml;
+                Debug.WriteLine("found Label.");
+                if (node.SelectSingleNode("//input") != null)
+                {
+                    control.Type = node.Attributes["type"].Value; //write input over label if the label belongs to an inputNode. 
+                }
+            }
+            List<KeyValuePair<String, String>> at_tributes = new List<KeyValuePair<String, String>>();
+            foreach (var attribute in node.Attributes)
+            {
+                at_tributes.Add(new KeyValuePair<string, string>(attribute.Name, attribute.Value));
+            }
+            control.Attributes = at_tributes;
+
+            String JsonNode = JsonConvert.SerializeObject(control);
+            Debug.WriteLine(JsonNode);*/
+            }
+
+
+        
+            await client.CloseAsync();
+            /*List<String> allLabels = new List<String>();
+            return readResponse(form);*/
             
-            
+
             /*
             if (mainFrame.CanGoBack)
             {
@@ -574,9 +682,35 @@ namespace ListenToMe
             }*/
         }
 
-        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        private bool isRadioButton(HtmlNode node)
         {
-            mainFrame.Navigate(typeof(WebPage));
+            Boolean hasForAttribute= node.GetAttributeValue("for", "").Equals("");
+            /* HtmlNode parent = node.ParentNode;
+
+             if (parent == null)
+                 throw new Exception("this node has no parent: "+node.OuterHtml);*/
+            HtmlNode preceding = node.SelectSingleNode("/preceding-sibling::input[@type='radio']");
+            
+            if (preceding!=null&&hasForAttribute)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private async void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            //mainFrame.Navigate(typeof(WebPage));
+            Service1Client client = new Service1Client();
+            var headings = await client.GetHeadingsAsync(userName, password, formUrl);
+            await client.CloseAsync();
+            Debug.WriteLine("counted HEadings"+headings.Count);
+            foreach (var data in headings)
+            {
+                Debug.WriteLine(data);
+            }
+            
             
         }
 
@@ -781,6 +915,26 @@ namespace ListenToMe
         }
 
        
+    }
+
+    [JsonObject(MemberSerialization.OptIn)]
+    public class myControl
+    {
+
+        //e.g. "input" -> textbox or ? -> radiobutton
+        [JsonProperty]
+        public string Name { get; set; }
+        [JsonProperty]
+        public string Type { get; set; }
+        [JsonProperty]
+        public string Label { get; set; }
+
+        // Attributes of html node
+        [JsonProperty]
+        public String Attributes { get; set; }
+
+        // containing the text inbetweeen <span> someText</span> elements
+        
     }
     public class Message
     {
