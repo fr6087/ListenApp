@@ -25,6 +25,12 @@
   <wsdl:message name="IService1_GetHeadings_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetHeadingsResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_GetInputs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInputs" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetInputs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInputsResponse" />
+  </wsdl:message>
   <wsdl:message name="IService1_GetJason_InputMessage">
     <wsdl:part name="parameters" element="tns:GetJason" />
   </wsdl:message>
@@ -43,6 +49,10 @@
     <wsdl:operation name="GetHeadings">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetHeadings" message="tns:IService1_GetHeadings_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetHeadingsResponse" message="tns:IService1_GetHeadings_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInputs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetInputs" message="tns:IService1_GetInputs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetInputsResponse" message="tns:IService1_GetInputs_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetJason">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetJason" message="tns:IService1_GetJason_InputMessage" />
@@ -71,6 +81,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetHeadings">
       <soap:operation soapAction="http://tempuri.org/IService1/GetHeadings" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInputs">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetInputs" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

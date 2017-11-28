@@ -25,7 +25,12 @@ namespace ListenToMe
         public WebPage()
         {
             this.InitializeComponent();
-            myWebView.Navigate(new Uri("http://10.150.50.21/irj/portal", UriKind.Absolute));
+            //myWebView.Navigate(new Uri("http://10.150.50.21/irj/portal", UriKind.Absolute));
+        }
+
+        public StackPanel getStackPanel()
+        {
+            return webPanel;
         }
     }
 }

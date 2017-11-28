@@ -27,6 +27,9 @@ namespace ListenToMe.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetHeadings", ReplyAction="http://tempuri.org/IService1/GetHeadingsResponse")]
         System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<string>> GetHeadingsAsync(string username, string password, string domain);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetInputs", ReplyAction="http://tempuri.org/IService1/GetInputsResponse")]
+        System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<string>> GetInputsAsync(string username, string password, string domain);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetJason", ReplyAction="http://tempuri.org/IService1/GetJasonResponse")]
         System.Threading.Tasks.Task<string> GetJasonAsync(string username, string password, string domain);
     }
@@ -84,6 +87,10 @@ namespace ListenToMe.ServiceReference1 {
         
         public System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<string>> GetHeadingsAsync(string username, string password, string domain) {
             return base.Channel.GetHeadingsAsync(username, password, domain);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<string>> GetInputsAsync(string username, string password, string domain) {
+            return base.Channel.GetInputsAsync(username, password, domain);
         }
         
         public System.Threading.Tasks.Task<string> GetJasonAsync(string username, string password, string domain) {

@@ -8,14 +8,19 @@
     mc:Ignorable="d">
 
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <!-- <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <!---->
+      
         
         <WebView Grid.Row="1" Name="myWebView" HorizontalAlignment="Left" Height="700" VerticalAlignment="Top" Width="1400"/>
         
-    </Grid>
+    </Grid> -->
+    <ScrollViewer Name="webScroller">
+        <StackPanel Name="webPanel" Orientation="Vertical">
+
+        </StackPanel>
+    </ScrollViewer>
 </Page>

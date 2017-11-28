@@ -43,12 +43,14 @@ namespace ListenToMe
     /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
     /// </summary>
     NavigationHelper navigationHelper;
+    
     bool listening = false;
-        //public event NotifyEventHandler ScriptNotify<testWebView>;
+        private RootFrameNavigationHelper myFrameHelper;
         private SpeechRecognizer speechRecognizerContinuous;
         private VoiceCommandService.Bot bot;
         private SpeechRecognizer speechRecognizer;
         private ObservableCollection<Message> messages; //toDo needed?
+        private StackPanel myPanel = new StackPanel();
         private ManualResetEvent manualResetEvent;
         private String userName = "fr6087";
         private String password = "OraEtLabora%211";
@@ -64,11 +66,11 @@ namespace ListenToMe
         this.navigationHelper = new NavigationHelper(this);
         this.navigationHelper.LoadState += navigationHelper_LoadState;
         this.navigationHelper.SaveState += navigationHelper_SaveState;
-            
+            myFrameHelper = new RootFrameNavigationHelper(mainFrame);
            
 
-            testWebView.ScriptNotify += WebView_ScriptNotify;
-            testWebView.NavigationStarting += webView_OnNavigationStarting;
+            //testWebView.ScriptNotify += WebView_ScriptNotify;
+            //testWebView.NavigationStarting += webView_OnNavigationStarting;
             //testWebView.NavigationCompleted += webView_OnNavigationCompletedAsync;
 
             //loadFormESF_2Pages();
@@ -198,14 +200,14 @@ namespace ListenToMe
                 String intent = rootObject.topScoringIntent.intent; //the intent
                 var fieldValue = rootObject.entities[0].entity; //the value of the field, if discovered
                 var fieldType = rootObject.entities[0].type; //the Type e.g. "Address"
-                var response = determineResponse(intent, fieldValue, fieldType);
+                var response = determineResponse(intent, fieldValue, fieldType).Result;
                 messages.Add(new Message() { Text = "  > " + response });
                 await SpeakAsync(response);
                 await SetListeningAsync(true);
             }
             else if (e.Parameter != null && e.Parameter is string && !string.IsNullOrWhiteSpace(e.Parameter as string))//if activated with text?
             {
-                await SendMessage(e.Parameter as string, true);
+                SendMessage(e.Parameter as string, true);
                 await SetListeningAsync(true);
             }
             //testHttpConnection();
@@ -215,35 +217,7 @@ namespace ListenToMe
            
             navigationHelper.OnNavigatedTo(e);
    }
-            private async Task<String> ReadLabelsFromWCFServiceClient() //afore Task<List<String>>
-        {
-            Service1Client client = new Service1Client();
-            await client.LoginAsync(userName, password);//System.ServiceModel.CommunicationException: "The server did not provide a meaningful reply; this might be caused by a contract mismatch, a premature session shutdown or an internal server error."
-          
-            var doc = new HtmlDocument();
-            String form = await client.GetFormAsync(formUrl);
-            String output = "";
-            Debug.WriteLine(form);
-            doc.LoadHtml(form);
-            // doc.OptionOutputAsXml = true;
-            //System.IO.StringWriter sw = new System.IO.StringWriter();
-            //System.Xml.XmlTextWriter xw = new System.Xml.XmlTextWriter(sw);
-            //doc.Save(xw);
-            //string result = sw.ToString();
-            var xpath = "//*[self::h3 or self::h4 or self::h5 or self::span[@ng-bind='::text.label']] ";
-            foreach (var node in doc.DocumentNode.SelectNodes(xpath))
-            {
-
-                String JasonNode = JsonConvert.SerializeObject(node);
-                output += JasonNode;
-                Debug.WriteLine(JasonNode);
-            }
-            await client.CloseAsync();
-            /*List<String> allLabels = new List<String>();
-            return readResponse(form);*/
-            return output;
-
-        }
+           
         
 
         private async void testHelloWorldLogin()
@@ -483,24 +457,50 @@ namespace ListenToMe
         /// </summary>
         /// <param name="intent"></param>
         /// <returns></returns>
-        private string determineResponse(string intent, string textValue, string usersFieldName)
+        private async Task<string> determineResponse(string intent, string textValue, string usersFieldName)
         {
             Debug.WriteLine(intent + " textWert: " + textValue + "Feldname " + usersFieldName);
             var page = mainFrame.Content as Page;//this is static, todo mke dynamic mainFrame.SourcePageType???
-            usersFieldName = "_11Name"; //toDo: write function that mapps usersFieldName to FormFieldsName
+            
             TextBox textfield = (TextBox)page.FindName(usersFieldName);
-            if (textfield != null && !String.IsNullOrWhiteSpace(usersFieldName)) //if the user has named a field to label the value in
+            if (textfield!=null&&!String.IsNullOrWhiteSpace(usersFieldName))//wenn das Feld auf der Seite bereits präsent ist
             {
+                Debug.WriteLine("everything is ok");
                 textfield.Text = textValue;
             }
-            else//if not, then append the intent to output textbox
+            else
             {
-                text.Text = intent;
-                //DependencyObject child = VisualTreeHelper.GetChild(page, 0);
-                //TextBox box = (TextBox)page.F;
+                
+                page.Content = myPanel;
+                createNewTextBox(usersFieldName, myPanel, textValue);
             }
+            
+            //usersFieldName = "_11Name"; //toDo: write function that mapps usersFieldName to FormFieldsName
+            
             return "done";
 
+        }
+
+        private async void uploadHeadingsToLuisModel()
+        {
+            Service1Client client = new Service1Client();
+            var headings = await client.GetInputsAsync(userName, password, formUrl);
+            //toDo: convert headings to Jason and send them to luisModel-Website
+            foreach (String heading in headings)
+                Debug.WriteLine(heading);
+            await client.CloseAsync();
+
+            //create Json Object
+            myInputs inputs = new myInputs();
+            inputs.canonicalForm = "FeldName";
+            inputs.list = headings;
+
+            //convert Json object to String and Send it to file
+            String fieldName = JsonConvert.SerializeObject(inputs, Formatting.Indented);
+            Debug.WriteLine(fieldName);
+            //throws somehow UnauthorizedAccessExeption
+            await Task.Run(() => System.IO.File.WriteAllText(@"C:\Users\fgeissle\source\repos\ListenApp\fieldNames.json", fieldName));
+            //Debug.WriteLine(t);
         }
 
         private async Task InitContinuousRecognition()
@@ -553,10 +553,11 @@ namespace ListenToMe
             manualResetEvent.Set();
         }
 
-        //protected override void OnNavigatedFrom(NavigationEventArgs e)
-        //{
-        ///     navigationHelper.OnNavigatedFrom(e);
-        ///     }
+        // give event away to class that is listening for keyboard shortcuts
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+             navigationHelper.OnNavigatedFrom(e);
+        }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
         }
@@ -564,122 +565,35 @@ namespace ListenToMe
 
         private async void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            /*List<String> labels = await ReadLabelsFromWCFServiceClient();
-            Page nextPage = new Page();
-            StackPanel myPanel = new StackPanel();
-            myPanel.Background = new SolidColorBrush(Color.FromArgb(255, 48, 179, 221));
-            myPanel.Name = "dynamicPanel";
-            myPanel.Orientation = Orientation.Vertical;
-            for (int i = 0; i<8; i++)
-            {
+            /* List<String> labels = await ReadLabelsFromWCFServiceClient();
+             Page nextPage = new Page();
+             StackPanel myPanel = new StackPanel();
+             myPanel.Background = new SolidColorBrush(Color.FromArgb(255, 48, 179, 221));
+             myPanel.Name = "dynamicPanel";
+             myPanel.Orientation = Orientation.Vertical;
+             for (int i = 0; i<8; i++)
+             {
 
-                TextBox myText = new TextBox();
-                myText.Header = labels.ElementAt(i);
-                myPanel.Children.Add(myText);
-            }
-            nextPage.Content = myPanel;
-            mainFrame.Content= nextPage;*/
-            Service1Client client = new Service1Client();
-            await client.LoginAsync(userName, password);//System.ServiceModel.CommunicationException: "The server did not provide a meaningful reply; this might be caused by a contract mismatch, a premature session shutdown or an internal server error."
-            //var config = GlobalConfiguration.Configuration;
-            //App.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            var doc = new HtmlDocument();
-            String form = await client.GetFormAsync(formUrl);
-            String output = "";
-            Debug.WriteLine(form);
-            doc.LoadHtml(form);
-            // doc.OptionOutputAsXml = true;
-            //System.IO.StringWriter sw = new System.IO.StringWriter();
-            //System.Xml.XmlTextWriter xw = new System.Xml.XmlTextWriter(sw);
-            //doc.Save(xw);
-            //string result = sw.ToString();
-            var xpath = "//*[self::h3 or self::h4 or self::h5 or self::label or self::span[@ng-bind='::text.label']] ";
-            foreach (var node in doc.DocumentNode.SelectNodes(xpath))
-            {
+                 TextBox myText = new TextBox();
+                 myText.Header = labels.ElementAt(i);
+                 myPanel.Children.Add(myText);
+             }
+             nextPage.Content = myPanel;
+             mainFrame.Content= nextPage;*/
 
-                //JsonToken attributes = new JsonToken();
-                myControl control = new myControl();
-                control.Type = node.Name;
-
-                control.Label = node.InnerHtml;
-
-                    if (node.Name.Equals("label"))
-                    {
-                    Boolean isRadioButton = this.isRadioButton(node);
-                        //test if there are childNodes
-                        if (!isRadioButton)//if there are, test for type text. Exclude radiobutton-Nodes that have for attribute
-                        {
-                        Debug.WriteLine("label nodehas childs");
-                            //search for first span node containing ng-bind='::text.label' because that one contains the label
-                            if (node.FirstChild.GetAttributeValue("ng-bind", "").Equals("::text.label"))
-                            {
-                                //search for input node. If you find one set type to type
-                                if (node.SelectSingleNode("//input") != null)
-                                {
-                                    control.Label = node.FirstChild.InnerHtml;
-                                    control.Type = "text";
-                                    control.Name = "input";
-                                    control.Attributes = node.Attributes.ToString();
-                                    String someObject = JsonConvert.SerializeObject(control);
-                                    Debug.WriteLine(someObject);
-                                }
-                            }
-                        }else if (isRadioButton)
-                        {
-
-                            Debug.WriteLine("label node of radiobutton found");
-                        }
-                        else//if there are no Childnodes, its likely a radiobutton or checkbox label
-                        {
-                        
-                            Debug.WriteLine("label"+ node.InnerHtml + " nodehas NO!childs. isRadioButton: "+(isRadioButton)+node.OuterHtml);
-                        
-                            //try to get parent node then search for input
-                            if (node.ParentNode != null){
-
-                            }
-                        }
-                        
-                    }else{//its likely a heading
-                        //but check whether inner text is empty!
-                        Debug.WriteLine("heading"+node.InnerHtml);
-                    }
-                //for this type go to child nodes
-                //do something vor textinput labels
-                //for these type go to preceding input node
-                //do something for radiobutton labels
-                /*
-                HtmlNode LabelTextNode = node.SelectSingleNode("//span[@ng-bind='::text.label']");
-                control.Label = LabelTextNode.InnerHtml;
-                Debug.WriteLine("found Label.");
-                if (node.SelectSingleNode("//input") != null)
-                {
-                    control.Type = node.Attributes["type"].Value; //write input over label if the label belongs to an inputNode. 
-                }
-            }
-            List<KeyValuePair<String, String>> at_tributes = new List<KeyValuePair<String, String>>();
-            foreach (var attribute in node.Attributes)
-            {
-                at_tributes.Add(new KeyValuePair<string, string>(attribute.Name, attribute.Value));
-            }
-            control.Attributes = at_tributes;
-
-            String JsonNode = JsonConvert.SerializeObject(control);
-            Debug.WriteLine(JsonNode);*/
-            }
+            uploadHeadingsToLuisModel();
 
 
         
-            await client.CloseAsync();
             /*List<String> allLabels = new List<String>();
             return readResponse(form);*/
             
 
-            /*
+            
             if (mainFrame.CanGoBack)
             {
                 mainFrame.GoBack();
-            }*/
+            }
         }
 
         private bool isRadioButton(HtmlNode node)
@@ -701,16 +615,36 @@ namespace ListenToMe
 
         private async void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            //mainFrame.Navigate(typeof(WebPage));
+            
             Service1Client client = new Service1Client();
-            var headings = await client.GetHeadingsAsync(userName, password, formUrl);
+            var headings = await client.GetInputsAsync(userName, password, formUrl);
             await client.CloseAsync();
-            Debug.WriteLine("counted HEadings"+headings.Count);
+            Debug.WriteLine("counted Inputs"+headings.Count);
+
+            Page nextPage = new Page();
+            StackPanel myPanel = new StackPanel();
+            myPanel.Background = new SolidColorBrush(Color.FromArgb(255, 48, 179, 221));
+            myPanel.Name = "dynamicPanel";
+            myPanel.Orientation = Orientation.Vertical;
+
             foreach (var data in headings)
             {
                 Debug.WriteLine(data);
+                createNewTextBox(data, myPanel);
             }
+
+            nextPage.Content = myPanel;
+            mainFrame.Content = nextPage;
+
+        }
+
+        private void createNewTextBox(String data, StackPanel myPanel, String value = "")
+        {
             
+                TextBox myText = new TextBox();
+                myText.Header = data;
+                myText.Text = value;
+                myPanel.Children.Add(myText);
             
         }
 
@@ -786,20 +720,54 @@ namespace ListenToMe
 
                 if (listening)
                 {
-                    await SendMessage(spokenText, true);
+                    SendMessage(spokenText, true);
                 }
             }
         }
 
-        private async Task<String> SendMessage(string message, bool speak=false)
+        private async void SendMessage(string message, bool speak=false)
         {
 
             Debug.WriteLine("sending: " + message);
             messages.Add(new Message() { Text = message });
             
             var response = await bot.SendMessageAndGetIntentFromBot(message);
+            /*Service1Client client = new Service1Client();
+            var headings = await client.GetInputsAsync(userName, password, formUrl);
+            //toDo: convert headings to Jason and send them to luisModel-Website
+            uploadHeadingsToLuisModel(headings);*/
             messages.Add(new Message() { Text = "  > " + response });
-           // determineResponse(response);
+            //intent, txt, fieldname
+            String intent = response.topScoringIntent.intent;
+            if (!intent.Equals("Field.FillIn"))
+            {
+                Debug.WriteLine("Entity Length is: " + response.entities.Length);
+                checkOtherIntents(intent);
+            }
+            else if (intent.Equals("Field.FillIn")&&response.entities.Length<1)
+            {
+                MessageDialog dialog = new MessageDialog("your intent was: "+intent+" and there are no entities in your utterance.");
+                await dialog.ShowAsync();
+            }
+            else
+            {
+                String fieldname = "";
+                String fieldvalue = "";
+                for (int i = 0; i < response.entities.Length; i++)
+                {
+                    if (response.entities[i].type.Equals("feldname"))
+                    {
+                        fieldname = response.entities[i].entity;
+                    }
+                    else//wenn es kein feldname ist, ist es wahrscheinlich eine feldinhalt-Entität
+                    {
+                        fieldvalue = response.entities[i].entity;
+                    }
+                }
+
+                await determineResponse(intent, fieldvalue, fieldname);
+            }
+            
             if (speak)
             {
                 Debug.WriteLine("starting to speak");
@@ -807,8 +775,31 @@ namespace ListenToMe
                 Debug.WriteLine("done speaking");
 
             }
-            return "Change line 280 in MainPage, F!";
-            //return response;
+        }
+
+
+
+
+        private async void checkOtherIntents(String intent)
+        {
+
+            MessageDialog dialog = new MessageDialog("");
+            if (intent.Equals("Utilities.Help")){
+                dialog.Content = "Du kannst sagen: Mein [Feldname] ist [Feldwert] z.B. 'Meine Firma ist innobis'. Wenn du etwas rückgängig machen möchtest," +
+                    "sage 'go back'";
+                await dialog.ShowAsync();
+            }
+            else if (intent.Equals("Utilities.GoBack"))
+            {
+                myFrameHelper.TryGoBack();
+                Debug.WriteLine("hit go back");
+            }
+            else if (intent.Equals("Utilities.None"))
+            {
+                dialog.Content = "Ich bin nicht sicher was deine Intention ist. Intentionen die ich kenne kannst du dir anzeigen lassen wenn du 'Hilfe' sagst.";
+                await dialog.ShowAsync();
+            }
+            
         }
 
         private async Task SpeakAsync(string toSpeak)
@@ -909,14 +900,24 @@ namespace ListenToMe
             TextBox box = (TextBox) sender;
             if(e.Key==Windows.System.VirtualKey.Enter && !string.IsNullOrWhiteSpace(box.Text))
             {
-                await SendMessage(box.Text);
+                SendMessage(box.Text);
                 box.Text = "";
             }
         }
 
        
     }
+    [JsonObject(MemberSerialization.OptIn)]
+    public class myInputs
+    {
 
+        //e.g. "input" -> textbox or ? -> radiobutton
+        [JsonProperty]
+        public string canonicalForm { get; set; }
+        [JsonProperty]
+        public ObservableCollection<String> list { get; set; }
+
+    }
     [JsonObject(MemberSerialization.OptIn)]
     public class myControl
     {

@@ -30,10 +30,11 @@ namespace ListenToMe.Model
 
             var http = new HttpClient();
             //toDo: Bots für unterschiedliche Sprachen referenzieren
-            var response = await http.GetAsync("https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/57c99374-f736-4f77-a952-1a1fe90500be?subscription-key=499b2f80014047168cf1e56b32fa7d41&timezoneOffset=0&verbose=true&q=" +
+            var response = await http.GetAsync("https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/b0ea3d44-cf05-42df-8fae-96b45e08cef7?subscription-key=a5de48ea62014f2bbdc4ad05943f2081&verbose=true&timezoneOffset=0&q=" +
                 query);
 
             var result = await response.Content.ReadAsStringAsync();
+            //access denied due to invalid suscription key
             Debug.Write(result);
             var serializer = new DataContractJsonSerializer(typeof(Rootobject));
 

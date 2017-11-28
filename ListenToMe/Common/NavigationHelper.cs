@@ -198,7 +198,7 @@ namespace ListenToMe.Common
             this.Frame.Navigated += (s, e) => UpdateBackButton();
         }
 
-        private bool TryGoBack()
+        public bool TryGoBack()
         {
             bool navigated = false;
             if (this.Frame.CanGoBack)
@@ -209,7 +209,7 @@ namespace ListenToMe.Common
             return navigated;
         }
 
-        private bool TryGoForward()
+        public bool TryGoForward()
         {
             bool navigated = false;
             if (this.Frame.CanGoForward)
