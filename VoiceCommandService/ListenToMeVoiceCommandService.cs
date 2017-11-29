@@ -15,7 +15,7 @@ using Windows.UI.Popups;
 
 namespace ListenToMe.VoiceCommands
 {
-    public sealed class ListenToMeVoiceCommandService : IBackgroundTask
+    public sealed class VoiceCommandService : IBackgroundTask
     {
         /// <summary>
         /// the service connection is maintained for the lifetime of a cortana session, once a voice command

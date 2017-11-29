@@ -21,8 +21,8 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <uap:Extension Category="windows.appService" EntryPoint="ListenToMe.VoiceCommands.ListenToMeVoiceCommandService">
-          <uap:AppService Name="ListenToMeVoiceCommandService" />
+        <uap:Extension Category="windows.appService" EntryPoint="ListenToMe.VoiceCommands.VoiceCommandService">
+          <uap:AppService Name="VoiceCommandService" />
         </uap:Extension>
         <uap:Extension Category="windows.personalAssistantLaunch" />
       </Extensions>
