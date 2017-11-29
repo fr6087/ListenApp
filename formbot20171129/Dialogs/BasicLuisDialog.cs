@@ -19,22 +19,29 @@ namespace Microsoft.Bot.Sample.LuisBot
         [LuisIntent("None")]
         public async Task NoneIntent(IDialogContext context, LuisResult result)
         {
-            await context.PostAsync($"You have reached the none intent. You said: {result.Query}"); //
+            await context.PostAsync($"You have reached the none intent AGAIN. You said: {result.Query}"); //
             context.Wait(MessageReceived);
         }
 
         // Go to https://luis.ai and create a new intent, then train/publish your luis app.
         // Finally replace "MyIntent" with the name of your newly created intent in the following handler
-        [LuisIntent("Utilites.GoBack")]
-        public async Task GoBackIntent(IDialogContext context, LuisResult result)
-        {
-            await context.PostAsync($"You have reached the GoBackIntent intent. You said: {result.Query}"); //
-            context.Wait(MessageReceived);
-        }
         [LuisIntent("Field.FillIn")]
         public async Task FillInIntent(IDialogContext context, LuisResult result)
         {
-            await context.PostAsync($"You have reached the FillInIntent intent. You said: {result.Query}"); //
+            await context.PostAsync($"You have reached the fillin Intent intent. You said: {result.Query}"); //
+            context.Wait(MessageReceived);
+        }
+
+        [LuisIntent("Utilities.GoBack")]
+        public async Task GoBackIntent(IDialogContext context, LuisResult result)
+        {
+            await context.PostAsync($"You have reached the goBack intent. You said: {result.Query}"); //
+            context.Wait(MessageReceived);
+        }
+        [LuisIntent("Utilities.Help")]
+        public async Task HelpIntent(IDialogContext context, LuisResult result)
+        {
+            await context.PostAsync($"You have reached the help intent. You said: {result.Query}"); //
             context.Wait(MessageReceived);
         }
     }
