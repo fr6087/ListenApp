@@ -33,6 +33,7 @@ using ListenToMe.ServiceReference1;
 using Windows.UI;
 using Newtonsoft.Json;
 
+
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x407 dokumentiert.
 
 namespace ListenToMe
@@ -45,6 +46,7 @@ namespace ListenToMe
     NavigationHelper navigationHelper;
     
     bool listening = false;
+        private Service1Client client;
         private RootFrameNavigationHelper myFrameHelper;
         private SpeechRecognizer speechRecognizerContinuous;
         private VoiceCommandService.Bot bot;
@@ -67,7 +69,7 @@ namespace ListenToMe
         this.navigationHelper.LoadState += navigationHelper_LoadState;
         this.navigationHelper.SaveState += navigationHelper_SaveState;
             myFrameHelper = new RootFrameNavigationHelper(mainFrame);
-           
+            
 
             //testWebView.ScriptNotify += WebView_ScriptNotify;
             //testWebView.NavigationStarting += webView_OnNavigationStarting;
@@ -78,6 +80,8 @@ namespace ListenToMe
             mainFrame.Navigate(typeof(CompanyPage), mainFrame);
             companyPage = mainFrame.Content as CompanyPage;
     }
+        
+
         private void webView_OnNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
             Debug.WriteLine("Navigation Starting");
@@ -190,6 +194,7 @@ namespace ListenToMe
             Debug.Write("MainPage_OnNavig");
             messages = new ObservableCollection<Message>();
             bot = new VoiceCommandService.Bot();
+            await bot.ConnectAsync();
             Media.MediaEnded += Media_MediaEnded;
             await InitContinuousRecognition();
 
@@ -730,8 +735,13 @@ namespace ListenToMe
 
             Debug.WriteLine("sending: " + message);
             messages.Add(new Message() { Text = message });
-            
-            var response = await bot.SendMessageAndGetIntentFromBot(message);
+
+            //send request to the bot via directline. Bot is asking LuisModel
+            String responsebyBot = await bot.TalkToTheBotAsync(message);
+            MessageDialog respBot = new MessageDialog(responsebyBot+"was responded by bot");
+
+            //get direct answer from LuisModel 
+            var response = await bot.SendMessageAndGetIntentFromBot(message); //this works as well but directline more flexible than 
             /*Service1Client client = new Service1Client();
             var headings = await client.GetInputsAsync(userName, password, formUrl);
             //toDo: convert headings to Jason and send them to luisModel-Website
