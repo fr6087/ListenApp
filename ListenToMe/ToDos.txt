@@ -1,11 +1,20 @@
 ﻿
 Probleme
--Wenn ListenToMe über Cortana gestartet wird dann kann es nicht wieder über Cortana ausgeschaltet werden.
--VoiceCommandos stürzen ab
+-Die Website hat teils gar keine innerHtml bezeichnungen für Felder (Beispiel IBAN)
+-Die sonstigen WebsiteLabels sind sehr heterogen mit *, Zahlen, (Erläuterungen) für das Inputsdictionary nicht so geeignet
+-Ressource Binding in den XAML-Dateien auf Strings benötigt
+-VoiceCommandos stürzen ab (zB Information)
+-Der WcFService hat eine finishedCondition die zu früh das Signal finished gibt (noch nicht alle javascriptFunktionen der Seite fertig)
 -Der VoiceCommand "Information" wird im VoiceCommandService abgehandelt. Aus bisher ungeklärter Ursache  erreicht er die Methode "deployVoiceCommand"
 nicht.
--Die WebView navigiert nach dem statischen Passwort-Login nicht mehr
--Für "ListenToMe bearbeiten" gibt die App nur den inneren Frame zurück, wodurch die Navigationselemente verloren gehen. Z.202 in App
+-Der VoiceCommandService wird momentan nicht aufgerufen. Das heißt, ListenToMe kann nicht als Hintergrundapp laufen
+-uploadHeadingsToLuisModel() in MainPage läuft nicht, jsonDatei wird nicht erstellt
 
 Kann ich nur zuhause was dran machen:
--Der LUIS-Bot funktioniert nicht
+-LuisBot erreicht den unterDialog  helpDialog nicht.
+
+Gelöst:
+
+-Ich möchte die PhraseList dynamisch mit den headings aus dem Formular füllen. Todo Methode für WCF Service schreiben, die ausschließlich headings harvestes
+-VoiceCommand Edit verarbeitet keine Parameter
+-Wenn ListenToMe über Cortana gestartet wird dann kann es nicht wieder über Cortana ausgeschaltet werden. -> lag an nullPointer-Rootframe

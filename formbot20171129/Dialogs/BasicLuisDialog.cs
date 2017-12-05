@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Luis;
 using Microsoft.Bot.Builder.Luis.Models;
+using Microsoft.Bot.Connector;
+using LuisBot.Dialogs;
 
 namespace Microsoft.Bot.Sample.LuisBot
 {
@@ -24,7 +26,6 @@ namespace Microsoft.Bot.Sample.LuisBot
         }
 
         // Go to https://luis.ai and create a new intent, then train/publish your luis app.
-        // Finally replace "MyIntent" with the name of your newly created intent in the following handler
         [LuisIntent("Field.FillIn")]
         public async Task FillInIntent(IDialogContext context, LuisResult result)
         {
@@ -41,8 +42,51 @@ namespace Microsoft.Bot.Sample.LuisBot
         [LuisIntent("Utilities.Help")]
         public async Task HelpIntent(IDialogContext context, LuisResult result)
         {
+            /* Activity reply = activity.CreateReply("This is the text that will be displayed.");
+             reply.Speak = "This is the text that will be spoken.";
+             reply.InputHint = InputHints.AcceptingInput;
+             await connector.Conversations.ReplyToActivityAsync(reply);*/
+            
             await context.PostAsync($"You have reached the help intent. You said: {result.Query}"); //
+            
             context.Wait(MessageReceived);
+            context.Call(new HelpDialog(), AfterDialog);
         }
+
+        private static async Task AfterDialog(IDialogContext context, IAwaitable<object> result)
+        {
+            context.Done<object>(null);
+        }
+
+        /*This snippet is for asking Cortana user related infos
+         
+         if (activity.Entities != null)
+{
+    var userInfo = activity.Entities.FirstOrDefault(e => e.Type.Equals("UserInfo"));
+    if(userInfo != null)
+    {
+        var email = userInfo.Properties.Value<string>("UserEmail");
+
+        if (!string.IsNullOrEmpty(email))
+        {
+            //Do something with the user's email address.
+        }
+
+        var currentLocation = userInfo.Properties["CurrentLocation"];
+
+        if (currentLocation != null)
+        {
+            var hub = currentLocation["Hub"];
+
+            //Access the latitude and longitude values of the user's location.
+            var lat = hub.Value<double>("Latitude");
+            var lon = hub.Value<double>("Longitude");
+
+            //Do something with the user's location information.
+        }
+    }
+}
+         */
+
     }
 }

@@ -32,12 +32,6 @@ namespace ListenToMe.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetJason", ReplyAction="http://tempuri.org/IService1/GetJasonResponse")]
         System.Threading.Tasks.Task<string> GetJasonAsync(string username, string password, string domain);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/Connect", ReplyAction="http://tempuri.org/IService1/ConnectResponse")]
-        System.Threading.Tasks.Task ConnectAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TalkToTheBot", ReplyAction="http://tempuri.org/IService1/TalkToTheBotResponse")]
-        System.Threading.Tasks.Task<string> TalkToTheBotAsync(string message);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -101,14 +95,6 @@ namespace ListenToMe.ServiceReference1 {
         
         public System.Threading.Tasks.Task<string> GetJasonAsync(string username, string password, string domain) {
             return base.Channel.GetJasonAsync(username, password, domain);
-        }
-        
-        public System.Threading.Tasks.Task ConnectAsync() {
-            return base.Channel.ConnectAsync();
-        }
-        
-        public System.Threading.Tasks.Task<string> TalkToTheBotAsync(string message) {
-            return base.Channel.TalkToTheBotAsync(message);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {

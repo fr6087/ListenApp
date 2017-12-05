@@ -42,7 +42,7 @@
 
 </CommandSet>
 
-<CommandSet xml:lang="de" Name="ListenCommandSet_de">
+<CommandSet xml:lang="de" Name="ListenToMeCommandSet_de">
   <AppName> ListenToMe</AppName>
   <Example> HörMirZu, ich gehe zu Bett </Example>
 
@@ -75,13 +75,30 @@
     <Navigate/>
   </Command>
 
-  <PhraseList Label="Page">
+  <Command Name="Information">
+    <Example> Information</Example>
+    <ListenFor>Information</ListenFor>
+    <ListenFor>Info über {Field}</ListenFor>
+    <ListenFor>Erkläre {Field}</ListenFor>
+    <ListenFor>Erzähl mir mehr zu {Field}</ListenFor>
+    <Feedback> Gerne informiere ich dich</Feedback>
+    <VoiceCommandService Target="VoiceCommandService"/> <!--for some reason this doesn't work so far-->
+  </Command>
+
+  <PhraseList Label="Page"> <!--is dynamically filled in MainPage.ActivateVoiceCommands()-->
     <Item>Adressseite</Item>
     <Item>Firmenseite</Item>
     <Item>Bestätigungsseite</Item>
     <Item>Registrierungsseite</Item>
     <Item>Juristisches-Seite</Item>
     <Item>Finanzierungsseite</Item>
+  </PhraseList>
+
+  <PhraseList Label="Field">
+    <Item>Name</Item>
+    <Item>Telefon</Item>
+    <Item>Fax</Item>
+    <Item>Vorzugsabzugssteuer</Item>
   </PhraseList>
 </CommandSet>
 </VoiceCommands>

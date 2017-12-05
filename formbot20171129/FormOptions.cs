@@ -37,14 +37,33 @@ namespace FormBot
     [Serializable]
     public class FormOptions
     {
-        public String Name;
-        public VorzugssteuerberechtigungsOptions? SteuerOptions;
-        public String Straße;
-        public short Hausnummer;
-        public String Telefon;
-        public String Fax;
-        public String Email;
-        public String Url;
+
+        public String Name { get; set; }
+        public String Anrede { get; set; }
+        public VorzugssteuerberechtigungsOptions? SteuerOptions { get; set; }
+        public String Straße { get; set; }
+        public short Hausnummer { get; set; }
+        public String Telefon { get; set; }
+        public String Fax { get; set; }
+        public String Email { get; set; }
+        public String Url { get; set; }
+
+        public FormOptions()
+        {
+
+        }
+        public FormOptions(String _Name, String _Anrede, VorzugssteuerberechtigungsOptions? _options, String _Straße, short _Hausnummer, String _Telefon, String _Fax, String _Email, String _Url )
+        {
+            Name = _Name;
+            Anrede = _Anrede;
+            SteuerOptions = _options;
+            Straße = _Straße;
+            Hausnummer = _Hausnummer;
+            Telefon = _Telefon;
+            Fax = _Fax;
+            Email = _Email;
+            Url = _Url;
+        }
         public static IForm<FormOptions> BuildForm()
         {
             return new FormBuilder<FormOptions>()

@@ -24,6 +24,8 @@ using ListenToMe.ESF_2;
 using ListenToMe.Common;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using ListenToMe.ServiceReference1;
+using System.Collections.ObjectModel;
 
 namespace ListenToMe
 {
@@ -37,9 +39,16 @@ namespace ListenToMe
         /// to transition between views.
         /// </summary>
        public static NavigationService NavigationService { get; private set; }
-        public static JsonSerializer JsonFormatter { get; internal set; }
 
+        private Service1Client client;
+        public static JsonSerializer JsonFormatter { get; internal set; }
         private RootFrameNavigationHelper rootFrameNavigationHelper;
+        internal static readonly string userName = "fr6087";
+        internal static readonly string userPassword= "Pellkart0ffelSal%40";
+        internal static readonly string uri = "http://10.150.50.21/formularservice/formular/A_FOREX_ANTRAG_ESF_2/appl/d556026e-991d-11e7-9fb1-27c0f1da4ec4/?lang=de";
+        internal static readonly Dictionary<String, Type> HeadingsNavigations = new Dictionary<string, Type>();
+        internal static readonly Dictionary<String, String> InputsNavigations = new Dictionary<string, String>();
+
 
         /// <summary>
         /// Initialisiert das Singletonanwendungsobjekt. Dies ist die erste Zeile von erstelltem Code
@@ -49,6 +58,7 @@ namespace ListenToMe
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            client = new Service1Client();
         }
 
         /// <summary>
@@ -56,8 +66,10 @@ namespace ListenToMe
         /// werden z. B. verwendet, wenn die Anwendung gestartet wird, um eine bestimmte Datei zu öffnen.
         /// </summary>
         /// <param name="e">Details über Startanforderung und -prozess.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
+            MessageDialog message = new MessageDialog("OnLaunched was called.");
+            await message.ShowAsync();
             Frame rootFrame = Window.Current.Content as Frame;
 
             // App-Initialisierung nicht wiederholen, wenn das Fenster bereits Inhalte enthält.
@@ -115,6 +127,14 @@ namespace ListenToMe
                 Debug.Write("Let's search for xml in " + Package.Current.InstalledLocation.Name);
                 StorageFile vcd = await Package.Current.InstalledLocation.GetFileAsync(@"VoiceCommands.xml");
                 await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcd);
+                CortanaModelMethods meth = new CortanaModelMethods();
+                List<String> headings = await meth.UpdatePhraseList("Page"); //this is supposed to load the headings from html file and add them as pages to voice command file
+                Console.WriteLine(headings.Count + "headingsCount");
+                List<String> inputs = await meth.UpdatePhraseList("Field");
+                //create two dictionaries for translating items to the XAML-Names I chose. This is not necessary, when creating pages dynamic. but since I already have the static ones, I'm going to use them :)
+                fillPageDictionary(headings);
+                //fillFieldDictionary(inputs); //not yet implemented
+
             }
             catch (Exception ex)
             {
@@ -122,49 +142,35 @@ namespace ListenToMe
             }
         }
 
+        
+
+
+
+        /*OnActivated is called whenever an external application e.g- Cortana launches the ListenToMeApp*/
         protected async override void OnActivated(IActivatedEventArgs e)
         {
             base.OnActivated(e);
+           
             Model.ListenToMeVoiceCommand.VoiceCommand? navigationCommand = null;
-
+            //toDo: rootFrameNavigationHelper
             MessageDialog dialog = new MessageDialog("");
             if (e.Kind == ActivationKind.VoiceCommand )
             {
                 VoiceCommandActivatedEventArgs cmdArgs = e as VoiceCommandActivatedEventArgs;
-                SpeechRecognitionResult result = cmdArgs.Result;
                 
+                SpeechRecognitionResult result = cmdArgs.Result;
+               
                 string commandName = result.RulePath[0];
+                int len = result.RulePath.ToArray().Length;
+                String rules = result.Text;
                 Debug.Write("command found: " + commandName);
-                dialog.Content = "You have a voice command activation";
+                dialog.Content = "You have a voice command activation "+ rules;
                 await dialog.ShowAsync();
-                await performCommandAsync(commandName);
+                initGui();//load default frames and pages
+                //Install VoiceCommands
+                ActivateVoiceCommands();
+                await performCommandAsync(commandName, rules);
 
-                /*switch (commandName)
-                {
-                    case "Shutdown":
-                        dialog.Content = "shut computer down.";
-                        Debug.WriteLine("found shut down command");
-                        await dialog.ShowAsync();
-                        Application.Current.Exit();
-                        navigationToPageType = typeof(MainPage);
-                        break;
-                    //do something
-                    case "Edit":
-                        await dialog.ShowAsync();
-                        dialog.Content = "Edit";//+ result.RulePath[1];
-                        Debug.WriteLine("found edit command");
-                        await dialog.ShowAsync();
-                        navigationToPageType = typeof(ConfirmationsPage);
-                        break;
-                    default:
-                        Debug.WriteLine("Couldn't find command name");
-                        dialog.Content = "default of onActivated";
-                        await dialog.ShowAsync();
-                        navigationToPageType = typeof(MainPage);
-                        break;
-
-
-                }*/
             }
             else if (e.Kind == ActivationKind.Protocol)
             {
@@ -228,39 +234,87 @@ namespace ListenToMe
                 // Ensure the current window is active
                 Window.Current.Activate();
 
-            }
+        }
 
-        private async Task performCommandAsync(string commandName)
+        private void initGui()
         {
+            Frame rootFrame = Window.Current.Content as Frame;
 
-            Frame bigFrame = Window.Current.Content as Frame;
+            // App-Initialisierung nicht wiederholen, wenn das Fenster bereits Inhalte enthält.
+            // Nur sicherstellen, dass das Fenster aktiv ist.
+            if (rootFrame == null)
+            {
+                // Frame erstellen, der als Navigationskontext fungiert und zum Parameter der ersten Seite navigieren
+                rootFrame = new Frame();
+
+                rootFrame.NavigationFailed += OnNavigationFailed;
+
+                App.NavigationService = new NavigationService(rootFrame);
+
+                // Use the RootFrameNavigationHelper to respond to keyboard and mouse shortcuts.
+                this.rootFrameNavigationHelper = new RootFrameNavigationHelper(rootFrame);
+
+                /*
+                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                {
+                    //TODO: Zustand von zuvor angehaltener Anwendung laden
+                }*/
+
+                // Den Frame im aktuellen Fenster platzieren
+                Window.Current.Content = rootFrame;
+
+
+                // Wenn der Navigationsstapel nicht wiederhergestellt wird, zur ersten Seite navigieren
+                // und die neue Seite konfigurieren, indem die erforderlichen Informationen als Navigationsparameter
+                // übergeben werden
+
+                // Determine if we're being activated normally, or with arguments from Cortana.
+                if (string.IsNullOrEmpty(""))//e.Arguments
+                {
+                    // Launching normally.
+                    rootFrame.Navigate(typeof(MainPage), "");
+                }
+                /*else
+                {
+                    // Launching with arguments. We assume, for now, that this is likely
+                    // to be in the form of "destination=<location>" from activation via Cortana.
+                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                }*/
+            }
+            // Sicherstellen, dass das aktuelle Fenster aktiv ist
+            Window.Current.Activate();
+
+        }
+
+        private async Task performCommandAsync(string commandName, String result)
+        {
+           
+            Frame bigFrame = rootFrameNavigationHelper.Frame;//Window.Current.Content as Frame;
             MessageDialog message = new MessageDialog("sss"+bigFrame.Name);
             await message.ShowAsync();
-            //toDo prevent this if current Page is already mainpage 
-            //if (bigFrame.Content == null)
-            //{
-                bigFrame.Content = new MainPage();
-            //}
             var page = (MainPage)bigFrame.Content;
             Frame subFrame = page.mainFrame;
-           // message.Content = "sss" + subFrame.Name;
-           // await message.ShowAsync();
-
             Window.Current.Content = bigFrame;
             MessageDialog dialog = new MessageDialog("");
             switch (commandName)
             {
                 //do something
                 case "Edit":
-                    dialog.Content = "Edit";//result.RulePath[1];
+
+                    dialog.Content = "Edit. result.Text " + result;//result.RulePath[1];
                     Debug.WriteLine("found 2 edit command ");
                     await dialog.ShowAsync();
                     NavigationService nana = new NavigationService(subFrame);
+                    var navPageType = typeof(MainPage);
+                    if (HeadingsNavigations.Count < 1) //this should not happen, but it does whenever the App starts with OnActivated instead of OnLaunched
+                    {
+                        CortanaModelMethods meth = new CortanaModelMethods();
+                        List<String> headings = await meth.UpdatePhraseList("Page");
+                        fillPageDictionary(headings);
+                    }
 
-                    nana.Navigate(typeof(ConfirmationsPage));
-
-                    //dialog.Content = "have now page " + page;
-                    //await dialog.ShowAsync();
+                    await FindPageToNavigateAndJump(nana, result);
+                    
                     break;
 
                 case "Information":
@@ -292,6 +346,21 @@ namespace ListenToMe
                     //return typeof(MainPage);
 
             }
+        }
+
+        private Task<bool> FindPageToNavigateAndJump(NavigationService nana, String result)
+        {
+            foreach (var heading in HeadingsNavigations) //go through the headings on the page
+            {
+
+                if (result.Contains(heading.Key)) //test whether the heading was mentioned in the Speech input by the user
+                {
+                    var navPageType = HeadingsNavigations[heading.Key];//if yes, get the pagetype to which to navigate
+                    nana.Navigate(navPageType);//and navigate
+                    return Task.FromResult(true);
+                }
+            }
+            return Task.FromResult(false);
         }
 
 
@@ -334,6 +403,258 @@ namespace ListenToMe
             textboxSender.Text = Regex.Replace(textboxSender.Text, "^(?!"+regex+")$", "");
             textboxSender.SelectionStart = cursorPosition;
 
+        }
+        private void fillPageDictionary(List<String> headings)
+        {
+            var Type = typeof(MainPage);
+            for (int i = 0; i < headings.Count; i++)//entry 0 has MainPageType and FormHeading
+            {
+
+                switch (i)
+                {
+                    case 1:
+                        Type = typeof(ESF_2.CompanyPage);
+                        break;
+                    case 2:
+                        Type = typeof(ESF_2.AddressPage);
+                        break;
+                    case 3:
+                    case 4:
+                        Type = typeof(ESF_2.LegalFormRegistrationPage);
+                        break;
+                    case 5:
+                    case 6:
+                        Type = typeof(ESF_2.RegisterEntriesPage);
+                        break;
+                    case 7:
+                    case 8:
+                        Type = typeof(ESF_2.PetitionsPage);
+                        break;
+                    case 9:
+                        Type = typeof(ESF_2.LocationPage);
+                        break;
+                    case 10:
+                    case 11:
+                        Type = typeof(ESF_2.ScheduleHRPage);
+                        break;
+                    case 12:
+                        Type = typeof(ESF_2.TrainingProvidersPage);
+                        break;
+                    case 13:
+                        Type = typeof(ESF_2.FinancingPage);
+                        break;
+                    case 14:
+                        Type = typeof(ESF_2.ConfirmationsPage);
+                        break;
+                    case 15:
+                        Type = typeof(ESF_2.DeclarationsPage);
+                        break;
+
+                }
+                Debug.WriteLine("Dict. Heading: " + headings[i] + " " + Type.Name +" | "+ Type.FullName);
+                HeadingsNavigations.Add(headings[i], Type);
+            }
+        }
+
+        private void fillFieldDictionary(List<String> inputs)
+        {
+            String textBoxName = "";
+            for (int i = 0; i < inputs.Count; i++)//entry 0 has MainPageType and FormHeading
+            {
+                /*
+                 Name
+Anrede
+Nachname
+Vorname
+Funktion im Unternehmen / Dienststellung
+Telefon
+Fax
+E-Mail-Adresse
+Straße
+Hausnr.
+PLZ
+Ort
+Gemeinde
+Amtlicher Gemeindeschlüssel (AGS)
+Landkreis
+Postfach
+Postleitzahl Postfach
+Telefon
+E-Mail-Adresse
+Internetadresse (URL) des Antragstellers
+IBAN
+3.1 Rechtsform
+3.2 Gründungsdatum bzw. Geburtsdatum (bei natürlichen Personen):
+4.1 Datum der Bescheinigung der Gewerbeanmeldung
+4.2 Datum des Beginns der angemeldeten Tätigkeit
+4.3 Angemeldete Tätigkeit (entsprechend Ziffer 15 der Gewerbeanmeldung)
+5.1 Handelsregister-Nummer
+Datum des Eintrags ins HR
+Seiten-Nummer letztes Blatt HR
+Datum des letzten Eintrags
+5.2 Vereinsregister-Nummer
+Datum des Eintrags ins VR
+5.3 Genossenschaftsregister-Nummer
+Datum des Eintrags in GR
+5.4 Steuernummer
+Zuständiges Finanzamt
+Anrede
+Titel
+Name
+Vorname
+Funktion im Unternehmen
+Bitte wählen Sie einen Branchenschlüssel
+Anzahl weibliche Beschäftigte
+Anzahl männliche Beschäftigte
+Anzahl der Beschäftigten gesamt
+Ist zum Zeitpunkt der Antragstellung eine verbindliche Anmeldung für die Weiterbildungsmaßnahme/den Kurs erfolgt oder wird vor Erhalt des Zuwendungsbescheides der LASA eine Anmeldung erfolgen?
+Das Unternehmen befindet sich in folgendem Regionalen Wachstumskern:
+Das Unternehmen ist folgendem Zukunftscluster zuzuordnen:
+Bezirk der Agentur für Arbeit
+Landkreis
+PLZ
+Maßnahmeort
+Gemeinde
+Amtlicher Gemeindeschlüssel (AGS)
+Zuordnungskriterium: Kreisstadt von Sitz/Betriebsstätte des Unternehmens im Land Brandenburg
+10.1 Kurzbezeichnung der Weiterbildungsmaßnahme/n
+10.2 Bitte beschreiben Sie die mittel- und langfristigen Entwicklungsziele Ihres Unternehmens, zu deren Erreichung die  Weiterbildungsmaßnahme/n beitragen soll/en:
+von
+bis
+Frauen:
+Männer:
+Mitarbeiter/innen gesamt:
+Weibliche Teilnehmende:
+Männliche Teilnehmende:
+Teilnehmende gesamt:
+Gesamtinvestitionen:
+Gesamtinvestitionen:
+Zuschuss:
+Gesamt:
+Öffentliche Mittel EU:
+Gesamt:
+Ort
+Datum der Antragstellung
+Nachname, Vorname der/des Zeichnungsberechtigten
+Anzahl Frauen:*
+Anzahl Männer:*
+Gesamt:
+Zahl der Erwerbstätigen (einschl. Selbstständige, Auszubildende) gesamt:*
+Davon Anzahl Frauen:*
+Darunter Zahl der Selbstständigen (einschl. Existenzgründer):*
+Davon Anzahl Frauen:*
+Gemeldete Arbeitslose gesamt:*
+Davon Anzahl Frauen:*
+Darunter Zahl der Langzeitarbeitslosen:*
+Davon Anzahl Frauen:*
+Zahl der Nicht-Erwerbstätigen gesamt:*
+Davon Anzahl Frauen:*
+Darunter Zahl der Nicht-Erwerbstätigen in beruflicher Ausbildung:
+Davon Anzahl Frauen:*
+Summe 4.2:
+Davon Summe Frauen:
+Zahl der Jugendlichen (zwischen 15 und 24 Jahren):
+Davon Anzahl Frauen:*
+Zahl der Älteren (zwischen 25 und 44 Jahren):
+Davon Anzahl Frauen:*
+Zahl der Älteren (zwischen 45 und 54 Jahren):
+Davon Anzahl Frauen:*
+Zahl der Älteren (zwischen 55 und 64 Jahren):
+Davon Anzahl Frauen:*
+Summe 4.3:
+Davon Summe Frauen:
+Angehörige einer nationalen Minderheit:
+Davon Anzahl Frauen:*
+Zahl der Migranten und Migrantinnen:
+Davon Anzahl Frauen:*
+Zahl der Menschen mit Behinderungen:
+Davon Anzahl Frauen:*
+mit Hauptschulabschluss:
+Davon Anzahl Frauen:*
+mit mittlerer Reife (10. Klasse):
+Davon Anzahl Frauen:*
+mit (Fach)Hochschulreife:
+Davon Anzahl Frauen:*
+mit (Fach)Hochschulabschluss, Meisterabschluss, Promotion:
+Davon Anzahl Frauen:*
+Summe 4.5:
+Davon Summe Frauen:
+Jahr:
+Anzahl Frauen:*
+Anzahl Männer:*
+Darunter Zahl der Nicht-Erwerbstätigen in beruflicher Ausbildung:
+Zahl der Nicht-Erwerbstätigen gesamt:*
+Darunter Zahl der Langzeitarbeitslosen:*
+Gemeldete Arbeitslose gesamt:*
+Darunter Zahl der Selbstständigen (einschl. Existenzgründer):
+Zahl der Erwerbstätigen gesamt:
+Theorie:
+Praxis:
+Arbeitserfahrung:
+Beratung / Orientierung (SOLL):
+Gesamtteilnehmerstunden:
+Gesamt je Teilnehmer:
+Jahr:
+Anzahl Frauen:*
+Anzahl Männer:*
+Darunter Zahl der Nicht-Erwerbstätigen in beruflicher Ausbildung:
+Zahl der Nicht-Erwerbstätigen gesamt:*
+Darunter Zahl der Langzeitarbeitslosen:*
+Gemeldete Arbeitslose gesamt:*
+Darunter Zahl der Selbstständigen (einschl. Existenzgründer):
+Zahl der Erwerbstätigen gesamt:
+Theorie:
+Praxis:
+Arbeitserfahrung:
+Beratung / Orientierung (SOLL):
+Gesamtteilnehmerstunden:
+Gesamt je Teilnehmer:
+                 */ /*
+                switch (i)
+                {
+                    case 1:
+                        textBoxName = typeof(ESF_2.CompanyPage);
+                        break;
+                    case 2:
+                        textBoxName = textBoxNameof(ESF_2.AddressPage);
+                        break;
+                    case 3:
+                    case 4:
+                        textBoxName = textBoxNameof(ESF_2.LegalFormRegistrationPage);
+                        break;
+                    case 5:
+                    case 6:
+                        textBoxName = textBoxNameof(ESF_2.RegisterEntriesPage);
+                        break;
+                    case 7:
+                    case 8:
+                        textBoxName = textBoxNameof(ESF_2.PetitionsPage);
+                        break;
+                    case 9:
+                        textBoxName = textBoxNameof(ESF_2.LocationPage);
+                        break;
+                    case 10:
+                    case 11:
+                        textBoxName = textBoxNameof(ESF_2.ScheduleHRPage);
+                        break;
+                    case 12:
+                        textBoxName = textBoxNameof(ESF_2.TrainingProvidersPage);
+                        break;
+                    case 13:
+                        textBoxName = textBoxNameof(ESF_2.FinancingPage);
+                        break;
+                    case 14:
+                        textBoxName = textBoxNameof(ESF_2.ConfirmationsPage);
+                        break;
+                    case 15:
+                        textBoxName = textBoxNameof(ESF_2.DeclarationsPage);
+                        break;
+
+                }
+                Debug.WriteLine("Dict. Heading: " + heads[i] + " " + Type.Name + " | " + Type.FullName);
+                HeadingsNavigations.Add(heads[i], Type);*/
+                
+            }
         }
     }
 }

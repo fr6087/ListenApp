@@ -170,7 +170,7 @@ namespace ListenToMe.Common
     [Windows.Foundation.Metadata.WebHostHidden]
     public class RootFrameNavigationHelper
     {
-        private Frame Frame { get; set; }
+        public Frame Frame { get; set; }
         SystemNavigationManager systemNavigationManager;
 
         /// <summary>

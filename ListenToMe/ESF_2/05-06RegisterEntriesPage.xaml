@@ -18,6 +18,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
 
         </Grid.RowDefinitions>
 
@@ -28,23 +30,24 @@
         <DatePicker Name="_51bTradeRegistrationDate" Margin="10,0,0,20" Grid.Row="2" Header="Datum des Eintrags ins HR" Width="320"></DatePicker>
         <TextBox Name="_51clastPagetxt" Grid.Row="3" TextWrapping="Wrap" Header="Seitennummer letztes Blatt HR:" TextBox.InputScope="Number"/>
         <DatePicker Name="_51dlastPageDate" Margin="10,0,0,20" Grid.Row="4" Header="Datum des letzten Eintrags" />
+        
+        <!--Steuernummer-->
+        <TextBox   Name="_54taxNumber" Header="Steuer:" HorizontalAlignment="Stretch" Grid.Row="5"  Margin="10,0,30,10"  />
+        <DatePicker Name="_54localTaxOffice"  Margin="10,0,0,0" Grid.Row="6"  Header="zuständiges Finanzamt" VerticalAlignment="Stretch" Width="320" />
 
         <!--Vereinsregister-->
-        <TextBox   Name="_52RegisterOfAssociationstxt" Header="Vereinsregister-Nummer (VR-Nummer):" HorizontalAlignment="Stretch" Grid.Row="8"  Margin="10,0,30,10"  />
         <DatePicker Name="_52RegisterOfAssociationsDate"  Margin="10,0,0,0" Grid.Row="7"  Header="Datum des Eintrags ins VR" VerticalAlignment="Stretch" Width="320" />
+        <TextBox   Name="_52RegisterOfAssociationstxt" Header="Vereinsregister-Nummer (VR-Nummer):" HorizontalAlignment="Stretch" Grid.Row="8"  Margin="10,0,30,10"  />
 
         <!--Genossenschaftssregister
         <TextBox   Name="_52RegisterOfAssociationstxt" Header="Vereinsregister-Nummer (VR-Nummer):" HorizontalAlignment="Stretch" Grid.Row="4"  Margin="10,0,30,10"  />
         <DatePicker Name="_52RegisterOfAssociationsDate"  Margin="10,0,0,0" Grid.Row="5"  Header="Datum des Eintrags ins VR" VerticalAlignment="Stretch" Width="320" />
         -->
-        <!--Steuernummer-->
-        <TextBox   Name="_54taxNumber" Header="Steuer:" HorizontalAlignment="Stretch" Grid.Row="4"  Margin="10,0,30,10"  />
-        <DatePicker Name="_54localTaxOffice"  Margin="10,0,0,0" Grid.Row="5"  Header="zuständiges Finanzamt" VerticalAlignment="Stretch" Width="320" />
-
+        
         <!--Gesetzliche Vertreter-->
-        <TextBox   Name="_61SurName" Header="Name:" HorizontalAlignment="Stretch" Grid.Row="6"  Margin="10,0,30,10"  />
-        <TextBox   Name="_61FirstName" Header="Vorname:" HorizontalAlignment="Stretch" Grid.Row="6"  Margin="10,0,30,10"  />
-        <TextBox   Name="_61Funktion" Header="Funktion im Unternehmen:" HorizontalAlignment="Stretch" Grid.Row="6"  Margin="10,0,30,10"  />
+        <TextBox   Name="_61SurName" Header="Name:" HorizontalAlignment="Stretch" Grid.Row="9"  Margin="10,0,30,10"  />
+        <TextBox   Name="_61FirstName" Header="Vorname:" HorizontalAlignment="Stretch" Grid.Row="10"  Margin="10,0,30,10"  />
+        <TextBox   Name="_61Funktion" Header="Funktion im Unternehmen:" HorizontalAlignment="Stretch" Grid.Row="11"  Margin="10,0,30,10"  />
 
         <!--Navigation-->
         <HyperlinkButton x:Name="buttonGoTo78"

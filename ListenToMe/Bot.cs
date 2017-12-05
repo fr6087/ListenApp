@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Windows.Data.Json;
 using Windows.Foundation;
-using Microsoft.Bot.Connector.DirectLine.Models;
 using Microsoft.Rest;
 
 namespace VoiceCommandService
@@ -55,9 +54,9 @@ namespace VoiceCommandService
 
         // TODO: Change the URL to match your bot
         private const string _botBaseUrl = "https://luisformbot20171129.azurewebsites.net/api/messages";
-        
-        
 
+
+        private static readonly string fromUser = "DirectLineSampleClientUser";
         private DirectLineClient _directLine;
         private string _conversationId;
         
@@ -100,7 +99,7 @@ namespace VoiceCommandService
             _directLine = new DirectLineClient(_directLineSecret);
             Debug.WriteLine("2");
             
-            var conversation = await _directLine.Conversations.NewConversationWithHttpMessagesAsync();//StartConversationWithHttpMessagesAsync();// NewConversationWithHttpMessagesAsync();
+            var conversation = await _directLine.Conversations.StartConversationWithHttpMessagesAsync();// NewConversationWithHttpMessagesAsync();
             Debug.WriteLine("3");
             _conversationId = conversation.Body.ConversationId;//.Body.ConversationId;
 
@@ -111,8 +110,8 @@ namespace VoiceCommandService
         {
             try
             {
-                var httpMessages = await _directLine.Conversations.GetMessagesWithHttpMessagesAsync(_conversationId);
-                var messages = httpMessages.Body.Messages;//Activities;
+                var httpMessages = await _directLine.Conversations.GetActivitiesWithHttpMessagesAsync(_conversationId);
+                var messages = httpMessages.Body.Activities;//Activities;
 
                 // our bot only returns a single message, so we won't loop through
                 // First message is the question, second message is the response
@@ -144,14 +143,20 @@ namespace VoiceCommandService
             {
                 System.Diagnostics.Debug.WriteLine("Sending bot message");
 
-                Message msg = new Message();//type was in original Message
-                msg.Text = message;
+                //Message msg = new Message();//type was in original Message
+                Activity userMessage = new Activity
+                {
+                    From = new ChannelAccount(fromUser),
+                    Text = message,
+                    Type = ActivityTypes.Message
+                };
+                //msg.Text = message;
 
 
                 System.Diagnostics.Debug.WriteLine("Posting "+_conversationId);
                 try
                 {
-                    await _directLine.Conversations.PostMessageAsync(_conversationId, msg);
+                    await _directLine.Conversations.PostActivityAsync(_conversationId, userMessage);
                 }
                 catch (Microsoft.Rest.HttpOperationException e)
                 {
