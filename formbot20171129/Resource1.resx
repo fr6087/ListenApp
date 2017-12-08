@@ -117,117 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BackButton.Content" xml:space="preserve">
-    <value>Zurück</value>
-  </data>
-  <data name="ButtonGoTo2.Content" xml:space="preserve">
-    <value>Adressangaben</value>
-  </data>
-  <data name="DetailTitle.Text" xml:space="preserve">
-    <value>Unternehmensangaben</value>
-    <comment>hier fangen die strings von Compannypage an</comment>
-  </data>
-  <data name="HomeButton.Content" xml:space="preserve">
-    <value>ILBBaukasten</value>
-  </data>
-  <data name="InputText.PlaceholderText" xml:space="preserve">
-    <value>Sage etwas oder sage 'Zuhören'</value>
-  </data>
-  <data name="mandatoryField" xml:space="preserve">
-    <value>Fehler. Pflichtfeld.</value>
-  </data>
-  <data name="min1digit" xml:space="preserve">
-    <value>Fehler. Mindestens 1 Zahl eingeben.</value>
-  </data>
-  <data name="NextButton.Content" xml:space="preserve">
-    <value>Weiter</value>
-  </data>
-  <data name="_11Name.Header" xml:space="preserve">
-    <value>Name/Bezeichnung</value>
-  </data>
-  <data name="_11Name.PlaceholderText" xml:space="preserve">
-    <value>Unternehmensname</value>
-  </data>
-  <data name="_12Tax.Header" xml:space="preserve">
-    <value>Vorsteuerabzugsberechtigt</value>
-  </data>
-  <data name="_12Tax.OffContent" xml:space="preserve">
-    <value>nein</value>
-  </data>
-  <data name="_12Tax.OnContent" xml:space="preserve">
-    <value>ja</value>
-  </data>
-  <data name="_13Anrede.Header" xml:space="preserve">
-    <value>Anrede</value>
-  </data>
-  <data name="_13AnredeFemale.Content" xml:space="preserve">
-    <value>Frau</value>
-  </data>
-  <data name="_13AnredeMale.Content" xml:space="preserve">
-    <value>Herr</value>
-  </data>
-  <data name="_13email.Header" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="_13email.PlaceholderText" xml:space="preserve">
-    <value>mmuster@muster.de</value>
-  </data>
-  <data name="_13fax.Header" xml:space="preserve">
-    <value>Fax</value>
-  </data>
-  <data name="_13fax.PlaceholderText" xml:space="preserve">
-    <value>+49 40 12345</value>
-  </data>
-  <data name="_13Function.Header" xml:space="preserve">
-    <value>Funktion/Stellung</value>
-  </data>
-  <data name="_13Function.PlaceholderText" xml:space="preserve">
-    <value>z.B. Geschäftsführer</value>
-  </data>
-  <data name="_13givenName.Header" xml:space="preserve">
-    <value>Vorname</value>
-  </data>
-  <data name="_13givenName.PlaceholderText" xml:space="preserve">
-    <value>Max</value>
-  </data>
-  <data name="_13surname.Header" xml:space="preserve">
-    <value>Nachname</value>
-  </data>
-  <data name="_13surname.PlaceholderText" xml:space="preserve">
-    <value>Mustermann</value>
-  </data>
-  <data name="_13telephone.Header" xml:space="preserve">
-    <value>Telefon</value>
-  </data>
-  <data name="_13telephone.PlaceholderText" xml:space="preserve">
-    <value>+49 40 12345</value>
-  </data>
-  <data name="_2email.Header" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="_2Place.Header" xml:space="preserve">
-    <value>Ort</value>
-  </data>
-  <data name="_2POB.Header" xml:space="preserve">
-    <value>Postfach</value>
-  </data>
-  <data name="_2PostalCode.Header" xml:space="preserve">
-    <value>Postleitzahl</value>
-  </data>
-  <data name="_2postalcodePOB.Header" xml:space="preserve">
-    <value>PLZ Postfach</value>
-  </data>
-  <data name="_2telephone.Header" xml:space="preserve">
-    <value>Telefon</value>
-  </data>
-  <data name="_2township.Header" xml:space="preserve">
-    <value>Gemeinde</value>
-  </data>
-  <data name="_2townshipKey.Header" xml:space="preserve">
-    <value>Amtl. Gemeindeschlüssel</value>
-  </data>
   <data name="Processing" xml:space="preserve">
-    <value>Dein Formular wird angelegt. Ich werde dich über Statusänderungen informieren.</value>
-    <comment>used in LuisDialogs serializable subclass xyzForm</comment>
+    <value>Deine Werte werden verarbeitet.</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Soll ich diese Werte speichern?</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>Gespeichert.</value>
   </data>
 </root>

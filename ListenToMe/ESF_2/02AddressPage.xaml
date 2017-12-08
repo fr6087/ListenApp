@@ -39,31 +39,31 @@
                  WinRTXamlToolkitControlExtensions:FieldValidationExtensions.InvalidBrush="Red"/>-->
 
         <!--PLZ und Ort-->
-        <TextBox Name="_2PostalCode" HorizontalAlignment="Left" MaxWidth="135" Grid.Row="2"  Header="Postleitzahl" TextWrapping="Wrap" TextBox.InputScope="Number" TextBox.MaxLength="5"/>
+        <TextBox Name="_2PostalCode" x:Uid="_2PostalCode" HorizontalAlignment="Left" MaxWidth="135" Grid.Row="2" TextWrapping="Wrap" TextBox.InputScope="Number" TextBox.MaxLength="5"/>
         <!--:FieldValidationExtensions.Format="NonEmptyNumeric"
                  WinRTXamlToolkitControlExtensions:FieldValidationExtensions.NonEmptyErrorMessage="PflichtFeld"
                  WinRTXamlToolkitControlExtensions:FieldValidationExtensions.MinLengthErrorMessage="${min1digit}"
                  WinRTXamlToolkitControlExtensions:FieldValidationExtensions.MinLength="5"
                  WinRTXamlToolkitControlExtensions:FieldValidationExtensions.InvalidBrush="Red"/>-->
-            <TextBox Name="_2Place"  Margin="80,0,0,0" Grid.Row="2" TextWrapping="Wrap" Header="Ort" TextBox.MaxLength="60"  VerticalAlignment="Stretch" />
+        <TextBox Name="_2Place" x:Uid="_2Place" Margin="80,0,0,0" Grid.Row="2" TextWrapping="Wrap" TextBox.MaxLength="60"  VerticalAlignment="Stretch" />
             <!--:FieldValidationExtensions.Format="NonEmpty"
                  WinRTXamlToolkitControlExtensions:FieldValidationExtensions.NonEmptyErrorMessage="PflichtFeld"
                  WinRTXamlToolkitControlExtensions:FieldValidationExtensions.MinLength="2"
                  WinRTXamlToolkitControlExtensions:FieldValidationExtensions.MinLengthErrorMessage="Mindestens 2 Buchstaben eintragen."/--> 
 
         <!-- Gemeinde und Gemeindeschlüssel -->
-        <TextBox   Name="_2township" Header="Gemeinde" HorizontalAlignment="Left" Grid.Row="3" TextWrapping="Wrap" Margin="10,0,0,10" TextBox.MaxLength="30"  Width="138" />
-        <TextBox   Name="_2townshipKey" Header="Amtl. Gemeindeschlüssel" Grid.Row="3" HorizontalAlignment="Stretch" Margin="153,0,0,10" TextWrapping="Wrap" TextBox.InputScope="Number" TextBox.MaxLength="8"></TextBox>
+        <TextBox   Name="_2township" x:Uid="_2township" HorizontalAlignment="Left" Grid.Row="3" TextWrapping="Wrap" Margin="10,0,0,10" TextBox.MaxLength="30"  Width="138" />
+        <TextBox   Name="_2townshipKey" x:Uid="_2townshipKey" Grid.Row="3" HorizontalAlignment="Stretch" Margin="153,0,0,10" TextWrapping="Wrap" TextBox.InputScope="Number" TextBox.MaxLength="8"></TextBox>
 
         <!-- Postfachdaten-->
-        <TextBox   Name="_2POB" Header="Postfach" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Margin="10,0,0,10" Width="138" TextBox.InputScope="Number" TextBox.MaxLength="10"/>
-        <TextBox   Name="_2postalcodePOB" Header="PLZ Postfach" HorizontalAlignment="Stretch" Grid.Row="4" TextWrapping="Wrap" Margin="153,0,0,10" TextBox.MaxLength="5" TextBox.InputScope="Number"
+        <TextBox   Name="_2POB" x:Uid="_2POB" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Margin="10,0,0,10" Width="138" TextBox.InputScope="Number" TextBox.MaxLength="10"/>
+        <TextBox   Name="_2postalcodePOB" x:Uid="_2postalcodePOB" HorizontalAlignment="Stretch" Grid.Row="4" TextWrapping="Wrap" Margin="153,0,0,10" TextBox.MaxLength="5" TextBox.InputScope="Number"
                    />
 
         <!--Kontaktdaten-->
-        <TextBox   Name="_2telephone" Header="Telefon" HorizontalAlignment="Left" Grid.Row="5" TextWrapping="Wrap" PlaceholderText="+49 40 12345"  Width="138" Margin="10,0,0,10" TextBox.InputScope="TelephoneNumber" TextBox.MaxLength="40"/>
+        <TextBox   Name="_2telephone" x:Uid="_2telephone" HorizontalAlignment="Left" Grid.Row="5" TextWrapping="Wrap" PlaceholderText="+49 40 12345"  Width="138" Margin="10,0,0,10" TextBox.InputScope="TelephoneNumber" TextBox.MaxLength="40"/>
         <TextBox   Name="_2district" Header="Landkreis" HorizontalAlignment="Stretch" Grid.Row="5" TextWrapping="Wrap" Margin="153,0,0,10" VerticalAlignment="Stretch" TextBox.MaxLength="40"/>
-        <TextBox   Name="_2email" HorizontalAlignment="Left" Grid.Row="6" TextWrapping="Wrap" Header="Email" PlaceholderText="mmuster@muster.de" VerticalAlignment="Top" Width="350" Height="60" Margin="10,0,0,0" TextBox.InputScope="EmailNameOrAddress" TextBox.MaxLength="40"/>
+        <TextBox   Name="_2email" HorizontalAlignment="Left" Grid.Row="6" TextWrapping="Wrap" PlaceholderText="mmuster@muster.de" VerticalAlignment="Top" Width="350" Height="60" Margin="10,0,0,0" TextBox.InputScope="EmailNameOrAddress" TextBox.MaxLength="40"/>
         <TextBox   Name="_2url" HorizontalAlignment="Left" Grid.Row="7" TextWrapping="Wrap" Header="URL" PlaceholderText="Internetadresse des Antragsstellers" VerticalAlignment="Top" Width="340" Height="60" Margin="10,5,0,0" Grid.RowSpan="2" TextBox.InputScope="Url" TextBox.MaxLength="130"/>
 
         <!--Navigation-->

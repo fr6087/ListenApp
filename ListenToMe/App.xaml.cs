@@ -459,31 +459,56 @@ namespace ListenToMe
         private void fillFieldDictionary(List<String> inputs)
         {
             String textBoxName = "";
-            for (int i = 0; i < inputs.Count; i++)//entry 0 has MainPageType and FormHeading
-            {
-                /*
-                 Name
-Anrede
-Nachname
-Vorname
-Funktion im Unternehmen / Dienststellung
-Telefon
-Fax
-E-Mail-Adresse
-Straße
-Hausnr.
-PLZ
-Ort
-Gemeinde
-Amtlicher Gemeindeschlüssel (AGS)
-Landkreis
-Postfach
-Postleitzahl Postfach
-Telefon
-E-Mail-Adresse
-Internetadresse (URL) des Antragstellers
-IBAN
-3.1 Rechtsform
+
+            int i = 0;
+            InputsNavigations.Add("_11Name", inputs[i]);//Name
+            i++;
+            InputsNavigations.Add( "_13Anrede", inputs[i]);//Anrede
+            i++;
+            InputsNavigations.Add( "_13surname", inputs[i]);//Nachname
+            i++;
+            InputsNavigations.Add( "_13givenName", inputs[i]);//Vorname
+            i++;
+            InputsNavigations.Add( "_13Function", inputs[i]);//Funktion
+            i++;
+            InputsNavigations.Add( "_13telephone", inputs[i]);//Telefon
+            i++;
+            InputsNavigations.Add( "_13Anrede", inputs[i]);//Fax
+            i++;
+            InputsNavigations.Add( "_13surname", inputs[i]);//E - Mail-Adresse
+            i++;
+            InputsNavigations.Add( "_13givenName", inputs[i]);//Straße
+            i++;
+            InputsNavigations.Add( "_13Function", inputs[i]);//Hausnr.
+            i++;
+            InputsNavigations.Add( "_13telephone", inputs[i]);//PLZ
+            i++;
+            InputsNavigations.Add( "_2PostalCode", inputs[i]);//Ort
+            i++;
+            InputsNavigations.Add( "_2township", inputs[i]);//Gemeinde
+            i++;
+            InputsNavigations.Add( "_2townshipKey", inputs[i]);//Amtlicher Gemeindeschlüssel (AGS)
+            i++;
+            InputsNavigations.Add( "*********************************************", inputs[i]);//Landkreis
+            i++;
+            InputsNavigations.Add( "_2POB", inputs[i]);//Postfach
+            i++;
+            InputsNavigations.Add( "_2postalcodePOB", inputs[i]);//Postleitzahl Postfach
+            i++;
+            InputsNavigations.Add("_2telephone", inputs[i]);//Telefon
+            i++;
+            InputsNavigations.Add("_2email", inputs[i]);//E - Mail-Adresse
+            i++;
+            InputsNavigations.Add( "_13givenName", inputs[i]);//Internetadresse (URL) des Antragstellers
+            i++;
+            InputsNavigations.Add( "_13Function", inputs[i]);//IBAN
+            i++;
+            InputsNavigations.Add( "_13telephone", inputs[i]);//3.1 Rechtsform
+            i++;
+            
+            /*
+
+
 3.2 Gründungsdatum bzw. Geburtsdatum (bei natürlichen Personen):
 4.1 Datum der Bescheinigung der Gewerbeanmeldung
 4.2 Datum des Beginns der angemeldeten Tätigkeit
@@ -609,52 +634,51 @@ Arbeitserfahrung:
 Beratung / Orientierung (SOLL):
 Gesamtteilnehmerstunden:
 Gesamt je Teilnehmer:
-                 */ /*
-                switch (i)
-                {
-                    case 1:
-                        textBoxName = typeof(ESF_2.CompanyPage);
-                        break;
-                    case 2:
-                        textBoxName = textBoxNameof(ESF_2.AddressPage);
-                        break;
-                    case 3:
-                    case 4:
-                        textBoxName = textBoxNameof(ESF_2.LegalFormRegistrationPage);
-                        break;
-                    case 5:
-                    case 6:
-                        textBoxName = textBoxNameof(ESF_2.RegisterEntriesPage);
-                        break;
-                    case 7:
-                    case 8:
-                        textBoxName = textBoxNameof(ESF_2.PetitionsPage);
-                        break;
-                    case 9:
-                        textBoxName = textBoxNameof(ESF_2.LocationPage);
-                        break;
-                    case 10:
-                    case 11:
-                        textBoxName = textBoxNameof(ESF_2.ScheduleHRPage);
-                        break;
-                    case 12:
-                        textBoxName = textBoxNameof(ESF_2.TrainingProvidersPage);
-                        break;
-                    case 13:
-                        textBoxName = textBoxNameof(ESF_2.FinancingPage);
-                        break;
-                    case 14:
-                        textBoxName = textBoxNameof(ESF_2.ConfirmationsPage);
-                        break;
-                    case 15:
-                        textBoxName = textBoxNameof(ESF_2.DeclarationsPage);
-                        break;
+             */ /*
+            switch (i)
+            {
+                case 1:
+                    textBoxName = typeof(ESF_2.CompanyPage);
+                    break;
+                case 2:
+                    textBoxName = textBoxNameof(ESF_2.AddressPage);
+                    break;
+                case 3:
+                case 4:
+                    textBoxName = textBoxNameof(ESF_2.LegalFormRegistrationPage);
+                    break;
+                case 5:
+                case 6:
+                    textBoxName = textBoxNameof(ESF_2.RegisterEntriesPage);
+                    break;
+                case 7:
+                case 8:
+                    textBoxName = textBoxNameof(ESF_2.PetitionsPage);
+                    break;
+                case 9:
+                    textBoxName = textBoxNameof(ESF_2.LocationPage);
+                    break;
+                case 10:
+                case 11:
+                    textBoxName = textBoxNameof(ESF_2.ScheduleHRPage);
+                    break;
+                case 12:
+                    textBoxName = textBoxNameof(ESF_2.TrainingProvidersPage);
+                    break;
+                case 13:
+                    textBoxName = textBoxNameof(ESF_2.FinancingPage);
+                    break;
+                case 14:
+                    textBoxName = textBoxNameof(ESF_2.ConfirmationsPage);
+                    break;
+                case 15:
+                    textBoxName = textBoxNameof(ESF_2.DeclarationsPage);
+                    break;
 
-                }
-                Debug.WriteLine("Dict. Heading: " + heads[i] + " " + Type.Name + " | " + Type.FullName);
-                HeadingsNavigations.Add(heads[i], Type);*/
-                
             }
+            Debug.WriteLine("Dict. Heading: " + heads[i] + " " + Type.Name + " | " + Type.FullName);
+            HeadingsNavigations.Add(heads[i], Type);*/
+
+        }
         }
     }
-}

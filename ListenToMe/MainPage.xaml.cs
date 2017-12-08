@@ -186,7 +186,7 @@ namespace ListenToMe
             //testHttpConnection();
             //testHTTPWebCon(); !broken
             //testHelloWorldLogin();
-            // postFieldValues(new KeyValuePair<string, string>("field","value")); !extracts static html tags, but not dynamic ones loaded by javascript function
+            //postFieldValues(new KeyValuePair<string, string>("field","value")); //!extracts static html tags, but not dynamic ones loaded by javascript function
            
             navigationHelper.OnNavigatedTo(e);
    }
@@ -521,6 +521,10 @@ namespace ListenToMe
         {
             
             Service1Client client = new Service1Client();
+            var form = await client.GetFormAsync(App.uri);
+            Debug.WriteLine(form);
+
+            /* //this mapps new textboxes with the names of the labels from the Html Page to the current Page
             var headings = await client.GetInputsAsync(userName, password, formUrl);
             await client.CloseAsync();
             Debug.WriteLine("counted Inputs"+headings.Count);
@@ -538,7 +542,7 @@ namespace ListenToMe
             }
 
             nextPage.Content = myPanel;
-            mainFrame.Content = nextPage;
+            mainFrame.Content = nextPage;*/
 
         }
 

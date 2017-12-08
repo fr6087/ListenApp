@@ -7,12 +7,69 @@ using Microsoft.Bot.Builder.Dialogs;
 using System.Web.Http.Description;
 using System.Net.Http;
 using System.Diagnostics;
+using static Microsoft.Bot.Sample.LuisBot.BasicLuisDialog;
+using Microsoft.Bot.Builder.FormFlow;
+using Newtonsoft.Json.Linq;
 
 namespace Microsoft.Bot.Sample.LuisBot
 {
     [BotAuthentication]
     public class MessagesController : ApiController
     {
+        internal static IDialog<ESF2CompanyDetailsForm> MakeRootDialog()
+        {
+            return Chain.From(() => FormDialog.FromForm(ESF2CompanyDetailsForm.BuildLocalizedForm))
+                .Do(async (context, order) =>
+                {
+                    try
+                    {
+                        var completed = await order;
+                        // Actually process the form...
+                        await context.PostAsync("Formular ausgefüllt!");
+                    }
+                    catch (FormCanceledException<ESF2CompanyDetailsForm> e)
+                    {
+                        string reply;
+                        if (e.InnerException == null)
+                        {
+                            reply = $"Du hast bei {e.Last} aufgehört. Nächstes Mal kannst du dort weiterarbeiten!";
+                        }
+                        else
+                        {
+                            reply = "Entschuldigung, ich bin begriffsstutzig. Versuch es später noch mal.";
+                        }
+                        await context.PostAsync(reply);
+                    }
+                });
+        }
+
+        internal static IDialog<JObject> MakeJsonRootDialog()
+        {
+            return Chain.From(() => FormDialog.FromForm(ESF2CompanyDetailsForm.BuildJsonForm))
+                .Do(async (context, order) =>
+                {
+                    try
+                    {
+                        var completed = await order;
+                        // Actually process the sandwich order...
+                        await context.PostAsync("Processed your order!");
+                    }
+                    catch (FormCanceledException<JObject> e)
+                    {
+                        string reply;
+                        if (e.InnerException == null)
+                        {
+                            reply = $"You quit on {e.Last}--maybe you can finish next time!";
+                        }
+                        else
+                        {
+                            reply = "Sorry, I've had a short circuit.  Please try again.";
+                        }
+                        await context.PostAsync(reply);
+                    }
+                });
+        }
+
         /// <summary>
         /// POST: api/Messages
         /// receive a message from a user and send replies
@@ -21,16 +78,24 @@ namespace Microsoft.Bot.Sample.LuisBot
         [ResponseType(typeof(void))]
         public virtual async Task<HttpResponseMessage> Post([FromBody] Activity activity)
         {
-            // check if activity is of type message
-            if (activity.GetActivityType() == ActivityTypes.Message)
+            if (activity != null)
             {
-                
+                // one of these will have an interface and process it
+                switch (activity.GetActivityType())
+                {
+                    case ActivityTypes.Message:
+                        await Conversation.SendAsync(activity, () => new BasicLuisDialog());
+                        break;
 
-                await Conversation.SendAsync(activity, () => new BasicLuisDialog());
-            }
-            else
-            {
-                HandleSystemMessage(activity);
+                    case ActivityTypes.ConversationUpdate:
+                    case ActivityTypes.ContactRelationUpdate:
+                    case ActivityTypes.Typing:
+                    case ActivityTypes.DeleteUserData:
+                    default:
+                        HandleSystemMessage(activity);
+                        Trace.TraceError($"Unknown activity type ignored: {activity.GetActivityType()}");
+                        break;
+                }
             }
             return new HttpResponseMessage(System.Net.HttpStatusCode.Accepted);
         }
@@ -47,6 +112,7 @@ namespace Microsoft.Bot.Sample.LuisBot
                 // Handle conversation state changes, like members being added and removed
                 // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info
                 // Not available in all channels
+
             }
             else if (message.Type == ActivityTypes.ContactRelationUpdate)
             {

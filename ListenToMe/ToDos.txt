@@ -3,15 +3,17 @@ Probleme
 -Die Website hat teils gar keine innerHtml bezeichnungen für Felder (Beispiel IBAN)
 -Die sonstigen WebsiteLabels sind sehr heterogen mit *, Zahlen, (Erläuterungen) für das Inputsdictionary nicht so geeignet
 -Ressource Binding in den XAML-Dateien auf Strings benötigt
--VoiceCommandos stürzen ab (zB Information)
 -Der WcFService hat eine finishedCondition die zu früh das Signal finished gibt (noch nicht alle javascriptFunktionen der Seite fertig)
 -Der VoiceCommand "Information" wird im VoiceCommandService abgehandelt. Aus bisher ungeklärter Ursache  erreicht er die Methode "deployVoiceCommand"
 nicht.
 -Der VoiceCommandService wird momentan nicht aufgerufen. Das heißt, ListenToMe kann nicht als Hintergrundapp laufen
 -uploadHeadingsToLuisModel() in MainPage läuft nicht, jsonDatei wird nicht erstellt
+-keine Ahnung, wo ich das Codesnippet einbauen soll, das Die Cortana information zur email und username abruft
 
-Kann ich nur zuhause was dran machen:
--LuisBot erreicht den unterDialog  helpDialog nicht.
+Kann ich nur zuhause/mit BotframeworkEmulator debuggen:
+-LuisBot erreicht den unterDialog  helpDialog nicht. Wirft MultipleResumeHandlersException
+-LuisBot wirft bei einer Erzeugung mit LocalizedCulture Fehler /MakeRoot in MessagesController oder buildLocalizedForm stürtzt verm. ab
+-Cortana channel nicht integriert
 
 Gelöst:
 

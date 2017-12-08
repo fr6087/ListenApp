@@ -117,10 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BackButton.Content" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="ButtonGoTo2.Content" xml:space="preserve">
+    <value>Adress data</value>
+  </data>
+  <data name="DetailTitle.Text" xml:space="preserve">
+    <value>Company data</value>
+  </data>
+  <data name="HomeButton.Content" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="InputText.PlaceholderText" xml:space="preserve">
+    <value>Say something or say 'listen'</value>
+  </data>
   <data name="mandatoryField" xml:space="preserve">
-    <value>Error. Mandatory field.</value>
+    <value>Error. Mandatory field</value>
   </data>
   <data name="min1digit" xml:space="preserve">
-    <value>Error. Please insert at least 1 digit.</value>
+    <value>Error. Insert at least 1 number</value>
+  </data>
+  <data name="NextButton.Content" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="_11Name.Header" xml:space="preserve">
+    <value>Name/Label</value>
+  </data>
+  <data name="_11Name.PlaceholderText" xml:space="preserve">
+    <value>Name of the company</value>
+  </data>
+  <data name="_12Tax.Header" xml:space="preserve">
+    <value>pre-tax deduction allowance</value>
+  </data>
+  <data name="_12Tax.OffContent" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="_12Tax.OnContent" xml:space="preserve">
+    <value>yes</value>
+  </data>
+  <data name="_13Anrede.Header" xml:space="preserve">
+    <value>Adress</value>
+  </data>
+  <data name="_13AnredeFemale.Content" xml:space="preserve">
+    <value>Mrs./Ms.</value>
+  </data>
+  <data name="_13AnredeMale.Content" xml:space="preserve">
+    <value>Mr.</value>
+  </data>
+  <data name="_13email.Header" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="_13email.PlaceholderText" xml:space="preserve">
+    <value>m.example@example.de</value>
+  </data>
+  <data name="_13fax.Header" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="_13fax.PlaceholderText" xml:space="preserve">
+    <value>+44 40 12345</value>
+  </data>
+  <data name="_13Function.Header" xml:space="preserve">
+    <value>Function/Position</value>
+  </data>
+  <data name="_13Function.PlaceholderText" xml:space="preserve">
+    <value>e.g. Management Director</value>
+  </data>
+  <data name="_13givenName.Header" xml:space="preserve">
+    <value>Given name</value>
+  </data>
+  <data name="_13givenName.PlaceholderText" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="_13surname.Header" xml:space="preserve">
+    <value>Surname</value>
+  </data>
+  <data name="_13surname.PlaceholderText" xml:space="preserve">
+    <value>Exampleman</value>
+  </data>
+  <data name="_13telephone.Header" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="_13telephone.PlaceholderText" xml:space="preserve">
+    <value>+44 40 12345</value>
   </data>
 </root>

@@ -40,32 +40,33 @@
 
 
         <HyperlinkButton x:Name="buttonGoTo2"
+                         x:Uid="ButtonGoTo2"
                 Grid.Row="0"
                 Click="buttonGoTo2_ClickAsync"
-                Content="Adressangaben" HorizontalAlignment="Right">
+                HorizontalAlignment="Right">
         </HyperlinkButton>
         <!--<forms:Entry UIElement="whatever"></forms:Entry> Relict from experiment with xamarin forms-->
-        <TextBlock Name="DetailTitle" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Unternehmensangaben" VerticalAlignment="Top" Height="20" Width="174"/>
+        <TextBlock Name="DetailTitle" x:Uid="DetailTitle"  HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="174"/>
 
         <!--Unternehmensnahme und Steuerabzug-->
-        <TextBox Name="_11Name" Header="Name/Bezeichnung" Grid.Row="1" HorizontalAlignment="Stretch" InputScope="AlphanumericFullWidth" Margin="10,0,0,0" PlaceholderText="Unternehmensname" TextBox.MaxLength="80" TextChanged="Some_AlphaNum_TextChanged" TextWrapping="Wrap"  VerticalAlignment="Stretch" Height="60"/>
-        <ToggleSwitch Name="_12Tax" Header="Vorsteuerabzugsberechtigt" OffContent="nein" OnContent="ja"  Grid.Row="2"  HorizontalAlignment="Left" Margin="28,0,0,0" VerticalAlignment="Top" Height="60" Width="178" />
+        <TextBox Name="_11Name" x:Uid="_11Name" Grid.Row="1" HorizontalAlignment="Stretch" InputScope="AlphanumericFullWidth" Margin="10,0,0,0" TextBox.MaxLength="80" TextChanged="Some_AlphaNum_TextChanged" TextWrapping="Wrap"  VerticalAlignment="Stretch" Height="60"/>
+        <ToggleSwitch Name="_12Tax" x:Uid="_12Tax" Grid.Row="2"  HorizontalAlignment="Left" Margin="28,0,0,0" VerticalAlignment="Top" Height="60" Width="178" />
 
         <!--Anrede und Funktion-->
-        <TextBox Name="_13Function" HorizontalAlignment="Stretch" Margin="153,0,0,0" Grid.Row="3" TextWrapping="Wrap" Header="Funktion/Stellung" PlaceholderText="z.B. Geschäftsführer" VerticalAlignment="Stretch" Height="60" />
-        <ComboBox HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" Header="Anrede" VerticalAlignment="Top" Width="138" Height="60">
-            <ComboBoxItem Content="Frau"/>
-            <ComboBoxItem Content="Mann"/>
+        <TextBox Name="_13Function" x:Uid="_13Function" HorizontalAlignment="Stretch" Margin="153,0,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="60" />
+        <ComboBox x:Uid="_13Anrede" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Top" Width="138" Height="60">
+            <ComboBoxItem x:Uid="_13AddressFemale" />
+            <ComboBoxItem x:Uid="_13AddressMale" />
         </ComboBox>
 
         <!-- Name des Antragsstellers -->
-        <TextBox   Name="_13givenName" Header="Vorname" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" PlaceholderText="Max" Margin="10,0,0,10" TextBox.InputScope="PersonalFullName"  TextBox.MaxLength="30" Width="138" />
-        <TextBox   Name="_13surname" Header="Nachname" HorizontalAlignment="Stretch" Grid.Row="4" TextWrapping="Wrap" PlaceholderText="Mustermann" Margin="153,0,0,10" TextBox.InputScope="PersonalFullName"  TextBox.MaxLength="30" />
+        <TextBox   Name="_13givenName" x:Uid="_13givenName" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Margin="10,0,0,10" TextBox.InputScope="PersonalFullName"  TextBox.MaxLength="30" Width="138" />
+        <TextBox   Name="_13surname" x:Uid="_13surname" HorizontalAlignment="Stretch" Grid.Row="4" TextWrapping="Wrap" Margin="153,0,0,10" TextBox.InputScope="PersonalFullName"  TextBox.MaxLength="30" />
 
         <!--Kontaktdaten-->
-        <TextBox   Name="_13telephone" Header="Telefon" HorizontalAlignment="Left" Grid.Row="5" TextWrapping="Wrap" PlaceholderText="+49 40 12345"   Margin="10,0,0,10" TextBox.InputScope="TelephoneNumber" TextBox.MaxLength="32"  Width="138"/>
-        <TextBox   Name="_13fax" Header="Fax" HorizontalAlignment="Stretch" Grid.Row="5" TextWrapping="Wrap" PlaceholderText="+49 40 12345" Margin="153,0,0,10" TextBox.InputScope="TelephoneNumber" TextBox.MaxLength="32" VerticalAlignment="Stretch" />
-        <TextBox   Name="_13email" HorizontalAlignment="Left" Grid.Row="6" TextWrapping="Wrap" Header="Email" PlaceholderText="mmuster@muster.de"  Width="350" Height="60" Margin="10,0,0,0" TextBox.InputScope="EmailNameOrAddress" TextBox.MaxLength="40" VerticalAlignment="Top"/>
+        <TextBox   Name="_13telephone" x:Uid="_13telephone" HorizontalAlignment="Left" Grid.Row="5" TextWrapping="Wrap"   Margin="10,0,0,10" TextBox.InputScope="TelephoneNumber" TextBox.MaxLength="32"  Width="138"/>
+        <TextBox   Name="_13fax" x:Uid="_13fax" HorizontalAlignment="Stretch" Grid.Row="5" TextWrapping="Wrap" Margin="153,0,0,10" TextBox.InputScope="TelephoneNumber" TextBox.MaxLength="32" VerticalAlignment="Stretch" />
+        <TextBox   Name="_13email" x:Uid="_13email" HorizontalAlignment="Left" Grid.Row="6" TextWrapping="Wrap" Width="350" Height="60" Margin="10,0,0,0" TextBox.InputScope="EmailNameOrAddress" TextBox.MaxLength="40" VerticalAlignment="Top"/>
    
         
     </Grid>
