@@ -28,7 +28,18 @@ namespace LuisBot.Dialogs
 
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
+            var message = await result;
 
+            var welcomeMessage = context.MakeMessage();
+            welcomeMessage.Text = "Welcome, here you can see attachment alternatives:";
+
+            await context.PostAsync(welcomeMessage);
+            await this.DisplayOptionsAsync(context);
+            
+        }
+
+        private async Task DisplayOptionsAsync(IDialogContext context)
+        {
             PromptDialog.Choice<string>(
                 context,
                 this.ProcessSelectedOptionAsync,

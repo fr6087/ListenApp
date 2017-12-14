@@ -17,7 +17,9 @@ using Newtonsoft.Json.Linq;
 using System.Reflection;
 using System.IO;
 using Microsoft.Bot.Builder.FormFlow.Json;
-
+using System.Collections.Generic;
+//assembly LuisBot.dll
+//namespace for rview tool Method to build Form: ESF2CompanyDetailsForm.BuildForm();
 namespace Microsoft.Bot.Sample.LuisBot
 {
     // For more information about this template visit http://aka.ms/azurebots-csharp-luis
@@ -42,9 +44,11 @@ namespace Microsoft.Bot.Sample.LuisBot
         public async Task GreetingIntent(IDialogContext context, LuisResult result)
         {
             var DataBag = context.UserData;
+           
             await context.PostAsync($"{result.Query}. Ich bin dein Assistent beim Ausfüllen von Formularen. Versuche einmal <Ich möchte die Unternehmensangaben" +
                 $"im ESF_2 Formular ausfüllen>."); 
             context.Wait(MessageReceived);
+            
         }
 
         // Go to https://luis.ai and create a new intent, then train/publish your luis app.
@@ -92,11 +96,11 @@ namespace Microsoft.Bot.Sample.LuisBot
         [LuisIntent("Upload")]
         public async Task UploadIntent(IDialogContext context, LuisResult result)
         {
-            var reply = context.MakeMessage();
+           /* var reply = context.MakeMessage();
             reply.Text = Resource1.UploadOptions;
             reply.Speak = reply.Text;
 
-            await context.PostAsync(reply);
+            await context.PostAsync(reply);*/
 
             context.Call(new UploadDialog(), AfterDialog);
         }
@@ -138,13 +142,37 @@ namespace Microsoft.Bot.Sample.LuisBot
 
         }
 
-       
+        /*Diese 2 Methoden sind toter Code, die Implementierung eines SignIn-Prozesses ist umfangreicher und muss mit OAuth abgesichert werden. Siehe auch
+         https://stackoverflow.com/questions/39080683/bot-framework-sign-in-card-how-get-auth-result*/
+        public async Task DisplaySignInCard(IDialogContext context, IAwaitable<string> result)
+        {
+            var selectedCard = await result;
+
+            var message = context.MakeMessage();
+
+            var attachment = GetSigninCard();
+            message.Attachments.Add(attachment);
+
+            await context.PostAsync(message);
+
+            context.Wait(this.MessageReceivedAsync);
+        }
+        private static Attachment GetSigninCard()
+        {
+            var signinCard = new SigninCard
+            {
+                Text = "BotFramework Sign-in Card",
+                Buttons = new List<CardAction> { new CardAction(ActionTypes.Signin, "Sign-in", value: "http://10.150.50.21/irj/portal/") }//https://login.microsoft-online.de
+            };
+
+            return signinCard.ToAttachment();
+        }
 
         public async Task AfterDialog(IDialogContext context, IAwaitable<object> result)
         {
             var confirm = await result;
 
-
+            
             await context.PostAsync(Resource1.GotHelpedQuestion);
 
             context.Wait(MessageReceivedAsync);
