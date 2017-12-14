@@ -61,6 +61,42 @@ namespace LuisBot {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Hat das geholfen? ähnelt.
+        /// </summary>
+        internal static string GotHelpedQuestion {
+            get {
+                return ResourceManager.GetString("GotHelpedQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Was kann ich für dich tun? ähnelt.
+        /// </summary>
+        internal static string HelpClarification {
+            get {
+                return ResourceManager.GetString("HelpClarification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sie können folgende Dialoge mit mir führen: ähnelt.
+        /// </summary>
+        internal static string HelpTitel {
+            get {
+                return ResourceManager.GetString("HelpTitel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Willkommen in der Hilfe. Dieser Bot ist dazu da Formularangaben zu machen. Versuchen Sie &apos;Meine Firma ist innobis&apos; um das Feld Firma zu füllen. ähnelt.
+        /// </summary>
+        internal static string HelpWelcomeMessage {
+            get {
+                return ResourceManager.GetString("HelpWelcomeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Deine Werte werden verarbeitet. ähnelt.
         /// </summary>
         internal static string Processing {
@@ -84,6 +120,24 @@ namespace LuisBot {
         internal static string Saved {
             get {
                 return ResourceManager.GetString("Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        internal static string UploadOptions {
+            get {
+                return ResourceManager.GetString("UploadOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ja ähnelt.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ListenToMe.Model
 {
-    public sealed class Page
+    public sealed class myPage
     {
         public String destination; //name of page
         public List<String> fields { get; set; } //data from TextBlocks, comboBoxes, TextBoxes, DatePicker

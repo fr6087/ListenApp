@@ -19,18 +19,18 @@ namespace ListenToMe.Model
         /// <summary>
         /// Persist the loaded trips in memory for use in other parts of the application.
         /// </summary>
-        private ObservableCollection<Page> pages;
+        private ObservableCollection<myPage> pages;
 
         public PageStore()
         {
             loaded = false;
-            Pages = new ObservableCollection<Page>();
+            Pages = new ObservableCollection<myPage>();
         }
 
         /// <summary>
         /// Persisted trips, reloaded across executions of the application
         /// </summary>
-        public ObservableCollection<Page> Pages
+        public ObservableCollection<myPage> Pages
         {
             get
             {
@@ -108,7 +108,7 @@ namespace ListenToMe.Model
                     var pageElements = xmldoc.Descendants("Page");
                     foreach (var pageElement in pageElements)
                     {
-                        Page page = new Page();
+                        myPage page = new myPage();
 
                         var destElement = pageElement.Descendants("Destination").FirstOrDefault();
                         if (destElement != null)
@@ -169,7 +169,7 @@ namespace ListenToMe.Model
         /// </summary>
         /// <param name="page">The trip to delete. If the trip is not an existing trip in the store,
         /// will not have an effect.</param>
-        public async Task DeletePage(Page page)
+        public async Task DeletePage(myPage page)
         {
             pages.Remove(page);
             await WritePages();
@@ -179,7 +179,7 @@ namespace ListenToMe.Model
         /// Add a trip to the persistent trip store, and saves the trips data file.
         /// </summary>
         /// <param name="page">The trip to save or update in the data file.</param>
-        public async Task SavePage(Page page)
+        public async Task SavePage(myPage page)
         {
             if (!pages.Contains(page))
             {

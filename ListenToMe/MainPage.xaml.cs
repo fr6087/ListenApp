@@ -32,6 +32,9 @@ using Windows.System;
 using ListenToMe.ServiceReference1;
 using Windows.UI;
 using Newtonsoft.Json;
+using System.IO;
+using Windows.Storage;
+using ListenToMe.Model;
 
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x407 dokumentiert.
@@ -387,23 +390,35 @@ namespace ListenToMe
 
         private async void uploadHeadingsToLuisModel()
         {
-            Service1Client client = new Service1Client();
+            /*Service1Client client = new Service1Client();
             var headings = await client.GetInputsAsync(userName, password, formUrl);
-            //toDo: convert headings to Jason and send them to luisModel-Website
+            toDo: convert headings to Jason and send them to luisModel-Website
             foreach (String heading in headings)
                 Debug.WriteLine(heading);
-            await client.CloseAsync();
+            await client.CloseAsync();*/
 
-            //create Json Object
+            /*create Json Object
             myInputs inputs = new myInputs();
             inputs.canonicalForm = "FeldName";
             inputs.list = headings;
 
             //convert Json object to String and Send it to file
             String fieldName = JsonConvert.SerializeObject(inputs, Formatting.Indented);
-            Debug.WriteLine(fieldName);
-            //throws somehow UnauthorizedAccessExeption
-            await Task.Run(() => System.IO.File.WriteAllText(@"C:\Users\fgeissle\source\repos\ListenApp\fieldNames.json", fieldName));
+            fieldName = "["+Environment.NewLine+fieldName+Environment.NewLine+"]";*/
+            //Debug.WriteLine(fieldName);
+
+            /*Create dataFile.txt in TemporaryFolder and write “My text” to it 
+            StorageFolder tempFolder = ApplicationData.Current.TemporaryFolder;
+            StorageFile sampleFile = await tempFolder.CreateFileAsync("fieldNames.json");
+            await FileIO.WriteTextAsync(sampleFile, fieldName);
+
+            //Read the first line of dataFile.txt in Temp and store it in a String
+            StorageFile sampleFile1 = await tempFolder.GetFileAsync("fieldNames.json");
+            String fileContent = await FileIO.ReadTextAsync(sampleFile1);*/
+
+            Proxy proxy = new Proxy();
+            await Proxy.UploadHeadings();
+            //Debug.WriteLine(fileContent);
             //Debug.WriteLine(t);
         }
 

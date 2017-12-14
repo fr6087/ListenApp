@@ -30,11 +30,6 @@ namespace Microsoft.Bot.Sample.LuisBot
         {
            
         }
-        /*
-        public BasicLuisDialog(Func<IForm<FeedbackForm>> buildForm)
-        {
-            this.buildForm = buildForm;
-        }*/
 
         [LuisIntent("None")]
         public async Task NoneIntent(IDialogContext context, LuisResult result)
@@ -46,6 +41,7 @@ namespace Microsoft.Bot.Sample.LuisBot
         [LuisIntent("Greeting")]
         public async Task GreetingIntent(IDialogContext context, LuisResult result)
         {
+            var DataBag = context.UserData;
             await context.PostAsync($"{result.Query}. Ich bin dein Assistent beim Ausfüllen von Formularen. Versuche einmal <Ich möchte die Unternehmensangaben" +
                 $"im ESF_2 Formular ausfüllen>."); 
             context.Wait(MessageReceived);
@@ -74,6 +70,37 @@ namespace Microsoft.Bot.Sample.LuisBot
             //context.Call(feedbackForm, FeedbackFormComplete);
         }
 
+        [LuisIntent("Utilities.GoBack")]
+        public async Task GoBackIntent(IDialogContext context, LuisResult result)
+        {
+            await context.PostAsync($"You have reached the goBack intent. You said: {result.Query}"); //
+            context.Wait(MessageReceived);
+        }
+
+        [LuisIntent("Utilities.Help")]
+        public async Task HelpIntent(IDialogContext context, LuisResult result)
+        {
+            var reply = context.MakeMessage();
+            reply.Text = "Klar helfe ich dir.";
+            reply.Speak = "This is the text that will be spoken. In der Hilfe.";
+            // reply.InputHint = InputHints.AcceptingInput;
+            await context.PostAsync(reply);
+
+            context.Call(new HelpDialog(), AfterDialog);
+        }
+ 
+        [LuisIntent("Upload")]
+        public async Task UploadIntent(IDialogContext context, LuisResult result)
+        {
+            var reply = context.MakeMessage();
+            reply.Text = Resource1.UploadOptions;
+            reply.Speak = reply.Text;
+
+            await context.PostAsync(reply);
+
+            context.Call(new UploadDialog(), AfterDialog);
+        }
+
         private async  Task FeedbackFormComplete(IDialogContext context, IAwaitable<ESF2CompanyDetailsForm> result)
         {
             var confirm = await result;
@@ -93,46 +120,32 @@ namespace Microsoft.Bot.Sample.LuisBot
             var message = await argument;
 
 
-            // See if a number was passed
+            // See if user answered yes
 
-            if (message.Text.ToLower().Equals("ja"))
+            if (message.Text.ToLower().Equals(Resource1.Yes))
 
             {
+                //wenn du von help zurückkommst
+                //wenn du von unternhemensangaben zurückkommst
                 await context.PostAsync(Resource1.Saved);
             }
             else
             {
-                await context.PostAsync("Ok.");
+
+                context.Call(this, AfterDialog);
+                
             }
 
         }
 
-        [LuisIntent("Utilities.GoBack")]
-        public async Task GoBackIntent(IDialogContext context, LuisResult result)
-        {
-            await context.PostAsync($"You have reached the goBack intent. You said: {result.Query}"); //
-            context.Wait(MessageReceived);
-        }
-        [LuisIntent("Utilities.Help")]
-        public async Task HelpIntent(IDialogContext context, LuisResult result)
-        {
-            /* Activity reply = activity.CreateReply("This is the text that will be displayed.");
-             reply.Speak = "This is the text that will be spoken.";
-             reply.InputHint = InputHints.AcceptingInput;
-             await connector.Conversations.ReplyToActivityAsync(reply);*/
-            
-            await context.PostAsync($"You have reached the help intent. You said: {result.Query}"); //
-            
-            context.Wait(MessageReceived);
-            context.Call(new HelpDialog(), AfterDialog);
-        }
+       
 
-        private async Task AfterDialog(IDialogContext context, IAwaitable<object> result)
+        public async Task AfterDialog(IDialogContext context, IAwaitable<object> result)
         {
             var confirm = await result;
 
 
-            await context.PostAsync("Got helped?");
+            await context.PostAsync(Resource1.GotHelpedQuestion);
 
             context.Wait(MessageReceivedAsync);
         }
@@ -174,6 +187,7 @@ namespace Microsoft.Bot.Sample.LuisBot
                     .Build();
             }
 
+            /*this code is buggy*/
             public static IForm<ESF2CompanyDetailsForm> BuildLocalizedForm()
             {
                 var culture = Thread.CurrentThread.CurrentUICulture;

@@ -52,6 +52,7 @@ System zur Sicherung der Qualität verfügen muss."
                 </Border>
             </Popup>
         </ListView>
+        <Button x:Uid="_12uploadButton" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

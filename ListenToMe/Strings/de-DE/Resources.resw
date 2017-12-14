@@ -230,4 +230,10 @@
     <value>Dein Formular wird angelegt. Ich werde dich über Statusänderungen informieren.</value>
     <comment>used in LuisDialogs serializable subclass xyzForm</comment>
   </data>
+  <data name="appId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="_12uploadButton.Content" xml:space="preserve">
+    <value>Angebot anhängen</value>
+  </data>
 </root>
