@@ -6,9 +6,16 @@ Probleme
 -Der WcFService hat eine finishedCondition die zu früh das Signal finished gibt (noch nicht alle javascriptFunktionen der Seite fertig)
 -Der VoiceCommand "Information" wird im VoiceCommandService abgehandelt. Aus bisher ungeklärter Ursache  erreicht er die Methode "deployVoiceCommand"
 nicht.
--Der VoiceCommandService wird momentan nicht aufgerufen. Das heißt, ListenToMe kann nicht als Hintergrundapp laufen//Installieren der Voicecommands schlägt teils fehl
+-Der VoiceCommandService stürtzt ab mit
+Ausnahme ausgelöst: "System.Collections.Generic.KeyNotFoundException" in System.Private.CoreLib.ni.dll
+Handling Voice Command failed System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary. -> todo breakpoint debugging?
+Passiert in
+            loadingPageToEdit = string.Format(
+                       cortanaResourceMap.GetValue("LoadingFieldToEdit", cortanaContext).ValueAsString,
+                       fieldName);//vormals LoadingTripToDestination
+
 upLoadToJason() wirft 
--XAML-Unstimmigkeiten: Buttons zum Auswählen der Angebote der Bildungsanbieter fehlen, verschrobenes Layout im Petitionsdetails, Feld ganz unten 1x doppelt überladen
+
 StatusCode: 400, ReasonPhrase: 'BadArgument', Version: 1.1, Content: System.Net.Http.StreamContent, Headers:
 {
   Request-Context: appId=cid-v1:26a3540d-a02a-4998-a060-715488fd769b
@@ -26,7 +33,7 @@ StatusCode: 400, ReasonPhrase: 'BadArgument', Version: 1.1, Content: System.Net.
 }
 
 -keine Ahnung, wo ich das Codesnippet einbauen soll, das Die Cortana information zur email und username abruft
--ändere meine <Seite> läuft nicht, die VoiceCommand.xml wird nicht installiert, warum?
+-ändere meine <Seite> läuft nicht für Seiten, die aus mehr als einem Wort bestehen zum Beispiel "Ändere ListenToMe Registereintragungen" läuft, nicht aber "ändere listentome rggistereintraggunggen" und "Ändere ListenToMe Sitz des Antragsstellers"
 
 Kann ich nur zuhause/mit BotframeworkEmulator debuggen:
 -LuisBot wirft bei einer Erzeugung mit LocalizedCulture Fehler /MakeRoot in MessagesController oder buildLocalizedForm stürtzt verm. ab
@@ -35,7 +42,7 @@ Kann ich nur zuhause/mit BotframeworkEmulator debuggen:
 -dateiupload und helpdialog stürtzen ab
 
 Gelöst:
-
+-XAML-Unstimmigkeiten: Buttons zum Auswählen der Angebote der Bildungsanbieter fehlen, verschrobenes Layout im Petitionsdetails, Feld ganz unten 1x doppelt überladen
 -LuisBot erreicht den unterDialog  helpDialog nicht. Wirft MultipleResumeHandlersException -> context.Wait darf nicht in helpIntent vorkommen
 -uploadHeadingsToLuisModel() in MainPage läuft nicht, jsonDatei wird nicht erstellt -> das lag daran dass UWP-Apps keinen Zugriff auf das normale Dateiverwaaltungssystem haben
 -Ich möchte die PhraseList dynamisch mit den headings aus dem Formular füllen. Todo Methode für WCF Service schreiben, die ausschließlich headings harvestes

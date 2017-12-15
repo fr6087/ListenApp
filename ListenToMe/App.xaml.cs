@@ -45,6 +45,7 @@ namespace ListenToMe
         private RootFrameNavigationHelper rootFrameNavigationHelper;
         internal static readonly string userName = "fr6087";
         internal static readonly string userPassword= "Pellkart0ffelSal%40";
+        //note: this form ist available in Polish and English as well. But the forms of these languages still contain 50% German so I'm neglecting these other languages.
         internal static readonly string uri = "http://10.150.50.21/formularservice/formular/A_FOREX_ANTRAG_ESF_2/appl/d556026e-991d-11e7-9fb1-27c0f1da4ec4/?lang=de";
         internal static readonly Dictionary<String, Type> HeadingsNavigations = new Dictionary<string, Type>();
         internal static readonly Dictionary<String, String> InputsNavigations = new Dictionary<string, String>();
@@ -128,9 +129,14 @@ namespace ListenToMe
                 StorageFile vcd = await Package.Current.InstalledLocation.GetFileAsync(@"VoiceCommands.xml");
                 await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcd);
                 CortanaModelMethods meth = new CortanaModelMethods();
+                Debug.WriteLine("****************1******************");
                 List<String> headings = await meth.UpdatePhraseList("Page"); //this is supposed to load the headings from html file and add them as pages to voice command file
-                Console.WriteLine(headings.Count + "headingsCount");
+                Debug.WriteLine(headings.Count + "headingsCount");
+                Debug.WriteLine("*****************2*****************");
                 List<String> inputs = await meth.UpdatePhraseList("Field");
+                
+                
+                
                 //create two dictionaries for translating items to the XAML-Names I chose. This is not necessary, when creating pages dynamic. but since I already have the static ones, I'm going to use them :)
                 fillPageDictionary(headings);
                 //fillFieldDictionary(inputs); //not yet implemented
@@ -451,7 +457,7 @@ namespace ListenToMe
                         break;
 
                 }
-                Debug.WriteLine("Dict. Heading: " + headings[i] + " " + Type.Name +" | "+ Type.FullName);
+                //Debug.WriteLine("Dict. Heading: " + headings[i] + " " + Type.Name +" | "+ Type.FullName);
                 HeadingsNavigations.Add(headings[i], Type);
             }
         }

@@ -58,6 +58,7 @@ namespace ListenToMe
                     }   
                     else if (phraselistName.Equals("Field"))
                     {
+                        //toDo: gibt es eine englische Variante dieses Formulars?
                         inputs = await client.GetInputsAsync(App.userName, App.userPassword, App.uri);
                         observable = inputs;
                     }

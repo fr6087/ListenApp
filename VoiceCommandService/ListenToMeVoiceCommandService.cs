@@ -68,8 +68,8 @@ namespace ListenToMe.VoiceCommands
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             serviceDeferral = taskInstance.GetDeferral();
-            MessageDialog message = new MessageDialog("running VoiceCommandService");
-            await message.ShowAsync();
+            /*MessageDialog message = new MessageDialog("running VoiceCommandService");
+            await message.ShowAsync();*/
 
             // Register to receive an event if Cortana dismisses the background task. This will
             // occur if the task takes too long to respond, or if Cortana's UI is dismissed.
@@ -105,7 +105,7 @@ namespace ListenToMe.VoiceCommands
                     // messages sent to Cortana. Attempting to use ReportSuccessAsync, ReportProgressAsync, etc
                     // prior to calling this will produce undefined behavior.
                     VoiceCommand voiceCommand = await voiceServiceConnection.GetVoiceCommandAsync();
-                    Debug.Write("received voicecommand" + voiceCommand.ToString());
+                    Debug.Write("received voicecommand" + voiceCommand.Properties.ToString());
                     // Depending on the operation (defined in AdventureWorks:AdventureWorksCommands.xml)
                     // perform the appropriate command.
                     switch (voiceCommand.CommandName)
@@ -127,6 +127,19 @@ namespace ListenToMe.VoiceCommands
                             //var uploadFile = voiceCommand.Properties["destination"][0];
                             //await SendCompletionMessageForCancellationAsync(uploadFile);
                             break;
+                        case "Information":
+                            Debug.WriteLine("Jay!!!!!!!!!!!!!!!!!!!!!!!!!!Reached VCD-switch");
+                            String uploadFile = "someText";
+                            try
+                            {
+                                uploadFile = voiceCommand.Properties["name"][0];
+                            }
+                            catch (Exception e)
+                            {
+                                Debug.WriteLine(e.Message);
+                            }
+                            await SendCompletionMessageForGeneralInfoAsync(uploadFile);
+                            break;
                         default:
                             // As with app activation VCDs, we need to handle the possibility that
                             // an app update may remove a voice command that is still registered.
@@ -141,29 +154,35 @@ namespace ListenToMe.VoiceCommands
                 }
             }
         }
-        /*
-        private async Task SendCompletionMessageForDestinationAsync(string destination)
+        
+        private async Task SendCompletionMessageForGeneralInfoAsync(string fieldName = null)
         {
             // If this operation is expected to take longer than 0.5 seconds, the task must
             // provide a progress response to Cortana prior to starting the operation, and
             // provide updates at most every 5 seconds.
-            string loadingPageToEdit = string.Format(
-                       cortanaResourceMap.GetValue("LoadingPageToEdit", cortanaContext).ValueAsString,//vormals LoadingTripToDestination
-                       destination);
+            string loadingPageToEdit = "";
+            Debug.WriteLine("Jay!!!!!!!!!!!!!!!!!!!!!!!!Reached VCD-switch");
+            loadingPageToEdit = string.Format(
+                       cortanaResourceMap.GetValue("LoadingFieldToEdit", cortanaContext).ValueAsString,
+                       fieldName);//vormals LoadingTripToDestination
+            if (String.IsNullOrWhiteSpace(loadingPageToEdit))
+            {
+                loadingPageToEdit = "put here some general info if no field was specified";
+            }
             await ShowProgressScreenAsync(loadingPageToEdit);
             //Model.TripStore store = new Model.TripStore(); 
-            //ListenToMe.Model.PageStore store = new ListenToMe.Model.PageStore();
+            ClassLibrary.model.FormStore store = new ClassLibrary.model.FormStore();
             //await store.LoadTrips();
-            await store.LoadPages();
+            await store.LoadFields();
 
             // Look for the specified trip. The destination *should* be pulled from the grammar we
             // provided, and the subsequently updated phrase list, so it should be a 1:1 match, including case.
             // However, we might have multiple trips to the destination. For now, we just pick the first.
             //IEnumerable<Model.Trip> trips = store.Trips.Where(p => p.Destination == destination);
-            //IEnumerable<ListenToMe.Model.Page> pages = store.Pages.Where(page => page.destination == destination);
+            IEnumerable<ClassLibrary.model.Field> fields = store.Fields.Where(f => f.Name == fieldName);
             var userMessage = new VoiceCommandUserMessage();
-            var destinationsContentTiles = new List<VoiceCommandContentTile>();
-            if (pages.Count() == 0)
+            var fieldsContentTiles = new List<VoiceCommandContentTile>();
+            if (fields.Count() == 0)
             {
                 // In this scenario, perhaps someone has modified data on your service outside of your 
                 // control. If you're accessing a remote service, having a background task that
@@ -171,7 +190,7 @@ namespace ListenToMe.VoiceCommands
                 // This is unlikely to occur for this sample app, however.
                 string foundNoPageToEdit = string.Format(
                        cortanaResourceMap.GetValue("FoundNoPageToEdit", cortanaContext).ValueAsString,//vormals FoundNoTripToDestination
-                       destination);
+                       fieldName);
                 userMessage.DisplayMessage = foundNoPageToEdit;
                 userMessage.SpokenMessage = foundNoPageToEdit;
             }
@@ -179,20 +198,20 @@ namespace ListenToMe.VoiceCommands
             {
                 // Set a title message for the page.
                 string message = "";
-                //if (pages.Count() > 1)
-                //{
-                message = cortanaResourceMap.GetValue("PluralUpcomingPages", cortanaContext).ValueAsString;
-                /*}
+                if (fields.Count() > 1)
+                {
+                    message = cortanaResourceMap.GetValue("PluralUpcomingFields", cortanaContext).ValueAsString;
+                }
                 else
                 {
-                    message = cortanaResourceMap.GetValue("SingularUpcomingTrip", cortanaContext).ValueAsString;
+                    message = cortanaResourceMap.GetValue("SingularUpcomingField", cortanaContext).ValueAsString;
                 }
                 userMessage.DisplayMessage = message;
                 userMessage.SpokenMessage = message;
 
                 // file in tiles for each destination, to display information about the trips without
                 // launching the app.
-                foreach (ListenToMe.Model.Page page in pages)
+                foreach (ClassLibrary.model.Field field in fields)
                 {
                     int i = 1;
 
@@ -203,32 +222,32 @@ namespace ListenToMe.VoiceCommands
                     destinationTile.ContentTileType = VoiceCommandContentTileType.TitleWith68x68IconAndText;
                     //destinationTile.Image = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///AdventureWorks.VoiceCommands/Images/GreyTile.png"));
 
-                    destinationTile.AppLaunchArgument = page.destination;
+                    destinationTile.AppLaunchArgument = field.Name;
                     //toDo: find out wht the app is doing over here; why it does find Startdate
-                    destinationTile.Title = page.destination;
-                    /*if (page.StartDate != null)
+                    destinationTile.Title = field.Name;
+                    /*if (field.StartDate != null)
                     {
-                        destinationTile.TextLine1 = page.StartDate.Value.ToString(dateFormatInfo.LongDatePattern);
+                        destinationTile.TextLine1 = field.StartDate.Value.ToString(dateFormatInfo.LongDatePattern);
                     }
                     else
-                    {
-                    destinationTile.TextLine1 = page.destination + " " + i;
+                    {*/
+                        destinationTile.TextLine1 = field.Text + " " + i;
                     //}
 
-                    destinationsContentTiles.Add(destinationTile);
+                    fieldsContentTiles.Add(destinationTile);
                     i++;
                 }
             }
 
-            var response = VoiceCommandResponse.CreateResponse(userMessage, destinationsContentTiles);
+            var response = VoiceCommandResponse.CreateResponse(userMessage, fieldsContentTiles);
 
-            if (pages.Count() > 0)
+            if (fields.Count() > 0)
             {
-                response.AppLaunchArgument = destination;
+                response.AppLaunchArgument = fieldName;
             }
 
             await voiceServiceConnection.ReportSuccessAsync(response);
-        }*/
+        }
 
             /*
         /// <summary>
@@ -321,11 +340,10 @@ namespace ListenToMe.VoiceCommands
             await voiceServiceConnection.ReportSuccessAsync(response);
         }
 */
-        private async Task ShowProgressScreenAsync(string message)
+        private async Task ShowProgressScreenAsync(string myMessage)
         {
             var userProgressMessage = new VoiceCommandUserMessage();
-            userProgressMessage.DisplayMessage = userProgressMessage.SpokenMessage = message;
-
+            userProgressMessage.DisplayMessage = userProgressMessage.SpokenMessage = myMessage;
             VoiceCommandResponse response = VoiceCommandResponse.CreateResponse(userProgressMessage);
             await voiceServiceConnection.ReportProgressAsync(response);
         }
@@ -346,6 +364,7 @@ namespace ListenToMe.VoiceCommands
         private async void LaunchAppInForegroundAsync()
         {
             var userMessage = new VoiceCommandUserMessage();
+            //this is NullReferenceException "Object reference not set to an instance of an object."
             userMessage.SpokenMessage = cortanaResourceMap.GetValue("LaunchingListenToMe", cortanaContext).ValueAsString;
 
             var response = VoiceCommandResponse.CreateResponse(userMessage);

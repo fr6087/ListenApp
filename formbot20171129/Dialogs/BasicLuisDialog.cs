@@ -18,7 +18,8 @@ using System.Reflection;
 using System.IO;
 using Microsoft.Bot.Builder.FormFlow.Json;
 using System.Collections.Generic;
-//assembly LuisBot.dll
+//somehow this tool looks in the wrong folder. But I am missing 30 reputation to add a comment to that discussion below to ask about that.
+//assembly LuisBot.dll -> but rview doesn't find that assembly reference: https://stackoverflow.com/questions/46199439/how-to-use-rview-tool-in-bot-builder-c-sdk-to-localize-strings-in-form-flow
 //namespace for rview tool Method to build Form: ESF2CompanyDetailsForm.BuildForm();
 namespace Microsoft.Bot.Sample.LuisBot
 {

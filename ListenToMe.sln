@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Sample.LuisBo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService1", "WcfService1\WcfService1\WcfService1\WcfService1.csproj", "{E9D2F0EE-20A3-423E-9F39-95B54982FC36}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary.model", "ClassLibrary.model\ClassLibrary.model.csproj", "{AD36F370-8F32-4553-B141-72F6C70FB2C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +96,22 @@ Global
 		{E9D2F0EE-20A3-423E-9F39-95B54982FC36}.Release|x64.Build.0 = Release|Any CPU
 		{E9D2F0EE-20A3-423E-9F39-95B54982FC36}.Release|x86.ActiveCfg = Release|Any CPU
 		{E9D2F0EE-20A3-423E-9F39-95B54982FC36}.Release|x86.Build.0 = Release|Any CPU
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Debug|ARM.ActiveCfg = Debug|ARM
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Debug|ARM.Build.0 = Debug|ARM
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Debug|x64.ActiveCfg = Debug|x64
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Debug|x64.Build.0 = Debug|x64
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Debug|x86.ActiveCfg = Debug|x86
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Debug|x86.Build.0 = Debug|x86
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Release|ARM.ActiveCfg = Release|ARM
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Release|ARM.Build.0 = Release|ARM
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Release|x64.ActiveCfg = Release|x64
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Release|x64.Build.0 = Release|x64
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Release|x86.ActiveCfg = Release|x86
+		{AD36F370-8F32-4553-B141-72F6C70FB2C3}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

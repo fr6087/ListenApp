@@ -4,7 +4,17 @@
 <CommandSet xml:lang="en-us" Name="ListenToMeCommandSet_en-us">
 <AppName> ListenToMe </AppName>
 <Example> You can list example commands here </Example>
-
+  
+  <Command Name="List">
+    <Example> Show all fields </Example>
+    <ListenFor>Show all {Elements}</ListenFor>
+    <ListenFor>[List] [all]{Elements}</ListenFor>
+    <ListenFor>[Display] {builtin:AppName} {Elements}</ListenFor>
+    <Feedback> These are your {Elements} </Feedback>
+    <!--<VoiceCommandService target="ListenToMeVoiceCommandService"/>-->
+    <Navigate/>
+  </Command>
+  
 <Command Name="Shutdown">
   <Example> shut down, power off, I'm going to bed </Example>
   <ListenFor>shut down</ListenFor>
@@ -32,14 +42,11 @@
 </Command>
 
 <PhraseList Label="Page">
-  <Item>Address</Item>
-  <Item>Company</Item>
-  <Item>Confirmation</Item>
-  <Item>Registry</Item>
-  <Item>Legal matters</Item>
-  <Item>Financing</Item>
 </PhraseList>
-
+  <PhraseList Label="Elements"> <!--is for List-Elements-Of-the-Form question, eg. "Page"->h3 or "Field"->input_type_text ToDo: let user directly query form elements with xpath-syntax? -->
+  </PhraseList>
+  <PhraseList Label="Field">
+  </PhraseList>
 </CommandSet>
 
 <CommandSet xml:lang="de" Name="ListenToMeCommandSet_de">
@@ -52,6 +59,16 @@
     <ListenFor>Herunterfahren</ListenFor>
     <ListenFor>Ich gehe zu Bett {builtin:AppName}</ListenFor>
     <Feedback> Ich schalte die App aus </Feedback>
+    <!--<VoiceCommandService target="ListenToMeVoiceCommandService"/>-->
+    <Navigate/>
+  </Command>
+
+  <Command Name="List">
+    <Example> Zeige alle Felder </Example>
+    <ListenFor>Zeige alle {Elements}</ListenFor>
+    <ListenFor>[Liste] {Elements}</ListenFor>
+    <ListenFor>[Lade] {builtin:AppName} {Elements}</ListenFor>
+    <Feedback> Dies sind deine {Elements} </Feedback>
     <!--<VoiceCommandService target="ListenToMeVoiceCommandService"/>-->
     <Navigate/>
   </Command>
@@ -85,20 +102,30 @@
     <VoiceCommandService Target="VoiceCommandService"/> <!--for some reason this doesn't work so far-->
   </Command>
 
-  <PhraseList Label="Page"> <!--is dynamically filled in MainPage.ActivateVoiceCommands()-->
-    <Item>Adressseite</Item>
-    <Item>Firmenseite</Item>
-    <Item>Bestätigungsseite</Item>
-    <Item>Registrierungsseite</Item>
-    <Item>Juristisches-Seite</Item>
-    <Item>Finanzierungsseite</Item>
+  <PhraseList Label="Page"> <!--is dynamically filled in MainPage.ActivateVoiceCommands() Memo to myself: All Items here are overwritten by the dynamical generating stuff, so leave phraselist empty here-->
   </PhraseList>
-
+  <!--Valid Page Names:
+Angaben zum antragstellenden Unternehmen
+Sitz des Antragstellers
+Rechtsform und Geschäftsform des Antragstellers
+Angaben zum angemeldeten Gewerbe
+Registereintragungen
+Gesetzliche Vertreter
+Weitere Angaben zum Antragsteller
+Angaben zur Antragstellung
+Ort der beantragten Weiterbildungsmaßnahme/n
+Daten zur beantragten Weiterbildungsmaßnahme/n
+Anzahl Mitarbeiter/innen & zu qual. Teilnehmer/innen
+Einzelne Weiterbildungsinhalte & fav. Bildungsanbieter
+Gesamtfinanzierung
+Bestätigungen
+Erklärungen
+Anlagen
+Prüfung-->
+  <!--Note: this is limited to 2,000 phrases.  reference https://stackoverflow.com/questions/13319430/how-to-create-a-phraselist-that-includes-every-word-wildcard-->
+  <PhraseList Label="Elements"> <!--is for List-Elements-Of-the-Form question, eg. "Pages"->h3 or "Fields"->input_type_text ToDo: let user directly query form elements with xpath-syntax? -->
+  </PhraseList>
   <PhraseList Label="Field">
-    <Item>Name</Item>
-    <Item>Telefon</Item>
-    <Item>Fax</Item>
-    <Item>Vorzugsabzugssteuer</Item>
   </PhraseList>
 </CommandSet>
 </VoiceCommands>
