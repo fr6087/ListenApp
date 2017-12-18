@@ -1,0 +1,21 @@
+<!--Dummy-JSON-->
+
+{
+"formNumber":"",//toDo: ask Adrian, if he sees where that one is generated
+
+"section": {
+	"id": "SECTION930",
+	"text": "1. Angaben zum antragstellenden Unternehmen",
+	"number": "1",
+	
+	"h3": "Antrag A 1.1.0: Weiterbildungsrichtlinie - Betriebliche Weiterbildung",
+	"h4": "1.1 Name/Bezeichnung des Unternehmens",
+	
+	"input": {
+		
+	}
+},
+
+...//section 2
+
+}

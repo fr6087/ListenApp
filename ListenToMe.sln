@@ -3,18 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListenToMe", "ListenToMe\ListenToMe.csproj", "{72B08CB8-6F57-4C46-9188-E8FDADEB0745}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E9D2F0EE-20A3-423E-9F39-95B54982FC36} = {E9D2F0EE-20A3-423E-9F39-95B54982FC36}
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListenToMe", "ListenToMe-master-89f0b49594deaade7bfad24dad062ff16eca36da\ListenToMe\ListenToMe.csproj", "{72B08CB8-6F57-4C46-9188-E8FDADEB0745}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoiceCommandService", "VoiceCommandService\VoiceCommandService.csproj", "{E8B176DD-02A3-4279-B819-D8A46F675D49}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoiceCommandService", "ListenToMe-master-89f0b49594deaade7bfad24dad062ff16eca36da\VoiceCommandService\VoiceCommandService.csproj", "{E8B176DD-02A3-4279-B819-D8A46F675D49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Bot.Sample.LuisBot", "formbot20171129\Microsoft.Bot.Sample.LuisBot.csproj", "{9C7E3A46-B60F-4052-9A21-DC8D1A942216}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService_Voice", "ListenToMe-master-89f0b49594deaade7bfad24dad062ff16eca36da\WcfService_Voice\WcfService_Voice.csproj", "{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService1", "WcfService1\WcfService1\WcfService1\WcfService1.csproj", "{E9D2F0EE-20A3-423E-9F39-95B54982FC36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formbot", "ListenToMe-master-89f0b49594deaade7bfad24dad062ff16eca36da\formbot20171129\Formbot.csproj", "{9C7E3A46-B60F-4052-9A21-DC8D1A942216}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary.model", "ClassLibrary.model\ClassLibrary.model.csproj", "{AD36F370-8F32-4553-B141-72F6C70FB2C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService_Html", "ListenToMe-master-89f0b49594deaade7bfad24dad062ff16eca36da\WcfService_Html\WcfService_Html\WcfService_Html\WcfService_Html.csproj", "{E9D2F0EE-20A3-423E-9F39-95B54982FC36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary.model", "ListenToMe-master-89f0b49594deaade7bfad24dad062ff16eca36da\ClassLibrary.model\ClassLibrary.model.csproj", "{AD36F370-8F32-4553-B141-72F6C70FB2C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +63,22 @@ Global
 		{E8B176DD-02A3-4279-B819-D8A46F675D49}.Release|x64.Build.0 = Release|x64
 		{E8B176DD-02A3-4279-B819-D8A46F675D49}.Release|x86.ActiveCfg = Release|x86
 		{E8B176DD-02A3-4279-B819-D8A46F675D49}.Release|x86.Build.0 = Release|x86
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Debug|ARM.Build.0 = Debug|Any CPU
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Debug|x64.Build.0 = Debug|Any CPU
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Debug|x86.Build.0 = Debug|Any CPU
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Release|ARM.ActiveCfg = Release|Any CPU
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Release|ARM.Build.0 = Release|Any CPU
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Release|x64.ActiveCfg = Release|Any CPU
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Release|x64.Build.0 = Release|Any CPU
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Release|x86.ActiveCfg = Release|Any CPU
+		{33DCB248-7FAC-4DFC-AB21-7F35624CB12E}.Release|x86.Build.0 = Release|Any CPU
 		{9C7E3A46-B60F-4052-9A21-DC8D1A942216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C7E3A46-B60F-4052-9A21-DC8D1A942216}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C7E3A46-B60F-4052-9A21-DC8D1A942216}.Debug|ARM.ActiveCfg = Debug|Any CPU
