@@ -3,10 +3,7 @@ using System;
 using System.Collections.Generic; 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ListenToMe.ESF_2;
 using System.Diagnostics;
@@ -14,26 +11,17 @@ using Windows.Media.SpeechRecognition;
 using System.Threading;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using VoiceCommandService;
 using Windows.Media.SpeechSynthesis;
 using Windows.UI.Popups;
-using Newtonsoft.Json.Linq;
 using Windows.Networking.Sockets;
 using Windows.Networking;
 using Windows.Storage.Streams;
-using Windows.Web.Http;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using HtmlAgilityPack;
 using System.Linq;
 using Windows.System;
 using ListenToMe.ServiceReference1;
-using Windows.UI;
 using Newtonsoft.Json;
-using System.IO;
-using Windows.Storage;
 using ListenToMe.Model;
 
 
@@ -70,7 +58,7 @@ namespace ListenToMe
         this.navigationHelper.LoadState += navigationHelper_LoadState;
         this.navigationHelper.SaveState += navigationHelper_SaveState;
             myFrameHelper = new RootFrameNavigationHelper(mainFrame);
-            
+            bot = new VoiceCommandService.Bot();
 
             //testWebView.ScriptNotify += WebView_ScriptNotify;
             //testWebView.NavigationStarting += webView_OnNavigationStarting;
@@ -382,7 +370,6 @@ namespace ListenToMe
                 createNewTextBox(usersFieldName, textValue);
             }
             
-            //usersFieldName = "_11Name"; //toDo: write function that mapps usersFieldName to FormFieldsName
             
             return "done";
 
@@ -484,28 +471,9 @@ namespace ListenToMe
 
         private async void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            /* List<String> labels = await ReadLabelsFromWCFServiceClient();
-             Page nextPage = new Page();
-             StackPanel myPanel = new StackPanel();
-             myPanel.Background = new SolidColorBrush(Color.FromArgb(255, 48, 179, 221));
-             myPanel.Name = "dynamicPanel";
-             myPanel.Orientation = Orientation.Vertical;
-             for (int i = 0; i<8; i++)
-             {
-
-                 TextBox myText = new TextBox();
-                 myText.Header = labels.ElementAt(i);
-                 myPanel.Children.Add(myText);
-             }
-             nextPage.Content = myPanel;
-             mainFrame.Content= nextPage;*/
 
             uploadHeadingsToLuisModel();
-
-
-        
-            /*List<String> allLabels = new List<String>();
-            return readResponse(form);*/
+            
             
 
             

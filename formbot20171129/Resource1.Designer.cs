@@ -61,6 +61,42 @@ namespace LuisBot {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Was ist deine ähnelt.
+        /// </summary>
+        internal static string AskForFieldFemale {
+            get {
+                return ResourceManager.GetString("AskForFieldFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Was ist dein ähnelt.
+        /// </summary>
+        internal static string AskForFieldMaleNeutral {
+            get {
+                return ResourceManager.GetString("AskForFieldMaleNeutral", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Möchtest du folgendes speichern: ähnelt.
+        /// </summary>
+        internal static string AskForSave {
+            get {
+                return ResourceManager.GetString("AskForSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Willkommen im ESF_2 Bot! ähnelt.
+        /// </summary>
+        internal static string FormWelcomeMessage {
+            get {
+                return ResourceManager.GetString("FormWelcomeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Hat das geholfen? ähnelt.
         /// </summary>
         internal static string GotHelpedQuestion {
@@ -97,6 +133,15 @@ namespace LuisBot {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die nein ähnelt.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Deine Werte werden verarbeitet. ähnelt.
         /// </summary>
         internal static string Processing {
@@ -120,6 +165,15 @@ namespace LuisBot {
         internal static string Saved {
             get {
                 return ResourceManager.GetString("Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Danke. ähnelt.
+        /// </summary>
+        internal static string Thanks {
+            get {
+                return ResourceManager.GetString("Thanks", resourceCulture);
             }
         }
         

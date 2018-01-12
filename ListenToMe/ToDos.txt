@@ -6,6 +6,7 @@ Probleme
 -Der WcFService hat eine finishedCondition die zu früh das Signal finished gibt (noch nicht alle javascriptFunktionen der Seite fertig)
 -Der VoiceCommand "Information" wird im VoiceCommandService abgehandelt. Aus bisher ungeklärter Ursache  erreicht er die Methode "deployVoiceCommand"
 nicht.
+-passwort und Benutzername benutzer abfragen lassen und verschlüsselt im Storage abspeichern
 -Der VoiceCommandService stürtzt ab mit
 Ausnahme ausgelöst: "System.Collections.Generic.KeyNotFoundException" in System.Private.CoreLib.ni.dll
 Handling Voice Command failed System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary. -> todo breakpoint debugging?

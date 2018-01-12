@@ -25,7 +25,7 @@ namespace Microsoft.Bot.Sample.LuisBot
                     {
                         var completed = await order;
                         // Actually process the form...
-                        await context.PostAsync("Formular ausgefüllt!");
+                        await Conversation.SendAsync(new Activity("Formular ausgefüllt"), MakeRootDialog);
                     }
                     catch (FormCanceledException<ESF2CompanyDetailsForm> e)
                     {
@@ -38,7 +38,7 @@ namespace Microsoft.Bot.Sample.LuisBot
                         {
                             reply = "Entschuldigung, ich bin begriffsstutzig. Versuch es später noch mal.";
                         }
-                        await context.PostAsync(reply);
+                        await Conversation.SendAsync(new Activity(reply), MakeRootDialog);
                     }
                 });
         }
@@ -52,7 +52,9 @@ namespace Microsoft.Bot.Sample.LuisBot
                     {
                         var completed = await order;
                         // Actually process the sandwich order...
-                        await context.PostAsync("Processed your order!");
+                        Activity activity = new Activity("Processed your order!");
+                        activity.Code = "Form";
+                        await context.PostAsync(activity);
                     }
                     catch (FormCanceledException<JObject> e)
                     {
@@ -65,7 +67,9 @@ namespace Microsoft.Bot.Sample.LuisBot
                         {
                             reply = "Sorry, I've had a short circuit.  Please try again.";
                         }
-                        await context.PostAsync(reply);
+                        Activity activity = new Activity(reply);
+                        activity.Code = "Form";
+                        await context.PostAsync(activity);
                     }
                 });
         }
@@ -80,11 +84,18 @@ namespace Microsoft.Bot.Sample.LuisBot
         {
             if (activity != null)
             {
-                // one of these will have an interface and process it
+                // one of these will have an interface and process it erreicht er auch bei formdialog, warum?
                 switch (activity.GetActivityType())
                 {
                     case ActivityTypes.Message:
-                        await Conversation.SendAsync(activity, () => new BasicLuisDialog());
+                        
+
+                            await Conversation.SendAsync(activity, () => new BasicLuisDialog());
+
+                        
+                        
+                            
+                        
                         break;
 
                     case ActivityTypes.ConversationUpdate:

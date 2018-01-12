@@ -18,6 +18,8 @@ using System.Reflection;
 using System.IO;
 using Microsoft.Bot.Builder.FormFlow.Json;
 using System.Collections.Generic;
+using Microsoft.Bot.Builder.FormFlow.Advanced;
+using System.Collections;
 //somehow this tool looks in the wrong folder. But I am missing 30 reputation to add a comment to that discussion below to ask about that.
 //assembly LuisBot.dll -> but rview doesn't find that assembly reference: https://stackoverflow.com/questions/46199439/how-to-use-rview-tool-in-bot-builder-c-sdk-to-localize-strings-in-form-flow
 //namespace for rview tool Method to build Form: ESF2CompanyDetailsForm.BuildForm();
@@ -70,9 +72,9 @@ namespace Microsoft.Bot.Sample.LuisBot
             message.Text = result.TopScoringIntent.Intent;
             message.TextFormat = "plain";
             message.Locale = System.Globalization.CultureInfo.CurrentCulture.Name;
-            await Conversation.SendAsync(message, MessagesController.MakeRootDialog);
-            //var feedbackForm = new FormDialog<ESF2CompanyDetailsForm>(new ESF2CompanyDetailsForm(), ESF2CompanyDetailsForm.BuildLocalizedForm, FormOptions.PromptInStart, result.Entities);
-            //context.Call(feedbackForm, FeedbackFormComplete);
+            //await Conversation.SendAsync(message, MessagesController.MakeRootDialog);//this exeption: objektverweis ohne instanza
+           var feedbackForm = new FormDialog<ESF2CompanyDetailsForm>(new ESF2CompanyDetailsForm(), ESF2CompanyDetailsForm.BuildLocalizedForm, FormOptions.PromptInStart, result.Entities);
+            context.Call(feedbackForm, FeedbackFormComplete);
         }
 
         [LuisIntent("Utilities.GoBack")]
@@ -186,7 +188,9 @@ namespace Microsoft.Bot.Sample.LuisBot
        // [Template(TemplateUsage.EnumSelectOne, "What kind of {&} would you like on your sandwich? {||}")]
         public class ESF2CompanyDetailsForm
         {
-            [Prompt("Was ist dein {&}?")]
+
+
+            [Prompt(" Was ist dein {&}?")]
             public string Vorname { get; set; }
 
             [Prompt("Und dein {&}?")]
@@ -196,6 +200,8 @@ namespace Microsoft.Bot.Sample.LuisBot
             public string Unternehmensname { get; set; }
             [Prompt("Straße?")]
             public String Straße { get; set; }
+
+            //toDo: Ask Adrian about Regex Hausnummer
             [Prompt("Hausnummer?")]
             public String Hausnummer { get; set; }
             [Prompt("Telefonnummer?")]
@@ -203,9 +209,10 @@ namespace Microsoft.Bot.Sample.LuisBot
             public string Telefon { get; set; }
 
             [Prompt("Emailadresse")]
-            [Pattern(@"^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$")]
+            [Pattern(@"^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$")]
             public string Email { get; set; }
 
+            [Pattern(@"[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)")]
             [Prompt("Firmen-URL")] //[Optional] nur bei enum sinnvoll?
             public string URL { get; set; }
 
@@ -225,21 +232,22 @@ namespace Microsoft.Bot.Sample.LuisBot
                 {
                     OnCompletionAsyncDelegate<ESF2CompanyDetailsForm> processOrder = async (context, state) =>
                     {
-                        await context.PostAsync(Resource1.Processing);//vormals Properties.Processing
+                        //get the string from the ressource file that shows you are processing the form
+                        await context.PostAsync(Resource1.Processing);//vormals Properties.Processing 
                     };
                     // Form builder uses the thread culture to automatically switch framework strings
                     // and also your static strings as well.  Dynamically defined fields must do their own localization.
                     var builder = new FormBuilder<ESF2CompanyDetailsForm>()
-                            .Message("Welcome to the sandwich order bot!")
+                            .Message(Resource1.FormWelcomeMessage)
                             .Field(nameof(Vorname))
                             .Field(nameof(Nachname))
                             .Field(nameof(Unternehmensname))
                             .Field(nameof(Telefon))
                             .Field(nameof(Email))
                             .Field(nameof(URL))
-                            .Confirm("Möchtest du deine Daten {Vorname} {Nachname}, arbeitet bei {Unternahmensname} mit der Telefonnummer {Telefon} und der Emailadresse {Email} abspeichern?")
+                            .Confirm(Resource1.AskForSave +"{Vorname}, {Nachname}, {Unternehmensname}, {Telefon}, {Email}, {URL} ?",null, new Confirmations())//is this your selection\n{*}?
                             .AddRemainingFields()
-                            .Message("Danke. Ich habe dich gerne beim Formularausfüllen unterstützt!")
+                            .Message(Resource1.Thanks)
                             .OnCompletion(processOrder);
                     builder.Configuration.DefaultPrompt.ChoiceStyle = ChoiceStyleOptions.Auto;
                     form = builder.Build();
@@ -290,5 +298,29 @@ namespace Microsoft.Bot.Sample.LuisBot
 }
          */
 
+
+    }
+
+    //reference https://stackoverflow.com/questions/11296810/how-do-i-implement-ienumerablet
+    //try to use this for .Confirm
+    class Confirmations : IEnumerable<string>
+    {
+        List<string> mylist = new List<string>() { Resource1.Yes, Resource1.No};
+
+        public string this[int index]
+        {
+            get { return mylist[index]; }
+            set { mylist.Insert(index, value); }
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
+        IEnumerator<string> IEnumerable<string>.GetEnumerator()
+        {
+            return mylist.GetEnumerator();
+        }
     }
 }

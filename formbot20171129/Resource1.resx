@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AskForFieldFemale" xml:space="preserve">
+    <value>Was ist deine</value>
+  </data>
+  <data name="AskForFieldMaleNeutral" xml:space="preserve">
+    <value>Was ist dein</value>
+  </data>
+  <data name="AskForSave" xml:space="preserve">
+    <value>Möchtest du folgendes speichern:</value>
+  </data>
+  <data name="FormWelcomeMessage" xml:space="preserve">
+    <value>Willkommen im ESF_2 Bot!</value>
+  </data>
   <data name="GotHelpedQuestion" xml:space="preserve">
     <value>Hat das geholfen?</value>
   </data>
@@ -129,6 +141,9 @@
   <data name="HelpWelcomeMessage" xml:space="preserve">
     <value>Willkommen in der Hilfe. Dieser Bot ist dazu da Formularangaben zu machen. Versuchen Sie 'Meine Firma ist innobis' um das Feld Firma zu füllen.</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>nein</value>
+  </data>
   <data name="Processing" xml:space="preserve">
     <value>Deine Werte werden verarbeitet.</value>
   </data>
@@ -137,6 +152,9 @@
   </data>
   <data name="Saved" xml:space="preserve">
     <value>Gespeichert.</value>
+  </data>
+  <data name="Thanks" xml:space="preserve">
+    <value>Danke.</value>
   </data>
   <data name="UploadOptions" xml:space="preserve">
     <value />

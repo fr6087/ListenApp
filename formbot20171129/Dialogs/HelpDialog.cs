@@ -74,7 +74,7 @@ namespace LuisBot.Dialogs
         {
             String selectedDialog = await result;
 
-            GetSelectedDialog(selectedDialog, context);
+            await GetSelectedDialog(selectedDialog, context);
         }
         
         private static async Task GetSelectedDialog(string selectedDialog, IDialogContext context)
