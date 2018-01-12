@@ -1,0 +1,16 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header />
+  <s:Body>
+
+<title>Antrag ESF BKO</title>
+<meta name="description" content="ABK-Formular-Antrag-ESF-BKO">
+
+<div ng-show="antragsNummer" aria-hidden="true" class="ng-hide">
+                <span class="antragsNummerPre ng-scope" inn-translate="antragsNummer">Antragsnummer</span>:
+                <span class="antragsNummer"><strong class="ng-binding"> </strong></span>
+        </div>
+		
+		<a class="scrollspy-text ng-isolate-scope" scroll-to="SECTION930" href="#SECTION930">
+		<span inn-translate="sectionone" class="ng-scope">1. Angaben zum antragstellenden Unternehmen</span>
+		</a> <!-- ngIf: elementCtrl.hasErrors || elementCtrl.hasFieldErrors -->
+    <!-- ngIf: elementCtrl.element.childElements --><ul ng-if="elementCtrl.element.childElements" class="nav nav-child ng-scope">
