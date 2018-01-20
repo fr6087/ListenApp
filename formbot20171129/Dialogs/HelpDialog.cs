@@ -5,9 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
-using FormBot;
 using System.Diagnostics;
+using LuisBot.Resource;
 
 namespace LuisBot.Dialogs
 {
@@ -82,7 +81,7 @@ namespace LuisBot.Dialogs
             switch (selectedDialog)
             {
                 case CompanyValue:
-                    context.Call(new CreateFormDialog(), AfterDialog);
+                    //context.Call(new CreateFormDialog(), AfterDialog);
                     break;
                 case TrainingProvidersValue:
                     context.Call(new UploadDialog(), After2Dialog);
@@ -112,10 +111,10 @@ namespace LuisBot.Dialogs
             context.Done(res);
         }
 
-        private async static Task AfterDialog(IDialogContext context, IAwaitable<FormOptions> result)
+        /*private async static Task AfterDialog(IDialogContext context, IAwaitable<FormOptions> result)
         {
             var res = await result;
             context.Done(res);
-        }
+        }*/
     }
 }

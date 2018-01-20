@@ -7,9 +7,10 @@ using Microsoft.Bot.Builder.Dialogs;
 using System.Web.Http.Description;
 using System.Net.Http;
 using System.Diagnostics;
-using static Microsoft.Bot.Sample.LuisBot.BasicLuisDialog;
+using LuisBot.Dialogs;
 using Microsoft.Bot.Builder.FormFlow;
 using Newtonsoft.Json.Linq;
+using static LuisBot.Dialogs.BasicLuisDialog;
 
 namespace Microsoft.Bot.Sample.LuisBot
 {
@@ -88,9 +89,9 @@ namespace Microsoft.Bot.Sample.LuisBot
                 switch (activity.GetActivityType())
                 {
                     case ActivityTypes.Message:
-                        
 
-                            await Conversation.SendAsync(activity, () => new BasicLuisDialog());
+                        await Conversation.SendAsync(activity, MakeJsonRootDialog);
+                       // await Conversation.SendAsync(activity, () => new BasicLuisDialog());
 
                         
                         

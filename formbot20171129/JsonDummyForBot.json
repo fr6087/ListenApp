@@ -1,0 +1,148 @@
+{
+    "References" : [ "Microsoft.Bot.Sample.LuisBot.dll" ],
+    "Imports" : ["Microsoft.Bot.Sample.LuisBot.Resource"],
+    "type": "object",
+    "Templates" : {
+       "NotUnderstood" : {
+          "Pattern" : {
+			["Dies habe ich nicht verstanden: \"{0}\".", "Nochmal versuchen, ich verstehe \"{0}\" nicht."]
+		  }
+        }  
+     },
+     "properties" : "ESF2CompanyDetailsForm": {
+
+      "Before": [ { "Message": [ "Willkommen in ESF_2 FormBot!" ] } ]
+
+      },
+
+    "Vorname": {
+
+      "Prompt": {
+
+        "Patterns": [ "Was ist dein {&}?" ]
+
+      },
+
+      "type": [
+
+        "string",
+
+        "null"
+
+      ]
+
+    },
+	"Nachname": {
+
+      "Prompt": {
+
+        "Patterns": [ "Und dein {&}?" ]
+
+      },
+
+      "type": [
+
+        "string",
+
+        "null"
+
+      ]
+
+    },
+	"Hausnummer": {
+
+      "Prompt": {
+
+        "Patterns": [ "Was ist deine {&}?" ]
+
+      },
+
+      "type": [
+
+        "string",
+
+        "null"
+
+      ],
+
+    },
+	"Telefonnummer": {
+
+      "Prompt": {
+
+        "Patterns": [ "Telefonnummer?" ]
+
+      },
+
+      "type": [
+
+        "string",
+
+        "null"
+
+      ],
+	  "pattern":"(\(\d{3}\))?\s*\d{3}(-|\s*)\d{4}"
+
+    },
+	"Emailadresse": {
+
+      "Prompt": {
+
+        "Patterns": [ "Emailadresse" ]
+
+      },
+
+      "type": [
+
+        "string",
+
+        "null"
+
+      ],
+	  "pattern":"^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+
+    },
+	"Firmen-URL": {
+
+      "Prompt": {
+
+        "Patterns": [ "Firmen-URL" ]
+
+      },
+
+      "type": [
+
+        "string",
+
+        "null"
+
+      ],
+	  "pattern" : "[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)",
+
+
+       "After": [ { "Message": [ "Formular hat folgende Werte erfasst: {Vorname}, {Nachname},{Hausnummer},{Emailadresse},{Telefonnummer},{Firmen-URL}" ] } ]
+
+        },
+
+      "Describe": "your experience today",
+
+      "type": [
+
+        "number",
+
+        "null"
+
+      ],
+
+      "minimum": 1,
+
+      "maximum": 5,
+
+      "After": [ { "Message": [ "Thanks for ordering your sandwich!" ] } ]
+
+    }
+
+
+  "OnCompletion": "await context.PostAsync(\"Formular wird verarbeitet. Wir benachrichtigen dich über den Status.\");"
+
+}
