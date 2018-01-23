@@ -126,14 +126,35 @@
   <data name="AskForSave" xml:space="preserve">
     <value>Möchtest du folgendes speichern:</value>
   </data>
+  <data name="CompanyDetailsMessage" xml:space="preserve">
+    <value>Die Unternehmensangaben-Intention wurde erreicht</value>
+    <comment>You have reached the companydetails intent.</comment>
+  </data>
+  <data name="FillInMessage" xml:space="preserve">
+    <value>Es wurde eine Feld-Ausfüll-Intention erkannt. Du sagtest:</value>
+    <comment>You have reached the fillin Intent intent. You said:</comment>
+  </data>
   <data name="FormWelcomeMessage" xml:space="preserve">
     <value>Willkommen im ESF_2 Bot!</value>
+  </data>
+  <data name="GoBackMessage" xml:space="preserve">
+    <value>Die Zurückgehen-Intention wurde erreicht.</value>
+    <comment>You have reached the goBack intent. You said:</comment>
   </data>
   <data name="GotHelpedQuestion" xml:space="preserve">
     <value>Hat das geholfen?</value>
   </data>
+  <data name="GreetingMessage" xml:space="preserve">
+    <value>Ich bin dein Assistent beim Ausfüllen von Formularen. Versuche einmal 'Ich möchte die Unternehmensangaben im ESF_2 Formular ausfüllen'.</value>
+  </data>
   <data name="HelpClarification" xml:space="preserve">
     <value>Was kann ich für dich tun?</value>
+  </data>
+  <data name="HelpSpeak" xml:space="preserve">
+    <value>In der Hilfe.</value>
+  </data>
+  <data name="HelpText" xml:space="preserve">
+    <value>Klar helfe ich dir.</value>
   </data>
   <data name="HelpTitel" xml:space="preserve">
     <value>Sie können folgende Dialoge mit mir führen:</value>
@@ -143,6 +164,10 @@
   </data>
   <data name="No" xml:space="preserve">
     <value>nein</value>
+  </data>
+  <data name="NoneMessage" xml:space="preserve">
+    <value>Es wurde keine spezielle Intention erkannt. Du sagtest:</value>
+    <comment>You have reached the none intent AGAIN. You said:</comment>
   </data>
   <data name="Processing" xml:space="preserve">
     <value>Deine Werte werden verarbeitet.</value>

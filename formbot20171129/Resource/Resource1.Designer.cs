@@ -88,11 +88,38 @@ namespace LuisBot.Resource {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Die Unternehmensangaben-Intention wurde erreicht ähnelt.
+        /// </summary>
+        internal static string CompanyDetailsMessage {
+            get {
+                return ResourceManager.GetString("CompanyDetailsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Es wurde eine Feld-Ausfüll-Intention erkannt. Du sagtest: ähnelt.
+        /// </summary>
+        internal static string FillInMessage {
+            get {
+                return ResourceManager.GetString("FillInMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Willkommen im ESF_2 Bot! ähnelt.
         /// </summary>
         internal static string FormWelcomeMessage {
             get {
                 return ResourceManager.GetString("FormWelcomeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Die Zurückgehen-Intention wurde erreicht. ähnelt.
+        /// </summary>
+        internal static string GoBackMessage {
+            get {
+                return ResourceManager.GetString("GoBackMessage", resourceCulture);
             }
         }
         
@@ -106,11 +133,38 @@ namespace LuisBot.Resource {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ich bin dein Assistent beim Ausfüllen von Formularen. Versuche einmal &apos;Ich möchte die Unternehmensangaben im ESF_2 Formular ausfüllen&apos;. ähnelt.
+        /// </summary>
+        internal static string GreetingMessage {
+            get {
+                return ResourceManager.GetString("GreetingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Was kann ich für dich tun? ähnelt.
         /// </summary>
         internal static string HelpClarification {
             get {
                 return ResourceManager.GetString("HelpClarification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die In der Hilfe. ähnelt.
+        /// </summary>
+        internal static string HelpSpeak {
+            get {
+                return ResourceManager.GetString("HelpSpeak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Klar helfe ich dir. ähnelt.
+        /// </summary>
+        internal static string HelpText {
+            get {
+                return ResourceManager.GetString("HelpText", resourceCulture);
             }
         }
         
@@ -138,6 +192,15 @@ namespace LuisBot.Resource {
         internal static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Es wurde keine spezielle Intention erkannt. Du sagtest: ähnelt.
+        /// </summary>
+        internal static string NoneMessage {
+            get {
+                return ResourceManager.GetString("NoneMessage", resourceCulture);
             }
         }
         

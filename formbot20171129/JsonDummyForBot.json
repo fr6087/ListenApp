@@ -1,21 +1,17 @@
 {
-    "References" : [ "Microsoft.Bot.Sample.LuisBot.dll" ],
-    "Imports" : ["Microsoft.Bot.Sample.LuisBot.Resource"],
-    "type": "object",
-    "Templates" : {
-       "NotUnderstood" : {
-          "Pattern" : {
-			["Dies habe ich nicht verstanden: \"{0}\".", "Nochmal versuchen, ich verstehe \"{0}\" nicht."]
-		  }
-        }  
-     },
-     "properties" : "ESF2CompanyDetailsForm": {
+  "References": [ "LuisBot.dll" ],
+  "Imports": [ "LuisBot.Resource" ],
+  "type": "object",
+  "Templates": {
+    "NotUnderstood": {
+      "Patterns": [ "Dies habe ich nicht verstanden: \"{0}\".", "Nochmal versuchen, ich verstehe \"{0}\" nicht." ]
 
-      "Before": [ { "Message": [ "Willkommen in ESF_2 FormBot!" ] } ]
-
-      },
+    }
+  },
+  "properties": {
 
     "Vorname": {
+      "Before": [ { "Message": [ "Willkommen in ESF_2 FormBot!" ] } ],
 
       "Prompt": {
 
@@ -32,7 +28,7 @@
       ]
 
     },
-	"Nachname": {
+    "Nachname": {
 
       "Prompt": {
 
@@ -49,7 +45,7 @@
       ]
 
     },
-	"Hausnummer": {
+    "Hausnummer": {
 
       "Prompt": {
 
@@ -63,10 +59,10 @@
 
         "null"
 
-      ],
+      ]
 
     },
-	"Telefonnummer": {
+    "Telefonnummer": {
 
       "Prompt": {
 
@@ -81,10 +77,10 @@
         "null"
 
       ],
-	  "pattern":"(\(\d{3}\))?\s*\d{3}(-|\s*)\d{4}"
+      "pattern": "(\\(\\d{3}\\))?\\s*\\d{3}(-|\\s*)\\d{4}"
 
     },
-	"Emailadresse": {
+    "Emailadresse": {
 
       "Prompt": {
 
@@ -99,10 +95,10 @@
         "null"
 
       ],
-	  "pattern":"^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+      "pattern": "^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$"
 
     },
-	"Firmen-URL": {
+    "Firmen-URL": {
 
       "Prompt": {
 
@@ -117,13 +113,10 @@
         "null"
 
       ],
-	  "pattern" : "[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)",
-
-
-       "After": [ { "Message": [ "Formular hat folgende Werte erfasst: {Vorname}, {Nachname},{Hausnummer},{Emailadresse},{Telefonnummer},{Firmen-URL}" ] } ]
-
-        },
-
+      "pattern": "[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)",
+      "After": [ { "Message": [ "Formular hat folgende Werte erfasst: {Vorname}, {Nachname},{Hausnummer},{Emailadresse},{Telefonnummer},{Firmen-URL}" ] } ]
+    },
+    "Rating": {
       "Describe": "your experience today",
 
       "type": [
@@ -142,7 +135,7 @@
 
     }
 
-
+  },
   "OnCompletion": "await context.PostAsync(\"Formular wird verarbeitet. Wir benachrichtigen dich über den Status.\");"
 
 }

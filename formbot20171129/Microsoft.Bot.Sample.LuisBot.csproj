@@ -240,9 +240,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="JsonDummyForBot.json" />
+    <EmbeddedResource Include="JsonDummyForBot.json" />
+    <Content Include="AnnotatedSandwich.json" />
     <None Include="Properties\PublishProfiles\formbot20171129 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\formbot20171129-Web-Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\MicrosoftBotSampleLuisBot20180123072431 - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
